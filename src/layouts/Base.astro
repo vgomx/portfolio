@@ -1,0 +1,32 @@
+---
+export interface Props {
+  title?: string;
+  description?: string;
+}
+const { title = 'Vitor Gomes — Product Designer', description = 'Product designer working across identity, interface and design systems.' } = Astro.props;
+---
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content={description} />
+    <title>{title}</title>
+    <!-- DS tokens & styles -->
+    <link rel="stylesheet" href="/ds/tokens/fonts.css" />
+    <link rel="stylesheet" href="/ds/tokens/colors.css" />
+    <link rel="stylesheet" href="/ds/tokens/typography.css" />
+    <link rel="stylesheet" href="/ds/tokens/spacing.css" />
+    <link rel="stylesheet" href="/ds/tokens/keyframes.css" />
+    <link rel="stylesheet" href="/ds/styles.css" />
+    <style>
+      *, *::before, *::after { box-sizing: border-box; }
+      body { margin: 0; background: var(--surface-page); color: var(--text-primary); font-family: var(--font-sans); }
+    </style>
+  </head>
+  <body>
+    <slot />
+    <!-- DS bundle -->
+    <script src="/ds/_ds_bundle.js" is:inline></script>
+  </body>
+</html>

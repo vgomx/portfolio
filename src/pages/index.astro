@@ -1,17 +1,16 @@
 ---
+import Base from '../layouts/Base.astro';
+import { TopBar, Footer } from '../components/Chrome.jsx';
+import HomeScreen from '../components/HomeScreen.jsx';
+import { getCollection } from 'astro:content';
 
+const entries = await getCollection('work');
+const projects = entries
+  .map((e) => ({ slug: e.data.slug, ...e.data }))
+  .sort((a, b) => b.year - a.year);
 ---
-
-<html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<link rel="icon" href="/favicon.ico" />
-		<meta name="viewport" content="width=device-width" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro</title>
-	</head>
-	<body>
-		<h1>Astro</h1>
-	</body>
-</html>
+<Base>
+  <TopBar activePage="home" client:load />
+  <HomeScreen projects={projects} client:load />
+  <Footer client:load />
+</Base>
