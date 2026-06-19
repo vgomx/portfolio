@@ -54,5 +54,5 @@
 .vg-eye #vgBandT   { clip-path: url(#vgClipT); animation: vg-band-t 3s steps(1) infinite; }
 .vg-eye #vgBandM   { clip-path: url(#vgClipM); animation: vg-band-m 3s steps(1) infinite; }
 .vg-eye #vgBandB   { clip-path: url(#vgClipB); animation: vg-band-b 3s steps(1) infinite; }
-.vg-eye #vgGhostG  { color: var(--signal, #2F6F4F); mix-blend-mode: screen; animation: vg-ghost-g 3s steps(1) infinite; }
-.vg-eye #vgGhostI  { mix-blend-mode: screen; animation: vg-ghost-i 3s steps(1) infinite; }
+.vg-eye #vgGhostG  { color: var(--signal, #2F6F4F); opacity: 0; animation: vg-ghost-g 3s steps(1) infinite; }
+.vg-eye #vgGhostI  { opacity: 0; animation: vg-ghost-i 3s steps(1) infinite; }

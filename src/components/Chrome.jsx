@@ -13,7 +13,7 @@ function VGMark({ size = 40, color = 'var(--ink-900)' }) {
 
 function VGEyeGlitch({ size = 40 }) {
   return (
-    <span className="vg-eye" style={{ width: size * (562 / 369), height: size, flex: 'none', display: 'inline-flex' }}>
+    <span className="vg-eye" style={{ width: size, flex: 'none', display: 'inline-flex', color: 'var(--ink-900)' }}>
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 562 369" style={{ display: 'block', width: '100%', height: 'auto' }}>
         <defs>
           <g id="vgEye" style={{ fill: 'currentColor' }}>
