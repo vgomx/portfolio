@@ -7,7 +7,7 @@
   },
   "scripts": {
     "dev": "astro dev",
-    "prebuild": "cp -r ds public/ds",
+    "prebuild": "rm -rf public/ds && git clone --depth 1 https://github.com/vgomx/ds.git public/ds",
     "build": "astro build",
     "preview": "astro preview",
     "astro": "astro"
