@@ -1,5 +1,7 @@
 # build output
 dist/
+# DS copied at build time
+public/ds
 # generated types
 .astro/
 
