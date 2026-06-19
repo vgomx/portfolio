@@ -12,21 +12,19 @@ const { title = 'Vitor Gomes — Product Designer', description = 'Product desig
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="description" content={description} />
     <title>{title}</title>
-    <!-- DS tokens & styles -->
-    <link rel="stylesheet" href="/ds/tokens/fonts.css" />
-    <link rel="stylesheet" href="/ds/tokens/colors.css" />
-    <link rel="stylesheet" href="/ds/tokens/typography.css" />
-    <link rel="stylesheet" href="/ds/tokens/spacing.css" />
-    <link rel="stylesheet" href="/ds/tokens/keyframes.css" />
-    <link rel="stylesheet" href="/ds/styles.css" />
-    <style>
+    <style is:global>
+      @import '/src/ds/tokens/fonts.css';
+      @import '/src/ds/tokens/colors.css';
+      @import '/src/ds/tokens/typography.css';
+      @import '/src/ds/tokens/spacing.css';
+      @import '/src/ds/tokens/keyframes.css';
+      @import '/src/ds/styles.css';
+
       *, *::before, *::after { box-sizing: border-box; }
       body { margin: 0; background: var(--surface-page); color: var(--text-primary); font-family: var(--font-sans); }
     </style>
   </head>
   <body>
     <slot />
-    <!-- DS bundle -->
-    <script src="/ds/_ds_bundle.js" is:inline></script>
   </body>
 </html>

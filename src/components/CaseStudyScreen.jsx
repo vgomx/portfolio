@@ -1,4 +1,10 @@
-import { useEffect, useState } from 'react';
+import { Tag } from '../ds/components/core/Tag.jsx';
+import { Badge } from '../ds/components/core/Badge.jsx';
+import { Button } from '../ds/components/core/Button.jsx';
+import { Card } from '../ds/components/data/Card.jsx';
+import { StatCard } from '../ds/components/data/StatCard.jsx';
+import { Breadcrumb } from '../ds/components/navigation/Breadcrumb.jsx';
+import { Stepper } from '../ds/components/navigation/Stepper.jsx';
 import { ImagePlaceholder } from './Chrome.jsx';
 
 function SectionHead({ n, title }) {
@@ -10,22 +16,12 @@ function SectionHead({ n, title }) {
   );
 }
 
-export default function CaseStudyScreen({ project, bodyHtml }) {
-  const [VG, setVG] = useState(null);
-  useEffect(() => {
-    const ns = window.VitorGomesDesignSystem_32625a;
-    if (ns) { setVG(ns); return; }
-    const t = setInterval(() => { if (window.VitorGomesDesignSystem_32625a) { setVG(window.VitorGomesDesignSystem_32625a); clearInterval(t); } }, 50);
-    return () => clearInterval(t);
-  }, []);
-
-  if (!VG) return null;
+export default function CaseStudyScreen({ project }) {
   const p = project;
-
   return (
     <div>
       <section style={{ maxWidth: 'var(--container)', margin: '0 auto', padding: '40px 48px 0' }}>
-        <VG.Breadcrumb
+        <Breadcrumb
           items={[{ label: 'Work' }, { label: p.discipline }, { label: p.title }]}
           onNavigate={(_, i) => { if (i < 2) window.location.href = '/work'; }}
         />
@@ -33,8 +29,8 @@ export default function CaseStudyScreen({ project, bodyHtml }) {
 
       <section style={{ maxWidth: 'var(--container)', margin: '0 auto', padding: '40px 48px 48px' }}>
         <div style={{ display: 'flex', gap: 10, marginBottom: 20, flexWrap: 'wrap', alignItems: 'center' }}>
-          {p.tags.map((t) => <VG.Tag key={t}>{t}</VG.Tag>)}
-          <VG.Badge status={p.status}>{p.statusLabel}</VG.Badge>
+          {p.tags.map((t) => <Tag key={t}>{t}</Tag>)}
+          <Badge status={p.status}>{p.statusLabel}</Badge>
         </div>
         <h1 style={{ fontSize: 'clamp(36px,5.5vw,64px)', lineHeight: 1, letterSpacing: '-0.03em', fontWeight: 700, margin: 0, maxWidth: '18ch' }}>{p.title}</h1>
         <p style={{ fontSize: 18, lineHeight: 1.55, color: 'var(--text-secondary)', maxWidth: '56ch', margin: '24px 0 0' }}>{p.summary}</p>
@@ -64,37 +60,30 @@ export default function CaseStudyScreen({ project, bodyHtml }) {
         </div>
 
         <div>
-          {bodyHtml
-            ? <div dangerouslySetInnerHTML={{ __html: bodyHtml }} style={{ fontSize: 16, lineHeight: 1.65, color: 'var(--text-secondary)', maxWidth: '64ch' }} />
-            : (
-              <>
-                <div style={{ marginBottom: 56 }}>
-                  <SectionHead n="01" title="Overview" />
-                  <p style={{ fontSize: 16, lineHeight: 1.65, color: 'var(--text-secondary)', maxWidth: '64ch', marginLeft: 76 }}>{p.overview}</p>
-                </div>
-                <div style={{ marginBottom: 56 }}>
-                  <SectionHead n="02" title="Challenge" />
-                  <p style={{ fontSize: 16, lineHeight: 1.65, color: 'var(--text-secondary)', maxWidth: '64ch', marginLeft: 76 }}>{p.challenge}</p>
-                </div>
-                <div style={{ marginBottom: 56 }}>
-                  <SectionHead n="03" title="Process" />
-                  <div style={{ marginLeft: 76 }}><VG.Stepper steps={p.steps || ['Brief', 'Design', 'Ship']} current={(p.steps || []).length - 1} /></div>
-                </div>
-                {p.outcomes && (
-                  <div>
-                    <SectionHead n="04" title="Outcome" />
-                    <div style={{ marginLeft: 76, display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 24 }}>
-                      {p.outcomes.map((o) => (
-                        <VG.Card key={o.label} tone="ink"><VG.StatCard value={o.value} label={o.label} onDark /></VG.Card>
-                      ))}
-                    </div>
-                  </div>
-                )}
-              </>
-            )
-          }
-          <div style={{ marginTop: 48, marginLeft: bodyHtml ? 0 : 76 }}>
-            <VG.Button variant="accent" onClick={() => window.location.href = '/about'}>Start a project like this</VG.Button>
+          <div style={{ marginBottom: 56 }}>
+            <SectionHead n="01" title="Overview" />
+            <p style={{ fontSize: 16, lineHeight: 1.65, color: 'var(--text-secondary)', maxWidth: '64ch', marginLeft: 76 }}>{p.overview}</p>
+          </div>
+          <div style={{ marginBottom: 56 }}>
+            <SectionHead n="02" title="Challenge" />
+            <p style={{ fontSize: 16, lineHeight: 1.65, color: 'var(--text-secondary)', maxWidth: '64ch', marginLeft: 76 }}>{p.challenge}</p>
+          </div>
+          <div style={{ marginBottom: 56 }}>
+            <SectionHead n="03" title="Process" />
+            <div style={{ marginLeft: 76 }}><Stepper steps={p.steps || ['Brief', 'Design', 'Ship']} current={(p.steps || []).length - 1} /></div>
+          </div>
+          {p.outcomes && (
+            <div style={{ marginBottom: 48 }}>
+              <SectionHead n="04" title="Outcome" />
+              <div style={{ marginLeft: 76, display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 24 }}>
+                {p.outcomes.map((o) => (
+                  <Card key={o.label} tone="ink"><StatCard value={o.value} label={o.label} onDark /></Card>
+                ))}
+              </div>
+            </div>
+          )}
+          <div style={{ marginLeft: 76 }}>
+            <Button variant="accent" onClick={() => window.location.href = '/about'}>Start a project like this</Button>
           </div>
         </div>
       </section>

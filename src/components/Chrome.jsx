@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { Button } from '../ds/components/core/Button.jsx';
 
 function VGMark({ size = 40, color = 'var(--ink-900)' }) {
   return (
@@ -11,13 +11,6 @@ function VGMark({ size = 40, color = 'var(--ink-900)' }) {
 }
 
 export function TopBar({ activePage }) {
-  const [VG, setVG] = useState(null);
-  useEffect(() => {
-    const ns = window.VitorGomesDesignSystem_32625a;
-    if (ns) setVG(ns);
-    else { const t = setInterval(() => { if (window.VitorGomesDesignSystem_32625a) { setVG(window.VitorGomesDesignSystem_32625a); clearInterval(t); } }, 50); return () => clearInterval(t); }
-  }, []);
-
   const items = [{ href: '/work', label: 'Work', key: 'work' }, { href: '/about', label: 'About', key: 'about' }];
   return (
     <div style={{ borderBottom: '1px solid var(--border-hairline)', background: 'var(--surface-page)', position: 'sticky', top: 0, zIndex: 50 }}>
@@ -31,7 +24,7 @@ export function TopBar({ activePage }) {
               borderBottom: activePage === it.key ? '2px solid var(--accent)' : '2px solid transparent',
             }}>{it.label}</a>
           ))}
-          {VG && <VG.Button size="sm" style={{ marginLeft: 8 }} onClick={() => window.location.href = '/about'}>Contact</VG.Button>}
+          <Button size="sm" style={{ marginLeft: 8 }} onClick={() => window.location.href = '/about'}>Contact</Button>
         </div>
       </div>
     </div>
