@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { Button } from '../ds/components/core/Button.jsx';
 
 function VGMark({ size = 40, color = 'var(--ink-900)' }) {
@@ -10,12 +11,49 @@ function VGMark({ size = 40, color = 'var(--ink-900)' }) {
   );
 }
 
+function VGEyeGlitch({ size = 40 }) {
+  return (
+    <span className="vg-eye" style={{ width: size * (562 / 369), height: size, flex: 'none', display: 'inline-flex' }}>
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 562 369" style={{ display: 'block', width: '100%', height: 'auto' }}>
+        <defs>
+          <g id="vgEye" style={{ fill: 'currentColor' }}>
+            <path d="M281,21 L552,186 L281,348 L10,186 Z M281,70 L473,184 L281,299 L89,184 Z" fillRule="evenodd" />
+            <g id="vgPupil"><path d="M281,110 L403,183 L281,256 L159,183 Z" /></g>
+          </g>
+          <clipPath id="vgClipT"><rect x="-40" y="-10" width="642" height="162" /></clipPath>
+          <clipPath id="vgClipM"><rect x="-40" y="150" width="642" height="82" /></clipPath>
+          <clipPath id="vgClipB"><rect x="-40" y="230" width="642" height="160" /></clipPath>
+          <clipPath id="vgEyeClip"><path d="M281,21 L552,186 L281,348 L10,186 Z" /></clipPath>
+          <pattern id="vgLines" width="3" height="3" patternUnits="userSpaceOnUse"><rect width="3" height="1" fill="#141416" /></pattern>
+        </defs>
+        <g id="vgJitterG">
+          <g id="vgBlinkG">
+            <g id="vgGhostG"><use href="#vgEye" /></g>
+            <g id="vgGhostI"><use href="#vgEye" /></g>
+            <g id="vgBandT"><use href="#vgEye" /></g>
+            <g id="vgBandM"><use href="#vgEye" /></g>
+            <g id="vgBandB"><use href="#vgEye" /></g>
+            <rect x="0" y="0" width="562" height="369" fill="url(#vgLines)" opacity=".06" clipPath="url(#vgEyeClip)" />
+            <g clipPath="url(#vgEyeClip)"><rect id="vgScanBar" x="0" y="0" width="562" height="7" fill="var(--signal,#2F6F4F)" /></g>
+          </g>
+        </g>
+      </svg>
+    </span>
+  );
+}
+
 export function TopBar({ activePage }) {
+  const [hovered, setHovered] = useState(false);
   const items = [{ href: '/work', label: 'Work', key: 'work' }, { href: '/about', label: 'About', key: 'about' }];
   return (
     <div style={{ borderBottom: '1px solid var(--border-hairline)', background: 'var(--surface-page)', position: 'sticky', top: 0, zIndex: 50 }}>
       <div style={{ maxWidth: 'var(--container)', margin: '0 auto', padding: '16px 48px', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-        <a href="/" style={{ textDecoration: 'none', display: 'inline-flex' }}><VGMark size={40} /></a>
+        <a href="/" style={{ textDecoration: 'none', display: 'inline-flex', alignItems: 'center' }}
+          onMouseEnter={() => setHovered(true)}
+          onMouseLeave={() => setHovered(false)}>
+          <span style={{ display: hovered ? 'none' : 'inline-flex' }}><VGMark size={40} /></span>
+          <span style={{ display: hovered ? 'inline-flex' : 'none' }}><VGEyeGlitch size={40} /></span>
+        </a>
         <div style={{ display: 'flex', gap: 8, alignItems: 'center', fontFamily: 'var(--font-mono)', fontSize: 11, letterSpacing: '0.1em', textTransform: 'uppercase' }}>
           {items.map((it) => (
             <a key={it.key} href={it.href} style={{

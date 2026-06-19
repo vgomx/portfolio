@@ -1,0 +1,26 @@
+<?xml version="1.0"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 562 369" width="562" height="369" style="--glitch:1;--signal:#2F6F4F">
+
+<defs>
+  <g id="vgEye" style="fill:currentColor">
+    <path d="M281,21 L552,186 L281,348 L10,186 Z M281,70 L473,184 L281,299 L89,184 Z" fill-rule="evenodd"></path>
+    <g id="vgPupil"><path d="M281,110 L403,183 L281,256 L159,183 Z"></path></g>
+  </g>
+  <clipPath id="vgClipT"><rect x="-40" y="-10" width="642" height="162"></rect></clipPath>
+  <clipPath id="vgClipM"><rect x="-40" y="150" width="642" height="82"></rect></clipPath>
+  <clipPath id="vgClipB"><rect x="-40" y="230" width="642" height="160"></rect></clipPath>
+  <clipPath id="vgEyeClip"><path d="M281,21 L552,186 L281,348 L10,186 Z"></path></clipPath>
+  <pattern id="vgLines" width="3" height="3" patternUnits="userSpaceOnUse"><rect width="3" height="1" fill="#141416"></rect></pattern>
+</defs>
+<g id="vgJitterG">
+  <g id="vgBlinkG">
+    <g id="vgGhostG"><use href="#vgEye"></use></g>
+    <g id="vgGhostI"><use href="#vgEye"></use></g>
+    <g id="vgBandT"><use href="#vgEye"></use></g>
+    <g id="vgBandM"><use href="#vgEye"></use></g>
+    <g id="vgBandB"><use href="#vgEye"></use></g>
+    <rect x="0" y="0" width="562" height="369" fill="url(#vgLines)" opacity=".06" clip-path="url(#vgEyeClip)"></rect>
+    <g clip-path="url(#vgEyeClip)"><rect id="vgScanBar" x="0" y="0" width="562" height="7" fill="var(--signal)"></rect></g>
+  </g>
+</g>
+</svg>
