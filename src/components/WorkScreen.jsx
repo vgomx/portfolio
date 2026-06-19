@@ -1,54 +1,58 @@
 import { useState } from 'react';
 import { SegmentedControl } from '../ds/components/core/SegmentedControl.jsx';
 import { Badge } from '../ds/components/core/Badge.jsx';
-import { Menu } from '../ds/components/overlay/Menu.jsx';
-import { Table } from '../ds/components/data/Table.jsx';
-import { Pagination } from '../ds/components/navigation/Pagination.jsx';
-import { Eyebrow } from './Chrome.jsx';
+import { Tag } from '../ds/components/core/Tag.jsx';
+import { Card } from '../ds/components/data/Card.jsx';
+import { ImagePlaceholder, Eyebrow } from './Chrome.jsx';
 
 export default function WorkScreen({ projects }) {
   const [discipline, setDiscipline] = useState('All');
-  const [sort, setSort] = useState('recent');
-  const [page, setPage] = useState(1);
 
   const disciplines = ['All', 'Branding', 'UX / UI', 'Visual Design'];
-  let rows = projects.filter((p) => discipline === 'All' || p.discipline === discipline);
-  rows = [...rows].sort((a, b) =>
-    sort === 'az' ? a.title.localeCompare(b.title)
-    : sort === 'oldest' ? a.year - b.year
-    : b.year - a.year
-  );
+  const rows = projects.filter((p) => discipline === 'All' || p.discipline === discipline);
 
   return (
     <div>
       <section style={{ maxWidth: 'var(--container)', margin: '0 auto', padding: '72px 48px 40px' }}>
         <Eyebrow style={{ marginBottom: 18 }}>Index / {rows.length} projects</Eyebrow>
-        <h1 style={{ fontSize: 'clamp(34px,5vw,56px)', lineHeight: 1, letterSpacing: '-0.03em', fontWeight: 700, margin: 0 }}>All work</h1>
-        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end', flexWrap: 'wrap', gap: 16, marginTop: 36 }}>
-          <SegmentedControl options={disciplines} value={discipline} onChange={(v) => { setDiscipline(v); setPage(1); }} />
-          <Menu label="Sort" value={sort} onSelect={setSort} align="right" items={[
-            { label: 'Recent', value: 'recent' },
-            { label: 'Oldest', value: 'oldest' },
-            { label: 'A–Z', value: 'az' },
-          ]} />
-        </div>
+        <h1 style={{ fontSize: 'clamp(34px,5vw,56px)', lineHeight: 1, letterSpacing: '-0.03em', fontWeight: 700, margin: '0 0 36px' }}>All work</h1>
+        <SegmentedControl options={disciplines} value={discipline} onChange={setDiscipline} />
       </section>
 
       <section style={{ maxWidth: 'var(--container)', margin: '0 auto', padding: '0 48px 80px' }}>
-        <Table
-          columns={[
-            { key: 'title', header: 'Project', width: '2.4fr', strong: true },
-            { key: 'discipline', header: 'Discipline', width: '1.4fr', muted: true },
-            { key: 'year', header: 'Year', width: '1fr', mono: true, muted: true },
-            { key: 'status', header: 'Status', width: '0.9fr', align: 'right',
-              render: (r) => <Badge status={r.status}>{r.statusLabel}</Badge> },
-          ]}
-          rows={rows}
-          rowKey={(r) => r.slug}
-          onRowClick={(r) => window.location.href = `/work/${r.slug}`}
-        />
-        <div style={{ display: 'flex', justifyContent: 'center', marginTop: 40 }}>
-          <Pagination total={Math.ceil(rows.length / 10)} page={page} onChange={setPage} />
+        <div style={{
+          columns: '2',
+          columnGap: 24,
+        }}>
+          {rows.map((p) => (
+            <div
+              key={p.slug}
+              onClick={() => window.location.href = `/work/${p.slug}`}
+              style={{ breakInside: 'avoid', marginBottom: 24, cursor: 'pointer' }}
+            >
+              <Card interactive flush style={{ overflow: 'hidden' }}>
+                <ImagePlaceholder
+                  label={p.imageLabel}
+                  src={p.coverImage}
+                  ratio={p.slug === 'video-platform-identity' || p.slug === 'fintech-design-system' ? '4/3' : '16/10'}
+                />
+                <div style={{ padding: '20px 24px 24px' }}>
+                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', gap: 12, marginBottom: 12 }}>
+                    <div style={{ display: 'flex', gap: 6, flexWrap: 'wrap' }}>
+                      {p.tags.map((t) => <Tag key={t} size="sm">{t}</Tag>)}
+                    </div>
+                    <Badge status={p.status}>{p.statusLabel}</Badge>
+                  </div>
+                  <h3 style={{ fontSize: 20, fontWeight: 600, letterSpacing: '-0.01em', lineHeight: 1.18, margin: '0 0 8px' }}>{p.title}</h3>
+                  <p style={{ fontSize: 13, lineHeight: 1.55, color: 'var(--text-secondary)', margin: '0 0 16px' }}>{p.summary}</p>
+                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                    <span style={{ fontFamily: 'var(--font-mono)', fontSize: 11, letterSpacing: '0.08em', textTransform: 'uppercase', color: 'var(--text-faint)' }}>{p.discipline} · {p.year}</span>
+                    <span style={{ fontFamily: 'var(--font-mono)', fontSize: 11, letterSpacing: '0.1em', textTransform: 'uppercase', color: 'var(--accent)', borderBottom: '1px solid var(--accent)', paddingBottom: 2 }}>View →</span>
+                  </div>
+                </div>
+              </Card>
+            </div>
+          ))}
         </div>
       </section>
     </div>
