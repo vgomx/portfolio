@@ -50,7 +50,7 @@ export function TopBar({ activePage }) {
   useEffect(() => {
     const interval = setInterval(() => {
       setActive(true);
-      setTimeout(() => setActive(false), 2000);
+      setTimeout(() => setActive(false), 3500);
     }, 10000);
     return () => clearInterval(interval);
   }, []);
