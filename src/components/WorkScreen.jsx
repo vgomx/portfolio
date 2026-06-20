@@ -20,21 +20,13 @@ export default function WorkScreen({ projects }) {
       </section>
 
       <section style={{ maxWidth: 'var(--container)', margin: '0 auto', padding: '0 48px 80px' }}>
-        <div style={{
-          columns: '2',
-          columnGap: 24,
-        }}>
+        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 24 }}>
           {rows.map((p) => (
-            <div
-              key={p.slug}
-              onClick={() => window.location.href = `/work/${p.slug}`}
-              style={{ breakInside: 'avoid', marginBottom: 24, cursor: 'pointer' }}
-            >
-              <Card interactive flush style={{ overflow: 'hidden' }}>
-                <ImagePlaceholder
+            <Card key={p.slug} interactive flush onClick={() => window.location.href = `/work/${p.slug}`} style={{ overflow: 'hidden', cursor: 'pointer' }}>
+              <ImagePlaceholder
                   label={p.imageLabel}
                   src={p.coverImage}
-                  ratio={p.slug === 'video-platform-identity' || p.slug === 'fintech-design-system' ? '4/3' : '16/10'}
+                  ratio="16/10"
                 />
                 <div style={{ padding: '20px 24px 24px' }}>
                   <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', gap: 12, marginBottom: 12 }}>
@@ -51,7 +43,6 @@ export default function WorkScreen({ projects }) {
                   </div>
                 </div>
               </Card>
-            </div>
           ))}
         </div>
       </section>
