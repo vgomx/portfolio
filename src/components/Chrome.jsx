@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Button } from '../ds/components/core/Button.jsx';
 
 function VGMark({ size = 40, color = 'var(--ink-900)' }) {
@@ -43,16 +43,25 @@ function VGEyeGlitch({ size = 40 }) {
 }
 
 export function TopBar({ activePage }) {
-  const [hovered, setHovered] = useState(false);
+  const [active, setActive] = useState(false);
   const items = [{ href: '/work', label: 'Work', key: 'work' }, { href: '/about', label: 'About', key: 'about' }];
+
+  // Auto-trigger eye glitch every 10s for ~2s
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setActive(true);
+      setTimeout(() => setActive(false), 2000);
+    }, 10000);
+    return () => clearInterval(interval);
+  }, []);
   return (
     <div style={{ borderBottom: '1px solid var(--border-hairline)', background: 'var(--surface-page)', position: 'sticky', top: 0, zIndex: 50 }}>
       <div style={{ maxWidth: 'var(--container)', margin: '0 auto', padding: '16px 48px', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
         <a href="/" style={{ textDecoration: 'none', display: 'inline-flex', alignItems: 'center' }}
-          onMouseEnter={() => setHovered(true)}
-          onMouseLeave={() => setHovered(false)}>
-          <span style={{ display: hovered ? 'none' : 'inline-flex' }}><VGMark size={40} /></span>
-          <span style={{ display: hovered ? 'inline-flex' : 'none' }}><VGEyeGlitch size={40} /></span>
+          onMouseEnter={() => setActive(true)}
+          onMouseLeave={() => setActive(false)}>
+          <span style={{ display: active ? 'none' : 'inline-flex' }}><VGMark size={40} /></span>
+          <span style={{ display: active ? 'inline-flex' : 'none' }}><VGEyeGlitch size={40} /></span>
         </a>
         <div style={{ display: 'flex', gap: 8, alignItems: 'center', fontFamily: 'var(--font-mono)', fontSize: 11, letterSpacing: '0.1em', textTransform: 'uppercase' }}>
           {items.map((it) => (

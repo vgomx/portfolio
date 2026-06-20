@@ -1,4 +1,12 @@
 ---
+import '../ds/tokens/fonts.css';
+import '../ds/tokens/colors.css';
+import '../ds/tokens/typography.css';
+import '../ds/tokens/spacing.css';
+import '../ds/tokens/keyframes.css';
+import '../ds/styles.css';
+import '../styles/eye-glitch.css';
+
 export interface Props {
   title?: string;
   description?: string;
@@ -17,14 +25,6 @@ const { title = 'Vitor Gomes — Product Designer', description = 'Product desig
     <link rel="icon" href="/favicon.svg" type="image/svg+xml"/>
     <link rel="apple-touch-icon" href="/apple-touch-icon.png"/>
     <style is:global>
-      @import '/src/ds/tokens/fonts.css';
-      @import '/src/ds/tokens/colors.css';
-      @import '/src/ds/tokens/typography.css';
-      @import '/src/ds/tokens/spacing.css';
-      @import '/src/ds/tokens/keyframes.css';
-      @import '/src/ds/styles.css';
-      @import '/src/styles/eye-glitch.css';
-
       *, *::before, *::after { box-sizing: border-box; }
       body { margin: 0; background: var(--surface-page); color: var(--text-primary); font-family: var(--font-sans); }
     </style>
