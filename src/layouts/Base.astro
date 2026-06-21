@@ -1,5 +1,4 @@
 ---
-import { Analytics } from '@vercel/analytics/astro';
 import '../ds/tokens/fonts.css';
 import '../ds/tokens/colors.css';
 import '../ds/tokens/typography.css';
@@ -41,6 +40,6 @@ const { title = 'Vitor Gomes — Product Designer', description = 'Product desig
   </head>
   <body>
     <slot />
-    <Analytics />
+    <script defer src="/_vercel/insights/script.js"></script>
   </body>
 </html>
