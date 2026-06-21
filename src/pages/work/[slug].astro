@@ -1,6 +1,6 @@
 ---
 import Base from '../../layouts/Base.astro';
-import { TopBar, Footer } from '../../components/Chrome.jsx';
+import { TopBar, Footer, SiteBanner } from '../../components/Chrome.jsx';
 import CaseStudyScreen from '../../components/CaseStudyScreen.jsx';
 import CaseStudyScreenAlt from '../../components/CaseStudyScreenAlt.jsx';
 import { getCollection } from 'astro:content';
@@ -19,6 +19,7 @@ const project = { ...entry.data };
 ---
 <Base title={`${project.title} — Vitor Gomes`} description={project.summary}>
   <TopBar activePage="work" client:load />
+  <SiteBanner client:load />
   {project.template === 'alt' ? (
     <CaseStudyScreenAlt project={project} client:load />
   ) : (

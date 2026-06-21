@@ -78,6 +78,36 @@ export function TopBar({ activePage }) {
   );
 }
 
+export function SiteBanner() {
+  const [visible, setVisible] = useState(() => {
+    if (typeof window === 'undefined') return true;
+    return !sessionStorage.getItem('banner-dismissed');
+  });
+
+  if (!visible) return null;
+
+  return (
+    <div style={{
+      background: 'var(--surface-raised, #F5F5F4)',
+      borderBottom: '1px solid var(--border-hairline)',
+      padding: '10px 48px',
+      display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 16,
+    }}>
+      <p style={{ margin: 0, fontSize: 13, lineHeight: 1.5, color: 'var(--text-secondary)' }}>
+        <span style={{ fontWeight: 600, color: 'var(--text-primary)' }}>Work in progress —</span>{' '}
+        This website is currently being updated. Some information or projects may be missing or incomplete.
+      </p>
+      <button
+        onClick={() => { sessionStorage.setItem('banner-dismissed', '1'); setVisible(false); }}
+        aria-label="Dismiss"
+        style={{ background: 'none', border: 'none', cursor: 'pointer', color: 'var(--text-faint)', fontSize: 18, lineHeight: 1, padding: '2px 4px', flexShrink: 0 }}
+      >
+        ×
+      </button>
+    </div>
+  );
+}
+
 const SOCIAL_LINKS = [
   {
     label: 'Behance', href: 'https://www.behance.net/vitor-gomes',

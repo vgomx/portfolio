@@ -1,10 +1,11 @@
 ---
 import Base from '../layouts/Base.astro';
-import { TopBar, Footer } from '../components/Chrome.jsx';
+import { TopBar, Footer, SiteBanner } from '../components/Chrome.jsx';
 import AboutScreen from '../components/AboutScreen.jsx';
 ---
 <Base title="About — Vitor Gomes">
   <TopBar activePage="about" client:load />
+  <SiteBanner client:load />
   <AboutScreen client:load />
   <Footer client:load />
   <script is:inline src="/vg-eye-glitch.js"></script>

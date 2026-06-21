@@ -1,6 +1,6 @@
 ---
 import Base from '../../layouts/Base.astro';
-import { TopBar, Footer } from '../../components/Chrome.jsx';
+import { TopBar, Footer, SiteBanner } from '../../components/Chrome.jsx';
 import NotesScreen from '../../components/NotesScreen.jsx';
 import { getCollection } from 'astro:content';
 
@@ -11,6 +11,7 @@ const notes = entries
 ---
 <Base title="Notes — Vitor Gomes">
   <TopBar activePage="notes" client:load />
+  <SiteBanner client:load />
   <NotesScreen notes={notes} client:load />
   <Footer client:load />
 </Base>

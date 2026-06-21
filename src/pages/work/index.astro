@@ -1,6 +1,6 @@
 ---
 import Base from '../../layouts/Base.astro';
-import { TopBar, Footer } from '../../components/Chrome.jsx';
+import { TopBar, Footer, SiteBanner } from '../../components/Chrome.jsx';
 import WorkScreen from '../../components/WorkScreen.jsx';
 import { getCollection } from 'astro:content';
 
@@ -11,6 +11,7 @@ const projects = entries
 ---
 <Base title="Work — Vitor Gomes">
   <TopBar activePage="work" client:load />
+  <SiteBanner client:load />
   <WorkScreen projects={projects} client:load />
   <Footer client:load />
 </Base>

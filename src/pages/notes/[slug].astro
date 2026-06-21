@@ -1,6 +1,6 @@
 ---
 import Base from '../../layouts/Base.astro';
-import { TopBar, Footer } from '../../components/Chrome.jsx';
+import { TopBar, Footer, SiteBanner } from '../../components/Chrome.jsx';
 import { Tag } from '../../ds/components/core/Tag.jsx';
 import { getCollection, render } from 'astro:content';
 
@@ -23,6 +23,7 @@ function formatDate(iso: string) {
 ---
 <Base title={`${note.title} — Vitor Gomes`} description={note.summary}>
   <TopBar activePage="notes" client:load />
+  <SiteBanner client:load />
 
   <div style="max-width: 720px; margin: 0 auto; padding: 80px 48px 120px;">
     <a href="/notes" style="font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-faint); text-decoration: none; display: inline-block; margin-bottom: 40px;">
