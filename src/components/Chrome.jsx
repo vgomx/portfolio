@@ -101,8 +101,50 @@ const SOCIAL_LINKS = [
   },
 ];
 
+function CookieBanner() {
+  const [visible, setVisible] = useState(false);
+
+  useEffect(() => {
+    if (!localStorage.getItem('cookies-accepted')) setVisible(true);
+  }, []);
+
+  function accept() {
+    localStorage.setItem('cookies-accepted', '1');
+    setVisible(false);
+  }
+
+  if (!visible) return null;
+
+  return (
+    <div style={{
+      position: 'fixed', bottom: 24, left: 24, zIndex: 1000,
+      background: 'var(--surface-ink)', color: 'var(--text-inverse-faint)',
+      borderRadius: 8, padding: '16px 20px', maxWidth: 340,
+      boxShadow: '0 4px 24px rgba(0,0,0,0.18)',
+      display: 'flex', flexDirection: 'column', gap: 14,
+    }}>
+      <p style={{ margin: 0, fontSize: 13, lineHeight: 1.55 }}>
+        By using this website, you agree to our use of cookies. We use cookies to provide you with a great experience and to help our website run effectively.
+      </p>
+      <button
+        onClick={accept}
+        style={{
+          alignSelf: 'flex-start', background: 'var(--paper)', color: 'var(--ink-900)',
+          border: 'none', borderRadius: 4, padding: '8px 18px',
+          fontFamily: 'var(--font-sans)', fontSize: 13, fontWeight: 600,
+          cursor: 'pointer', letterSpacing: '-0.01em',
+        }}
+      >
+        Accept
+      </button>
+    </div>
+  );
+}
+
 export function Footer() {
   return (
+    <>
+    <CookieBanner />
     <footer style={{ background: 'var(--surface-ink)', color: 'var(--text-inverse-faint)' }}>
       <div style={{ maxWidth: 'var(--container)', margin: '0 auto', padding: '40px 48px', display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: 24 }}>
         <div style={{ display: 'flex', alignItems: 'center', gap: 14 }}>
@@ -132,6 +174,7 @@ export function Footer() {
         </div>
       </div>
     </footer>
+    </>
   );
 }
 

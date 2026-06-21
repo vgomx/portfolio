@@ -1,0 +1,41 @@
+/* Mobile-first responsive overrides */
+@media (max-width: 640px) {
+  /* Generic grid breakpoints */
+  .grid-2col {
+    grid-template-columns: 1fr !important;
+  }
+  .grid-4col {
+    grid-template-columns: repeat(2, 1fr) !important;
+  }
+  .grid-sidebar {
+    grid-template-columns: 1fr !important;
+  }
+  .grid-hero {
+    grid-template-columns: 1fr !important;
+  }
+  .grid-notes-list {
+    grid-template-columns: 1fr !important;
+    gap: 12px !important;
+  }
+
+  /* Section padding */
+  .section-pad {
+    padding-left: 24px !important;
+    padding-right: 24px !important;
+  }
+
+  /* Hide sidebar label in timeline/two-col layouts */
+  .grid-sidebar > .sidebar-label {
+    display: none;
+  }
+
+  /* Notes list item: hide date column, show inline */
+  .notes-list-date {
+    display: none !important;
+  }
+
+  /* About hero: photo card goes first on mobile */
+  .about-hero-card {
+    order: -1;
+  }
+}

@@ -1,4 +1,5 @@
 ---
+import { Analytics } from '@vercel/analytics/astro';
 import '../ds/tokens/fonts.css';
 import '../ds/tokens/colors.css';
 import '../ds/tokens/typography.css';
@@ -6,6 +7,7 @@ import '../ds/tokens/spacing.css';
 import '../ds/tokens/keyframes.css';
 import '../ds/styles.css';
 import '../styles/eye-glitch.css';
+import '../styles/responsive.css';
 
 export interface Props {
   title?: string;
@@ -24,6 +26,14 @@ const { title = 'Vitor Gomes — Product Designer', description = 'Product desig
     <link rel="icon" href="/favicon.ico" sizes="32x32"/>
     <link rel="icon" href="/favicon.svg" type="image/svg+xml"/>
     <link rel="apple-touch-icon" href="/apple-touch-icon.png"/>
+    <!-- Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-92N5Q5KLMT"></script>
+    <script is:inline>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-92N5Q5KLMT');
+    </script>
     <style is:global>
       *, *::before, *::after { box-sizing: border-box; }
       body { margin: 0; background: var(--surface-page); color: var(--text-primary); font-family: var(--font-sans); }
@@ -31,5 +41,6 @@ const { title = 'Vitor Gomes — Product Designer', description = 'Product desig
   </head>
   <body>
     <slot />
+    <Analytics />
   </body>
 </html>

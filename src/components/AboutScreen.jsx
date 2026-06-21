@@ -57,7 +57,7 @@ function StorySection() {
   const bodyRef = useRef(null);
 
   return (
-    <section style={{ borderTop: '1px solid var(--border-hairline)', maxWidth: 'var(--container)', margin: '0 auto', padding: '0 48px' }}>
+    <section className="section-pad" style={{ borderTop: '1px solid var(--border-hairline)', maxWidth: 'var(--container)', margin: '0 auto', padding: '0 48px' }}>
       {/* Toggle header */}
       <button
         onClick={() => setOpen((v) => !v)}
@@ -95,7 +95,7 @@ function StorySection() {
       >
         <div style={{ paddingBottom: 56 }}>
           {/* Opening quotes */}
-          <div style={{ display: 'grid', gridTemplateColumns: '220px 1fr', gap: 48, marginBottom: 48, alignItems: 'start' }}>
+          <div className="grid-sidebar" style={{ display: 'grid', gridTemplateColumns: '220px 1fr', gap: 48, marginBottom: 48, alignItems: 'start' }}>
             <div />
             <div>
               <p style={{ fontSize: 22, lineHeight: 1.45, fontWeight: 600, letterSpacing: '-0.01em', color: 'var(--text-primary)', margin: '0 0 16px', maxWidth: '44ch' }}>
@@ -117,6 +117,7 @@ function StorySection() {
           {TIMELINE.map((entry, i) => (
             <div
               key={entry.year}
+              className="grid-sidebar"
               style={{
                 display: 'grid', gridTemplateColumns: '220px 1fr', gap: 48,
                 paddingTop: 24, paddingBottom: 24,
@@ -129,7 +130,7 @@ function StorySection() {
           ))}
 
           {/* Philosophy */}
-          <div style={{ display: 'grid', gridTemplateColumns: '220px 1fr', gap: 48, paddingTop: 24, paddingBottom: 24, borderTop: '1px solid var(--border-hairline)' }}>
+          <div className="grid-sidebar" style={{ display: 'grid', gridTemplateColumns: '220px 1fr', gap: 48, paddingTop: 24, paddingBottom: 24, borderTop: '1px solid var(--border-hairline)' }}>
             <div />
             <div>
               <p style={{ fontSize: 16, lineHeight: 1.65, color: 'var(--text-secondary)', margin: '0 0 12px', maxWidth: '56ch' }}>
@@ -142,7 +143,7 @@ function StorySection() {
           </div>
 
           {/* Closing line */}
-          <div style={{ display: 'grid', gridTemplateColumns: '220px 1fr', gap: 48, paddingTop: 24, borderTop: '1px solid var(--border-hairline)' }}>
+          <div className="grid-sidebar" style={{ display: 'grid', gridTemplateColumns: '220px 1fr', gap: 48, paddingTop: 24, borderTop: '1px solid var(--border-hairline)' }}>
             <div />
             <p style={{ fontSize: 16, lineHeight: 1.65, color: 'var(--text-muted)', margin: 0, fontStyle: 'italic', maxWidth: '52ch' }}>
               Born and raised in São Paulo, I also lived in Santos on the coast. Since 2021, living in Amsterdam.
@@ -167,7 +168,7 @@ export default function AboutScreen() {
   return (
     <div>
       <div style={{ position: 'relative', overflow: 'hidden' }}>
-      <section style={{ maxWidth: 'var(--container)', margin: '0 auto', padding: '88px 48px 56px', display: 'grid', gridTemplateColumns: '1.4fr 1fr', gap: 56, alignItems: 'start', position: 'relative', zIndex: 1 }}>
+      <section className="grid-hero section-pad" style={{ maxWidth: 'var(--container)', margin: '0 auto', padding: '88px 48px 56px', display: 'grid', gridTemplateColumns: '1.4fr 1fr', gap: 56, alignItems: 'start', position: 'relative', zIndex: 1 }}>
         <div>
           <Eyebrow style={{ marginBottom: 24 }}>About</Eyebrow>
           <h1 style={{ fontSize: 'clamp(34px,5vw,56px)', lineHeight: 1.02, letterSpacing: '-0.03em', fontWeight: 700, margin: 0, maxWidth: '16ch' }}>I design brands and the products they become.</h1>
@@ -177,7 +178,7 @@ export default function AboutScreen() {
             <Button variant="ghost" onClick={() => { const a = document.createElement('a'); a.href = '/vitor-gomes-cv.pdf'; a.download = 'Vitor Gomes - CV.pdf'; a.click(); }}>Download CV</Button>
           </div>
         </div>
-        <Card tone="ink" style={{ padding: 28 }}>
+        <Card tone="ink" className="about-hero-card" style={{ padding: 28 }}>
           <img
             src="/images/vitor.jpg"
             alt="Vitor Gomes"
@@ -208,7 +209,7 @@ export default function AboutScreen() {
 
       <StorySection />
 
-      <section style={{ borderTop: '1px solid var(--border-hairline)', maxWidth: 'var(--container)', margin: '0 auto', padding: '64px 48px', display: 'grid', gridTemplateColumns: '220px 1fr', gap: 48, alignItems: 'start' }}>
+      <section className="grid-sidebar section-pad" style={{ borderTop: '1px solid var(--border-hairline)', maxWidth: 'var(--container)', margin: '0 auto', padding: '64px 48px', display: 'grid', gridTemplateColumns: '220px 1fr', gap: 48, alignItems: 'start' }}>
         <h2 style={{ fontSize: 24, fontWeight: 600, letterSpacing: '-0.02em', margin: 0 }}>Questions</h2>
         <Accordion items={[
           { title: 'What do you work on?', content: 'Brand and product design for teams shaping new things — identity, interface and the systems that hold them together.' },

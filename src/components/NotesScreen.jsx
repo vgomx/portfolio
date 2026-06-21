@@ -34,6 +34,7 @@ export default function NotesScreen({ notes }) {
           <div style={{ maxWidth: 'var(--container)', margin: '0 auto', padding: '64px 48px' }}>
             <a
               href={`/notes/${featured.slug}`}
+              className="grid-2col"
               style={{ textDecoration: 'none', color: 'inherit', display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 56, alignItems: 'start' }}
             >
               <div>
@@ -64,13 +65,14 @@ export default function NotesScreen({ notes }) {
           <a
             key={note.slug}
             href={`/notes/${note.slug}`}
+            className="grid-notes-list"
             style={{
               display: 'grid', gridTemplateColumns: '160px 1fr auto', gap: 40, alignItems: 'baseline',
               padding: '32px 0', borderBottom: '1px solid var(--border-hairline)',
               textDecoration: 'none', color: 'inherit',
             }}
           >
-            <span style={{ fontFamily: 'var(--font-mono)', fontSize: 12, color: 'var(--text-faint)', letterSpacing: '0.06em' }}>
+            <span className="notes-list-date" style={{ fontFamily: 'var(--font-mono)', fontSize: 12, color: 'var(--text-faint)', letterSpacing: '0.06em' }}>
               {formatDate(note.date)}
             </span>
             <div>
