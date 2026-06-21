@@ -2,19 +2,34 @@ import { Button } from '../ds/components/core/Button.jsx';
 import { Tag } from '../ds/components/core/Tag.jsx';
 import { Card } from '../ds/components/data/Card.jsx';
 import { StatCard } from '../ds/components/data/StatCard.jsx';
+import { Accordion } from '../ds/components/feedback/Accordion.jsx';
 import { ImagePlaceholder, Eyebrow } from './Chrome.jsx';
 
 export default function HomeScreen({ projects }) {
   const featured = projects.slice(0, 4);
   return (
     <div>
-      <section style={{ maxWidth: 'var(--container)', margin: '0 auto', padding: '88px 48px 56px' }}>
-        <Eyebrow style={{ marginBottom: 24 }}>Product Designer · Amsterdam · Available Q3</Eyebrow>
-        <h1 style={{ fontSize: 'clamp(38px,6vw,72px)', lineHeight: 0.98, letterSpacing: '-0.03em', fontWeight: 700, margin: 0, maxWidth: '15ch' }}>Design for teams shaping new things.</h1>
-        <p style={{ fontSize: 18, lineHeight: 1.55, color: 'var(--text-secondary)', maxWidth: '54ch', margin: '24px 0 0', fontWeight: 400 }}>Twelve years of brand, product and the systems that hold them together — identity through interface, shipped end to end.</p>
-        <div style={{ display: 'flex', gap: 12, marginTop: 32, flexWrap: 'wrap' }}>
-          <Button variant="accent" onClick={() => window.location.href = '/about'}>Start a project</Button>
-          <Button variant="secondary" onClick={() => window.location.href = '/work'}>See all work</Button>
+      <section style={{ position: 'relative', overflow: 'hidden' }}>
+        {/* Globe animation background */}
+        <iframe
+          src="/hero-globe.html"
+          style={{
+            position: 'absolute', inset: 0, width: '100%', height: '100%',
+            border: 'none', pointerEvents: 'none',
+            opacity: 0.5,
+          }}
+          tabIndex={-1}
+          aria-hidden="true"
+        />
+        {/* Hero content */}
+        <div style={{ position: 'relative', zIndex: 1, maxWidth: 'var(--container)', margin: '0 auto', padding: '88px 48px 56px' }}>
+          <Eyebrow style={{ marginBottom: 24 }}>Product Designer · Amsterdam</Eyebrow>
+          <h1 style={{ fontSize: 'clamp(38px,6vw,72px)', lineHeight: 0.98, letterSpacing: '-0.03em', fontWeight: 700, margin: 0, maxWidth: '15ch' }}>Design for teams shaping new things.</h1>
+          <p style={{ fontSize: 18, lineHeight: 1.55, color: 'var(--text-secondary)', maxWidth: '54ch', margin: '24px 0 0', fontWeight: 400 }}>Twelve years of brand, product and the systems that hold them together — identity through interface, shipped end to end.</p>
+          <div style={{ display: 'flex', gap: 12, marginTop: 32, flexWrap: 'wrap' }}>
+            <Button variant="accent" onClick={() => window.location.href = '/about'}>Start a project</Button>
+            <Button variant="secondary" onClick={() => window.location.href = '/work'}>See all work</Button>
+          </div>
         </div>
       </section>
 
@@ -38,6 +53,16 @@ export default function HomeScreen({ projects }) {
             </Card>
           ))}
         </div>
+      </section>
+
+      <section style={{ borderTop: '1px solid var(--border-hairline)', maxWidth: 'var(--container)', margin: '0 auto', padding: '64px 48px', display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 56, alignItems: 'start' }}>
+        <h2 style={{ fontSize: 'clamp(34px,5vw,56px)', lineHeight: 1.02, letterSpacing: '-0.03em', fontWeight: 700, margin: 0 }}>What do I do?</h2>
+        <Accordion items={[
+          { title: 'Consultancy', content: 'Strategic design support for teams building new products or evolving existing ones — from brief through to shipped.' },
+          { title: 'User Experience (UX) Design', content: 'Research, flows, wireframes, and high-fidelity prototypes that map clearly to real user needs.' },
+          { title: 'User Interface (UI) Design', content: 'Interface design that works at every scale — component-level decisions, system-level coherence.' },
+          { title: 'Visual Design', content: 'Brand identity, typography, and visual systems that give a product a recognisable point of view.' },
+        ]} />
       </section>
 
       <section style={{ background: 'var(--surface-ink)' }}>

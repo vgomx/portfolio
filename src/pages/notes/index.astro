@@ -1,0 +1,16 @@
+---
+import Base from '../../layouts/Base.astro';
+import { TopBar, Footer } from '../../components/Chrome.jsx';
+import NotesScreen from '../../components/NotesScreen.jsx';
+import { getCollection } from 'astro:content';
+
+const entries = await getCollection('blog');
+const notes = entries
+  .map((e) => ({ slug: e.data.slug, ...e.data }))
+  .sort((a, b) => new Date(b.date) - new Date(a.date));
+---
+<Base title="Notes — Vitor Gomes">
+  <TopBar activePage="notes" client:load />
+  <NotesScreen notes={notes} client:load />
+  <Footer client:load />
+</Base>

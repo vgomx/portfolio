@@ -1,0 +1,45 @@
+---
+title: "Wallo — Brand Book"
+slug: "wallo-brand-book"
+discipline: "Branding"
+year: 2024
+tags: ["Case Study", "Branding", "Visual Identity"]
+status: "live"
+statusLabel: "Live"
+featured: true
+summary: "A complete brand identity system for Wallo — from initial exploration and moodboard through to a comprehensive brand book covering mark, colour, type, app icon and usage guidelines."
+imageLabel: "[ Wallo — Brand Book ]"
+coverImage: "/images/wallo/cover.png"
+template: "alt"
+role: "Lead Designer"
+team: "2"
+steps: ["Exploration", "Moodboard", "Identity", "Brand Book", "Handoff"]
+overview: "Wallo needed a brand that could carry real weight — an identity that worked as a mobile app icon, a logotype on a dark surface, and a headline on a white page, all without losing its character. The project started with an open exploration phase: mood references, directional concepts, and a shared understanding of what the brand should feel like before any marks were drawn. The result is a cohesive brand book that serves as the single source of truth for everyone building with the Wallo identity."
+challenge: "The biggest tension in the project was flexibility versus distinctiveness. The mark needed to be simple enough to read at 32px on a phone screen, but rich enough to hold a full-bleed brand moment. The colour palette had to work across light and dark backgrounds without losing vibrancy. And the brand voice — the slogan, the tone — needed to feel human and confident without sliding into generic startup copy. Every element of the brand book had to earn its place."
+outcomes:
+  - value: "1"
+    label: "Complete brand book delivered"
+  - value: "6+"
+    label: "Deliverable categories — mark, colour, type, icon, usage, voice"
+bodyImages:
+  - src: "/images/wallo/logo-section.png"
+    alt: "Logo design — section introduction"
+    after: "overview"
+    layout: "wide"
+  - src: "/images/wallo/mark-construction.png"
+    alt: "Mark construction grid and geometry"
+    after: "overview"
+    layout: "offset"
+  - src: "/images/wallo/colors.png"
+    alt: "Colour palette — full system"
+    after: "challenge"
+    layout: "wide"
+  - src: "/images/wallo/typography.png"
+    alt: "Typography system"
+    after: "challenge"
+    layout: "full"
+  - src: "/images/wallo/app-icon.png"
+    alt: "App icon — section introduction"
+    after: "process"
+    layout: "offset"
+---

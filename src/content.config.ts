@@ -21,7 +21,28 @@ const work = defineCollection({
     overview: z.string().optional(),
     challenge: z.string().optional(),
     outcomes: z.array(z.object({ value: z.string(), label: z.string() })).optional(),
+    template: z.enum(['default', 'alt']).optional(),
+    bodyImages: z.array(z.object({
+      src: z.string(),
+      alt: z.string().optional(),
+      caption: z.string().optional(),
+      after: z.string(),
+      layout: z.enum(['full', 'offset', 'offset-left', 'wide', 'duo']).optional(),
+    })).optional(),
   }),
 });
 
-export const collections = { work };
+const blog = defineCollection({
+  loader: glob({ pattern: '**/*.md', base: './src/content/blog' }),
+  schema: z.object({
+    title: z.string(),
+    slug: z.string(),
+    date: z.string(),
+    summary: z.string(),
+    tags: z.array(z.string()).optional(),
+    coverImage: z.string().optional(),
+    featured: z.boolean().optional(),
+  }),
+});
+
+export const collections = { work, blog };
