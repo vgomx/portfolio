@@ -71,8 +71,86 @@ function SectionHead({ n, title }) {
   );
 }
 
+// Lightbox
+function Lightbox({ images, index, onClose, onPrev, onNext }) {
+  const img = images[index];
+
+  useEffect(() => {
+    function onKey(e) {
+      if (e.key === 'Escape') onClose();
+      if (e.key === 'ArrowRight') onNext();
+      if (e.key === 'ArrowLeft') onPrev();
+    }
+    window.addEventListener('keydown', onKey);
+    document.body.style.overflow = 'hidden';
+    return () => { window.removeEventListener('keydown', onKey); document.body.style.overflow = ''; };
+  }, [index]);
+
+  return (
+    <div
+      onClick={onClose}
+      style={{
+        position: 'fixed', inset: 0, zIndex: 9999,
+        background: 'rgba(0,0,0,0.92)',
+        display: 'flex', alignItems: 'center', justifyContent: 'center',
+        padding: 24,
+        animation: 'lb-in 0.18s ease',
+      }}
+    >
+      <style>{`@keyframes lb-in { from { opacity: 0 } to { opacity: 1 } }`}</style>
+
+      {/* Prev */}
+      {images.length > 1 && (
+        <button onClick={e => { e.stopPropagation(); onPrev(); }} style={{
+          position: 'absolute', left: 20, top: '50%', transform: 'translateY(-50%)',
+          background: 'rgba(255,255,255,0.08)', border: '1px solid rgba(255,255,255,0.15)',
+          color: '#fff', width: 44, height: 44, borderRadius: '50%', cursor: 'pointer',
+          fontSize: 18, display: 'flex', alignItems: 'center', justifyContent: 'center',
+        }}>←</button>
+      )}
+
+      {/* Image */}
+      <div onClick={e => e.stopPropagation()} style={{ maxWidth: '90vw', maxHeight: '90vh', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 12 }}>
+        <img
+          src={img.src}
+          alt={img.alt || ''}
+          style={{ display: 'block', maxWidth: '100%', maxHeight: '82vh', objectFit: 'contain', borderRadius: 2 }}
+        />
+        {(img.alt || img.caption) && (
+          <div style={{ fontFamily: 'var(--font-mono)', fontSize: 10, letterSpacing: '0.1em', textTransform: 'uppercase', color: 'rgba(255,255,255,0.35)' }}>
+            {img.caption || img.alt}
+          </div>
+        )}
+        {images.length > 1 && (
+          <div style={{ fontFamily: 'var(--font-mono)', fontSize: 10, letterSpacing: '0.1em', color: 'rgba(255,255,255,0.25)' }}>
+            {index + 1} / {images.length}
+          </div>
+        )}
+      </div>
+
+      {/* Next */}
+      {images.length > 1 && (
+        <button onClick={e => { e.stopPropagation(); onNext(); }} style={{
+          position: 'absolute', right: 20, top: '50%', transform: 'translateY(-50%)',
+          background: 'rgba(255,255,255,0.08)', border: '1px solid rgba(255,255,255,0.15)',
+          color: '#fff', width: 44, height: 44, borderRadius: '50%', cursor: 'pointer',
+          fontSize: 18, display: 'flex', alignItems: 'center', justifyContent: 'center',
+        }}>→</button>
+      )}
+
+      {/* Close */}
+      <button onClick={onClose} style={{
+        position: 'absolute', top: 20, right: 20,
+        background: 'rgba(255,255,255,0.08)', border: '1px solid rgba(255,255,255,0.15)',
+        color: '#fff', width: 36, height: 36, borderRadius: '50%', cursor: 'pointer',
+        fontSize: 16, display: 'flex', alignItems: 'center', justifyContent: 'center',
+      }}>×</button>
+    </div>
+  );
+}
+
 // Scroll-triggered entrance animation
-function AnimatedImage({ src, alt, caption, layout = 'full', delay = 0 }) {
+function AnimatedImage({ src, alt, caption, layout = 'full', delay = 0, onClick }) {
   const ref = useRef(null);
   const [visible, setVisible] = useState(false);
 
@@ -102,7 +180,8 @@ function AnimatedImage({ src, alt, caption, layout = 'full', delay = 0 }) {
       opacity: visible ? 1 : 0,
       transform: visible ? 'translateY(0)' : 'translateY(28px)',
       transition: `opacity 0.7s ease ${delay}ms, transform 0.7s ease ${delay}ms`,
-    }}>
+      cursor: 'zoom-in',
+    }} onClick={onClick}>
       <img
         src={src}
         alt={alt || ''}
@@ -115,7 +194,7 @@ function AnimatedImage({ src, alt, caption, layout = 'full', delay = 0 }) {
   );
 }
 
-function AnimatedDuo({ images }) {
+function AnimatedDuo({ images, onClickImage }) {
   const ref = useRef(null);
   const [visible, setVisible] = useState(false);
 
@@ -133,10 +212,11 @@ function AnimatedDuo({ images }) {
   return (
     <div ref={ref} style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 16, marginBottom: 40 }}>
       {images.map((img, i) => (
-        <div key={i} style={{
+        <div key={i} onClick={() => onClickImage?.(img)} style={{
           opacity: visible ? 1 : 0,
           transform: visible ? 'translateY(0)' : 'translateY(28px)',
           transition: `opacity 0.7s ease ${i * 120}ms, transform 0.7s ease ${i * 120}ms`,
+          cursor: 'zoom-in',
         }}>
           <img src={img.src} alt={img.alt || ''} style={{ display: 'block', width: '100%', height: 'auto', objectFit: 'cover' }} />
           {img.caption && (
@@ -202,7 +282,7 @@ function BodyQuotes({ quotes, after }) {
   );
 }
 
-function BodyImages({ images, after }) {
+function BodyImages({ images, after, allImages, openLightbox }) {
   if (!images) return null;
   const matches = images.filter((img) => img.after === after);
   if (!matches.length) return null;
@@ -224,8 +304,8 @@ function BodyImages({ images, after }) {
     <div style={{ marginTop: 40 }}>
       {grouped.map((g, idx) =>
         g.type === 'duo'
-          ? <AnimatedDuo key={idx} images={g.items} />
-          : <AnimatedImage key={idx} {...g.item} delay={0} />
+          ? <AnimatedDuo key={idx} images={g.items} onClickImage={(img) => openLightbox?.(allImages?.indexOf(img) ?? -1)} />
+          : <AnimatedImage key={idx} {...g.item} delay={0} onClick={() => openLightbox?.(allImages?.indexOf(g.item) ?? -1)} />
       )}
     </div>
   );
@@ -234,6 +314,9 @@ function BodyImages({ images, after }) {
 export default function CaseStudyScreenAlt({ project }) {
   const p = project;
   const [activeSection, setActiveSection] = useState('overview');
+  const [lbIndex, setLbIndex] = useState(-1);
+  const allImages = p.bodyImages || [];
+  const openLightbox = (idx) => { if (idx >= 0) setLbIndex(idx); };
 
   useEffect(() => {
     const observers = SECTIONS.map((s) => {
@@ -251,6 +334,15 @@ export default function CaseStudyScreenAlt({ project }) {
 
   return (
     <div>
+      {lbIndex >= 0 && (
+        <Lightbox
+          images={allImages}
+          index={lbIndex}
+          onClose={() => setLbIndex(-1)}
+          onPrev={() => setLbIndex((lbIndex - 1 + allImages.length) % allImages.length)}
+          onNext={() => setLbIndex((lbIndex + 1) % allImages.length)}
+        />
+      )}
       <NotionNav active={activeSection} />
 
       <section style={{ maxWidth: 'var(--container)', margin: '0 auto', padding: '40px 48px 0' }}>
@@ -299,13 +391,13 @@ export default function CaseStudyScreenAlt({ project }) {
           <div id="section-overview" style={{ marginBottom: 72, scrollMarginTop: 100 }}>
             <SectionHead n="01" title="Overview" />
             <p style={{ fontSize: 16, lineHeight: 1.65, color: 'var(--text-secondary)', maxWidth: '64ch', marginLeft: 76 }}>{p.overview}</p>
-            <BodyImages images={p.bodyImages} after="overview" />
+            <BodyImages images={p.bodyImages} after="overview" allImages={allImages} openLightbox={openLightbox} />
           </div>
 
           <div id="section-challenge" style={{ marginBottom: 72, scrollMarginTop: 100 }}>
             <SectionHead n="02" title="Challenge" />
             <p style={{ fontSize: 16, lineHeight: 1.65, color: 'var(--text-secondary)', maxWidth: '64ch', marginLeft: 76 }}>{p.challenge}</p>
-            <BodyImages images={p.bodyImages} after="challenge" />
+            <BodyImages images={p.bodyImages} after="challenge" allImages={allImages} openLightbox={openLightbox} />
             <BodyQuotes quotes={p.quotes} after="challenge" />
           </div>
 
@@ -314,7 +406,7 @@ export default function CaseStudyScreenAlt({ project }) {
             <div style={{ marginLeft: 76 }}>
               <Stepper steps={p.steps || ['Brief', 'Design', 'Ship']} current={(p.steps || []).length - 1} />
             </div>
-            <BodyImages images={p.bodyImages} after="process" />
+            <BodyImages images={p.bodyImages} after="process" allImages={allImages} openLightbox={openLightbox} />
             <BodyEmbeds embeds={p.embeds} after="process" />
           </div>
 
@@ -326,7 +418,7 @@ export default function CaseStudyScreenAlt({ project }) {
                   <Card key={o.label} tone="ink"><StatCard value={o.value} label={o.label} onDark /></Card>
                 ))}
               </div>
-              <BodyImages images={p.bodyImages} after="outcome" />
+              <BodyImages images={p.bodyImages} after="outcome" allImages={allImages} openLightbox={openLightbox} />
             </div>
           )}
 
