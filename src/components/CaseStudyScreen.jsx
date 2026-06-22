@@ -56,6 +56,7 @@ export default function CaseStudyScreen({ project }) {
             <div>Role · {p.role || 'Lead Designer'}</div>
             <div>Year · {p.year}</div>
             <div>Team · {p.team || '—'}</div>
+            {p.country && <div>Country · {p.country}</div>}
           </div>
         </div>
 

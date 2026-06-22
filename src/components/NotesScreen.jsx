@@ -1,5 +1,5 @@
 import { Tag } from '../ds/components/core/Tag.jsx';
-import { Eyebrow } from './Chrome.jsx';
+import { Eyebrow, GridLines } from './Chrome.jsx';
 
 function formatDate(iso) {
   return new Date(iso).toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' });
@@ -30,8 +30,9 @@ export default function NotesScreen({ notes }) {
 
       {/* Featured post */}
       {featured && (
-        <section style={{ borderBottom: '1px solid var(--border-hairline)' }}>
-          <div style={{ maxWidth: 'var(--container)', margin: '0 auto', padding: '64px 48px' }}>
+        <section style={{ borderBottom: '1px solid var(--border-hairline)', position: 'relative', overflow: 'hidden' }}>
+          <GridLines />
+          <div style={{ maxWidth: 'var(--container)', margin: '0 auto', padding: '64px 48px', position: 'relative', zIndex: 1 }}>
             <a
               href={`/notes/${featured.slug}`}
               className="grid-2col"
@@ -60,7 +61,8 @@ export default function NotesScreen({ notes }) {
       )}
 
       {/* Note list */}
-      <section style={{ maxWidth: 'var(--container)', margin: '0 auto', padding: '0 48px 80px' }}>
+      <section style={{ maxWidth: 'var(--container)', margin: '0 auto', padding: '0 48px 80px', position: 'relative', overflow: 'hidden' }}>
+        <GridLines />
         {rest.map((note, i) => (
           <a
             key={note.slug}

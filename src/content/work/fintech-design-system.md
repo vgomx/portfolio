@@ -1,12 +1,12 @@
 ---
 title: "A design system for fintech"
 slug: "fintech-design-system"
-discipline: "UX / UI"
+discipline: "Product Design"
 year: 2025
 tags: ["Case Study", "Systems"]
 status: "live"
 statusLabel: "Live"
-featured: true
+featured: false
 summary: "Tokens, components and the governance to keep forty screens in one voice."
 imageLabel: "[ Fintech — system ]"
 role: "Systems Lead"

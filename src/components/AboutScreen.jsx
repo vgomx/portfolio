@@ -6,7 +6,7 @@ import { Input } from '../ds/components/core/Input.jsx';
 import { Card } from '../ds/components/data/Card.jsx';
 import { Accordion } from '../ds/components/feedback/Accordion.jsx';
 import { Modal } from '../ds/components/overlay/Modal.jsx';
-import { Eyebrow } from './Chrome.jsx';
+import { Eyebrow, GridLines } from './Chrome.jsx';
 
 
 const TIMELINE = [
@@ -157,7 +157,36 @@ function StorySection() {
 
 export default function AboutScreen() {
   const [open, setOpen] = useState(false);
+  const [email, setEmail] = useState('');
+  const [project, setProject] = useState('');
+  const [status, setStatus] = useState('idle'); // idle | sending | success | error
   const eyeRef = useRef(null);
+
+  async function handleSend() {
+    if (!email || !project) return;
+    setStatus('sending');
+    try {
+      const res = await fetch('https://api.web3forms.com/submit', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+        body: JSON.stringify({
+          access_key: '15defe94-5bf0-4da2-8cc5-b891914578d2',
+          subject: 'New project enquiry — vitorgomes.design',
+          email,
+          message: project,
+        }),
+      });
+      const data = await res.json();
+      setStatus(data.success ? 'success' : 'error');
+    } catch {
+      setStatus('error');
+    }
+  }
+
+  function handleClose() {
+    setOpen(false);
+    setTimeout(() => { setEmail(''); setProject(''); setStatus('idle'); }, 300);
+  }
 
   useEffect(() => {
     if (eyeRef.current && window.VGEyeGlitch) {
@@ -209,21 +238,40 @@ export default function AboutScreen() {
 
       <StorySection />
 
-      <section className="grid-sidebar section-pad" style={{ borderTop: '1px solid var(--border-hairline)', maxWidth: 'var(--container)', margin: '0 auto', padding: '64px 48px', display: 'grid', gridTemplateColumns: '220px 1fr', gap: 48, alignItems: 'start' }}>
+      <section className="grid-sidebar section-pad" style={{ borderTop: '1px solid var(--border-hairline)', maxWidth: 'var(--container)', margin: '0 auto', padding: '64px 48px', display: 'grid', gridTemplateColumns: '220px 1fr', gap: 48, alignItems: 'start', position: 'relative', overflow: 'hidden' }}>
+        <GridLines />
         <h2 style={{ fontSize: 24, fontWeight: 600, letterSpacing: '-0.02em', margin: 0 }}>Questions</h2>
         <Accordion items={[
           { title: 'What do you work on?', content: 'Brand and product design for teams shaping new things — identity, interface and the systems that hold them together.' },
           { title: 'Where are you based?', content: 'Amsterdam, working remotely across European and US time zones.' },
-          { title: 'Do you take freelance?', content: 'Yes — a couple of select engagements a quarter, usually 4–12 weeks.' },
           { title: "What's your process?", content: 'Brief, design, ship. Tight loops, working in the open, no black boxes.' },
         ]} />
       </section>
 
-      <Modal open={open} onClose={() => setOpen(false)} title="Start a project"
-        footer={<><Button variant="ghost" size="sm" onClick={() => setOpen(false)}>Cancel</Button><Button variant="accent" size="sm" onClick={() => setOpen(false)}>Send</Button></>}>
-        <p style={{ fontSize: 14, lineHeight: 1.55, color: 'var(--text-secondary)', margin: '0 0 16px' }}>Tell me a little about what you're building and I'll get back within two days.</p>
-        <Input label="Email" placeholder="you@studio.com" wrapperStyle={{ marginBottom: 14 }} />
-        <Input label="Project" placeholder="A sentence or two" />
+      <Modal open={open} onClose={handleClose} title="Start a project"
+        footer={status !== 'success' && (
+          <>
+            <Button variant="ghost" size="sm" onClick={handleClose}>Cancel</Button>
+            <Button variant="accent" size="sm" onClick={handleSend} disabled={status === 'sending' || !email || !project}>
+              {status === 'sending' ? 'Sending…' : 'Send'}
+            </Button>
+          </>
+        )}>
+        {status === 'success' ? (
+          <div style={{ padding: '8px 0 16px' }}>
+            <p style={{ fontSize: 15, fontWeight: 600, color: 'var(--text-primary)', margin: '0 0 8px' }}>Message sent.</p>
+            <p style={{ fontSize: 14, lineHeight: 1.55, color: 'var(--text-secondary)', margin: 0 }}>I'll get back to you within two days.</p>
+          </div>
+        ) : (
+          <>
+            <p style={{ fontSize: 14, lineHeight: 1.55, color: 'var(--text-secondary)', margin: '0 0 16px' }}>Tell me a little about what you're building and I'll get back within two days.</p>
+            <Input label="Email" placeholder="you@studio.com" value={email} onChange={e => setEmail(e.target.value)} wrapperStyle={{ marginBottom: 14 }} />
+            <Input label="Project" placeholder="A sentence or two" value={project} onChange={e => setProject(e.target.value)} />
+            {status === 'error' && (
+              <p style={{ fontSize: 13, color: 'var(--danger)', margin: '12px 0 0' }}>Something went wrong — please try again or email directly.</p>
+            )}
+          </>
+        )}
       </Modal>
     </div>
   );

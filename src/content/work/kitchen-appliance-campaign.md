@@ -1,9 +1,9 @@
 ---
 title: "KitchenAid — Color of the Year 2021"
 slug: "kitchen-appliance-campaign"
-discipline: "UX / UI"
+discipline: "Product Design"
 year: 2021
-tags: ["Case Study", "UX / UI", "Campaign"]
+tags: ["Case Study", "Product Design", "Campaign"]
 status: "live"
 statusLabel: "Live"
 featured: true
@@ -13,6 +13,7 @@ coverImage: "https://images.squarespace-cdn.com/content/v1/64ff5730a4cfb81021638
 template: "alt"
 role: "Product Designer"
 team: "4"
+country: "Brazil"
 steps: ["Research", "Discovery", "Wireframe", "Design", "Ship"]
 overview: "For the first time, Brazil was included in KitchenAid's global Color of the Year launch. The color was Honey — a warm, trend-forward shade for the iconic Artisan Stand Mixer. The challenge was building a campaign landing page that could introduce this initiative to a market that had never seen it before, making color feel like the hero of a product known for its function."
 challenge: "Research showed a clear tension: Brazilian consumers are influenced by color when choosing appliances, but rarely see it as a primary reason to buy. The campaign needed to shift that perception — leading with color as a statement of identity and trend awareness, not just aesthetics. We mapped the target user as trend-conscious, Pinterest-native, entertainer-at-heart. The page had to speak their language without losing the premium tone KitchenAid commands globally."

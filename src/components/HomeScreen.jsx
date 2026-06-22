@@ -3,10 +3,10 @@ import { Tag } from '../ds/components/core/Tag.jsx';
 import { Card } from '../ds/components/data/Card.jsx';
 import { StatCard } from '../ds/components/data/StatCard.jsx';
 import { Accordion } from '../ds/components/feedback/Accordion.jsx';
-import { ImagePlaceholder, Eyebrow } from './Chrome.jsx';
+import { ImagePlaceholder, Eyebrow, GridLines } from './Chrome.jsx';
 
 export default function HomeScreen({ projects }) {
-  const featured = projects.slice(0, 4);
+  const featured = projects.filter((p) => p.featured !== false).slice(0, 4);
   return (
     <div>
       <section style={{ position: 'relative', overflow: 'hidden' }}>
@@ -33,7 +33,8 @@ export default function HomeScreen({ projects }) {
         </div>
       </section>
 
-      <section className="section-pad" style={{ borderTop: '1px solid var(--border-hairline)', maxWidth: 'var(--container)', margin: '0 auto', padding: '64px 48px' }}>
+      <section className="section-pad" style={{ borderTop: '1px solid var(--border-hairline)', maxWidth: 'var(--container)', margin: '0 auto', padding: '64px 48px', position: 'relative', overflow: 'hidden' }}>
+        <GridLines />
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'baseline', marginBottom: 32 }}>
           <h2 style={{ fontSize: 30, fontWeight: 600, letterSpacing: '-0.02em', margin: 0 }}>Selected work</h2>
           <a href="/work" style={{ fontFamily: 'var(--font-mono)', fontSize: 11, letterSpacing: '0.1em', textTransform: 'uppercase', color: 'var(--text-muted)', textDecoration: 'none' }}>Index →</a>
@@ -55,19 +56,22 @@ export default function HomeScreen({ projects }) {
         </div>
       </section>
 
-      <section className="grid-2col section-pad" style={{ borderTop: '1px solid var(--border-hairline)', maxWidth: 'var(--container)', margin: '0 auto', padding: '64px 48px', display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 56, alignItems: 'start' }}>
+      <section className="grid-2col section-pad" style={{ borderTop: '1px solid var(--border-hairline)', maxWidth: 'var(--container)', margin: '0 auto', padding: '64px 48px', display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 56, alignItems: 'start', position: 'relative', overflow: 'hidden' }}>
+        <GridLines />
         <h2 style={{ fontSize: 'clamp(34px,5vw,56px)', lineHeight: 1.02, letterSpacing: '-0.03em', fontWeight: 700, margin: 0 }}>What do I do?</h2>
         <Accordion items={[
+          { title: 'Business and stakeholder support', content: 'I support the requirements and discovery process by helping clarify business needs, synthesize stakeholder input, and translate early ideas into structured product direction. I work closely with product, design, and engineering teams to create alignment, reduce ambiguity, and ensure the solution is feasible, user-centered, and ready for delivery.' },
+          { title: 'Product Design', content: 'I work across the full product design lifecycle, from discovery and requirements analysis to interaction design, prototyping, validation, and delivery. My background in design systems, visual design, and client-facing implementation allows me to turn complex business needs into scalable, intuitive experiences — especially in structured environments like financial services and e-commerce. I collaborate closely with product, engineering, and business stakeholders to shape solutions that are usable, consistent, and feasible to build.' },
+          { title: 'Design system enablement and management', content: 'Experience working in Figma to support design system management, extension, and adoption, including the creation of new systems with AI-assisted processes.' },
+          { title: 'AI-assisted front-end development', content: 'Leverage AI coding tools (e.g., Claude Code) to translate design systems into functional, responsive web interfaces, supported by foundational knowledge of HTML, CSS, Git, and deployment workflows.' },
           { title: 'Consultancy', content: 'Strategic design support for teams building new products or evolving existing ones — from brief through to shipped.' },
-          { title: 'User Experience (UX) Design', content: 'Research, flows, wireframes, and high-fidelity prototypes that map clearly to real user needs.' },
-          { title: 'User Interface (UI) Design', content: 'Interface design that works at every scale — component-level decisions, system-level coherence.' },
           { title: 'Visual Design', content: 'Brand identity, typography, and visual systems that give a product a recognisable point of view.' },
         ]} />
       </section>
 
       <section style={{ background: 'var(--surface-ink)' }}>
         <div className="grid-4col section-pad" style={{ maxWidth: 'var(--container)', margin: '0 auto', padding: '56px 48px', display: 'grid', gridTemplateColumns: 'repeat(4,1fr)', gap: 24 }}>
-          {[['12+', 'Years shipping product'], ['40', 'Projects delivered'], ['9', 'Brands built from zero'], ['3', 'Continents, remote']].map(([v, l]) => (
+          {[['12+', 'Years shipping product'], ['40', 'Projects delivered'], ['10+', 'Brands built from zero'], ['7', 'Countries, clients from']].map(([v, l]) => (
             <StatCard key={l} value={v} label={l} onDark />
           ))}
         </div>

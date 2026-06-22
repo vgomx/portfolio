@@ -1,5 +1,5 @@
 ---
-title: "Wallo — Brand Book"
+title: "Wallo — Visual Identity"
 slug: "wallo-brand-book"
 discipline: "Branding"
 year: 2024
@@ -7,21 +7,26 @@ tags: ["Case Study", "Branding", "Visual Identity"]
 status: "live"
 statusLabel: "Live"
 featured: true
-summary: "A complete brand identity system for Wallo — from initial exploration and moodboard through to a comprehensive brand book covering mark, colour, type, app icon and usage guidelines."
-imageLabel: "[ Wallo — Brand Book ]"
-coverImage: "/images/wallo/cover.png"
+summary: "A visual identity built to carry weight — a mark that works at 32px and full-bleed, a colour system that holds across light and dark, and a voice that feels human without drifting into startup noise."
+imageLabel: "[ Wallo — Visual Identity ]"
+coverImage: "/images/wallo/mark-cover.png"
 template: "alt"
 role: "Lead Designer"
 team: "2"
-steps: ["Exploration", "Moodboard", "Identity", "Brand Book", "Handoff"]
-overview: "Wallo needed a brand that could carry real weight — an identity that worked as a mobile app icon, a logotype on a dark surface, and a headline on a white page, all without losing its character. The project started with an open exploration phase: mood references, directional concepts, and a shared understanding of what the brand should feel like before any marks were drawn. The result is a cohesive brand book that serves as the single source of truth for everyone building with the Wallo identity."
-challenge: "The biggest tension in the project was flexibility versus distinctiveness. The mark needed to be simple enough to read at 32px on a phone screen, but rich enough to hold a full-bleed brand moment. The colour palette had to work across light and dark backgrounds without losing vibrancy. And the brand voice — the slogan, the tone — needed to feel human and confident without sliding into generic startup copy. Every element of the brand book had to earn its place."
+country: "Kuwait"
+steps: ["Exploration", "Moodboard", "Identity", "System", "Handoff"]
+overview: "Wallo needed a brand with real presence — an identity that held its character as a mobile app icon, a logotype on a dark surface, and a headline on a white page. The project opened with an exploration phase: mood references, directional concepts, and a shared sense of what the brand should feel like before any marks were drawn. The result is a cohesive visual identity system that scales from product UI to brand campaigns without losing its edge."
+challenge: "The core tension was flexibility versus distinctiveness. The mark had to be simple enough to read at 32px on a phone screen, but rich enough to anchor a full-bleed brand moment. The colour palette needed to hold vibrancy across both light and dark contexts. And the brand voice had to feel human and confident without sliding into generic startup territory. Every decision was made to serve the full range of surfaces the identity would live on."
 outcomes:
-  - value: "1"
-    label: "Complete brand book delivered"
   - value: "6+"
     label: "Deliverable categories — mark, colour, type, icon, usage, voice"
+  - value: "2"
+    label: "Colour modes — full system for light and dark"
 bodyImages:
+  - src: "/images/wallo/cover.png"
+    alt: "Brand Guidelines document"
+    after: "overview"
+    layout: "wide"
   - src: "/images/wallo/logo-section.png"
     alt: "Logo design — section introduction"
     after: "overview"

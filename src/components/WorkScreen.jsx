@@ -3,23 +3,25 @@ import { SegmentedControl } from '../ds/components/core/SegmentedControl.jsx';
 import { Badge } from '../ds/components/core/Badge.jsx';
 import { Tag } from '../ds/components/core/Tag.jsx';
 import { Card } from '../ds/components/data/Card.jsx';
-import { ImagePlaceholder, Eyebrow } from './Chrome.jsx';
+import { ImagePlaceholder, Eyebrow, GridLines } from './Chrome.jsx';
 
 export default function WorkScreen({ projects }) {
   const [discipline, setDiscipline] = useState('All');
 
-  const disciplines = ['All', 'Branding', 'UX / UI', 'Visual Design'];
+  const disciplines = ['All', 'Branding', 'Product Design', 'Visual Design'];
   const rows = projects.filter((p) => discipline === 'All' || p.discipline === discipline);
 
   return (
     <div>
-      <section style={{ maxWidth: 'var(--container)', margin: '0 auto', padding: '72px 48px 40px' }}>
+      <section style={{ maxWidth: 'var(--container)', margin: '0 auto', padding: '72px 48px 40px', position: 'relative', overflow: 'hidden' }}>
+        <GridLines />
         <Eyebrow style={{ marginBottom: 18 }}>Index / {rows.length} projects</Eyebrow>
         <h1 style={{ fontSize: 'clamp(34px,5vw,56px)', lineHeight: 1, letterSpacing: '-0.03em', fontWeight: 700, margin: '0 0 36px' }}>All work</h1>
         <SegmentedControl options={disciplines} value={discipline} onChange={setDiscipline} />
       </section>
 
-      <section className="section-pad" style={{ maxWidth: 'var(--container)', margin: '0 auto', padding: '0 48px 80px' }}>
+      <section className="section-pad" style={{ maxWidth: 'var(--container)', margin: '0 auto', padding: '0 48px 80px', position: 'relative', overflow: 'hidden' }}>
+        <GridLines />
         <div className="grid-2col" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 24 }}>
           {rows.map((p) => (
             <Card key={p.slug} interactive flush onClick={() => window.location.href = `/work/${p.slug}`} style={{ overflow: 'hidden', cursor: 'pointer' }}>

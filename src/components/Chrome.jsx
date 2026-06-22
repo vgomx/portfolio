@@ -247,3 +247,38 @@ export function ImagePlaceholder({ ratio = '16/10', label = '[ Project image ]',
 export function Eyebrow({ children, style }) {
   return <div style={{ fontFamily: 'var(--font-mono)', fontSize: 11, letterSpacing: '0.1em', textTransform: 'uppercase', color: 'var(--text-muted)', ...style }}>{children}</div>;
 }
+
+export function GridLines({ cols = 4, style }) {
+  return (
+    <div
+      aria-hidden="true"
+      style={{
+        position: 'absolute', inset: 0, pointerEvents: 'none', zIndex: -1,
+        opacity: 0.35,
+        WebkitMaskImage: 'linear-gradient(to bottom, transparent 0%, black 18%, black 82%, transparent 100%)',
+        maskImage: 'linear-gradient(to bottom, transparent 0%, black 18%, black 82%, transparent 100%)',
+        ...style,
+      }}
+    >
+      <div style={{
+        maxWidth: 'var(--container)',
+        margin: '0 auto',
+        padding: '0 48px',
+        height: '100%',
+        display: 'grid',
+        gridTemplateColumns: `repeat(${cols}, 1fr)`,
+        boxSizing: 'border-box',
+      }}>
+        {Array.from({ length: cols }).map((_, i) => (
+          <div
+            key={i}
+            style={{
+              borderLeft: '1px solid var(--border-default)',
+              ...(i === cols - 1 ? { borderRight: '1px solid var(--border-default)' } : {}),
+            }}
+          />
+        ))}
+      </div>
+    </div>
+  );
+}

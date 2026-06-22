@@ -6,7 +6,7 @@ import { Card } from '../ds/components/data/Card.jsx';
 import { StatCard } from '../ds/components/data/StatCard.jsx';
 import { Breadcrumb } from '../ds/components/navigation/Breadcrumb.jsx';
 import { Stepper } from '../ds/components/navigation/Stepper.jsx';
-import { ImagePlaceholder } from './Chrome.jsx';
+import { ImagePlaceholder, GridLines } from './Chrome.jsx';
 
 const SECTIONS = [
   { id: 'overview',  label: 'Overview',  n: '01' },
@@ -148,6 +148,60 @@ function AnimatedDuo({ images }) {
   );
 }
 
+function BodyEmbeds({ embeds, after }) {
+  if (!embeds) return null;
+  const matches = embeds.filter((e) => e.after === after);
+  if (!matches.length) return null;
+  return (
+    <div style={{ marginTop: 40, display: 'flex', flexDirection: 'column', gap: 24 }}>
+      {matches.map((e, i) => {
+        const mobile = e.layout === 'mobile';
+        return (
+          <div key={i}>
+            {e.label && (
+              <div style={{ fontFamily: 'var(--font-mono)', fontSize: 10, letterSpacing: '0.1em', textTransform: 'uppercase', color: 'var(--text-faint)', marginBottom: 10 }}>{e.label}</div>
+            )}
+            <div style={mobile
+              ? { maxWidth: 420, margin: '0 auto', border: '1px solid var(--border-hairline)', borderRadius: 8, overflow: 'hidden' }
+              : { position: 'relative', width: '100%', paddingBottom: '56.25%', border: '1px solid var(--border-hairline)', borderRadius: 4, overflow: 'hidden' }
+            }>
+              <iframe
+                src={e.src}
+                allowFullScreen
+                style={mobile
+                  ? { display: 'block', width: '100%', height: 780, border: 'none' }
+                  : { position: 'absolute', inset: 0, width: '100%', height: '100%', border: 'none' }
+                }
+              />
+            </div>
+          </div>
+        );
+      })}
+    </div>
+  );
+}
+
+function BodyQuotes({ quotes, after }) {
+  if (!quotes) return null;
+  const matches = quotes.filter((q) => q.after === after);
+  if (!matches.length) return null;
+  return (
+    <div style={{ marginTop: 40, display: 'flex', flexDirection: 'column', gap: 16 }}>
+      {matches.map((q, i) => (
+        <div key={i} style={{
+          borderLeft: '2px solid var(--border-default)',
+          paddingLeft: 20,
+          paddingTop: 4,
+          paddingBottom: 4,
+        }}>
+          <p style={{ fontSize: 15, lineHeight: 1.6, fontStyle: 'italic', color: 'var(--text-primary)', margin: '0 0 8px', maxWidth: '52ch' }}>"{q.text}"</p>
+          <span style={{ fontFamily: 'var(--font-mono)', fontSize: 10, letterSpacing: '0.1em', textTransform: 'uppercase', color: 'var(--text-faint)' }}>{q.author}</span>
+        </div>
+      ))}
+    </div>
+  );
+}
+
 function BodyImages({ images, after }) {
   if (!images) return null;
   const matches = images.filter((img) => img.after === after);
@@ -227,8 +281,9 @@ export default function CaseStudyScreenAlt({ project }) {
             { label: 'Role', value: p.role || 'Lead Designer' },
             { label: 'Year', value: p.year },
             { label: 'Team', value: p.team ? `${p.team} people` : '—' },
-          ].map((m, i) => (
-            <div key={m.label} style={{ padding: '20px 32px 20px 0', marginRight: 32, borderRight: i < 2 ? '1px solid var(--border-hairline)' : 'none' }}>
+            ...(p.country ? [{ label: 'Country', value: p.country }] : []),
+          ].map((m, i, arr) => (
+            <div key={m.label} style={{ padding: '20px 32px 20px 0', marginRight: 32, borderRight: i < arr.length - 1 ? '1px solid var(--border-hairline)' : 'none' }}>
               <div style={{ fontFamily: 'var(--font-mono)', fontSize: 10, letterSpacing: '0.12em', textTransform: 'uppercase', color: 'var(--text-faint)', marginBottom: 6 }}>{m.label}</div>
               <div style={{ fontFamily: 'var(--font-mono)', fontSize: 13, letterSpacing: '0.04em', color: 'var(--text-primary)' }}>{m.value}</div>
             </div>
@@ -237,7 +292,8 @@ export default function CaseStudyScreenAlt({ project }) {
       </section>
 
       {/* Body content */}
-      <section style={{ maxWidth: 'var(--container)', margin: '0 auto', padding: '64px 48px 80px' }}>
+      <section style={{ maxWidth: 'var(--container)', margin: '0 auto', padding: '64px 48px 80px', position: 'relative', overflow: 'hidden' }}>
+        <GridLines />
         <div style={{ maxWidth: 720, margin: '0 auto' }}>
 
           <div id="section-overview" style={{ marginBottom: 72, scrollMarginTop: 100 }}>
@@ -250,6 +306,7 @@ export default function CaseStudyScreenAlt({ project }) {
             <SectionHead n="02" title="Challenge" />
             <p style={{ fontSize: 16, lineHeight: 1.65, color: 'var(--text-secondary)', maxWidth: '64ch', marginLeft: 76 }}>{p.challenge}</p>
             <BodyImages images={p.bodyImages} after="challenge" />
+            <BodyQuotes quotes={p.quotes} after="challenge" />
           </div>
 
           <div id="section-process" style={{ marginBottom: 72, scrollMarginTop: 100 }}>
@@ -258,6 +315,7 @@ export default function CaseStudyScreenAlt({ project }) {
               <Stepper steps={p.steps || ['Brief', 'Design', 'Ship']} current={(p.steps || []).length - 1} />
             </div>
             <BodyImages images={p.bodyImages} after="process" />
+            <BodyEmbeds embeds={p.embeds} after="process" />
           </div>
 
           {p.outcomes && (
