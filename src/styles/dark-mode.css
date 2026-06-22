@@ -1,7 +1,7 @@
 [data-theme="dark"] {
   --text-primary:   var(--paper);
-  --text-secondary: var(--gray-400);
-  --text-muted:     var(--gray-500);
+  --text-secondary: var(--gray-300);
+  --text-muted:     var(--gray-400);
   --text-faint:     var(--gray-500);
   --text-disabled:  var(--gray-600);
 

@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { Button } from '../ds/components/core/Button.jsx';
 
-function VGMark({ size = 40, color = 'var(--ink-900)' }) {
+function VGMark({ size = 40, color = 'var(--text-primary)' }) {
   return (
     <span style={{ color, width: size, flex: 'none', display: 'inline-flex' }}>
       <svg viewBox="0 0 562 369" fill="currentColor" style={{ display: 'block', width: '100%', height: 'auto', fillRule: 'evenodd', clipRule: 'evenodd' }}>
@@ -13,7 +13,7 @@ function VGMark({ size = 40, color = 'var(--ink-900)' }) {
 
 function VGEyeGlitch({ size = 40 }) {
   return (
-    <span className="vg-eye" style={{ width: size, flex: 'none', display: 'inline-flex', color: 'var(--ink-900)' }}>
+    <span className="vg-eye" style={{ width: size, flex: 'none', display: 'inline-flex', color: 'var(--text-primary)' }}>
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 562 369" style={{ display: 'block', width: '100%', height: 'auto' }}>
         <defs>
           <g id="vgEye" style={{ fill: 'currentColor' }}>
