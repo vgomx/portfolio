@@ -197,6 +197,7 @@ export default function AboutScreen() {
   return (
     <div>
       <div style={{ position: 'relative', overflow: 'hidden' }}>
+        <GridLines />
       <section className="grid-hero section-pad" style={{ maxWidth: 'var(--container)', margin: '0 auto', padding: '88px 48px 56px', display: 'grid', gridTemplateColumns: '1.4fr 1fr', gap: 56, alignItems: 'start', position: 'relative', zIndex: 1 }}>
         <div>
           <Eyebrow style={{ marginBottom: 24 }}>About</Eyebrow>
@@ -238,8 +239,7 @@ export default function AboutScreen() {
 
       <StorySection />
 
-      <section className="grid-sidebar section-pad" style={{ borderTop: '1px solid var(--border-hairline)', maxWidth: 'var(--container)', margin: '0 auto', padding: '64px 48px', display: 'grid', gridTemplateColumns: '220px 1fr', gap: 48, alignItems: 'start', position: 'relative', overflow: 'hidden' }}>
-        <GridLines />
+      <section className="grid-sidebar section-pad" style={{ borderTop: '1px solid var(--border-hairline)', maxWidth: 'var(--container)', margin: '0 auto', padding: '64px 48px', display: 'grid', gridTemplateColumns: '220px 1fr', gap: 48, alignItems: 'start' }}>
         <h2 style={{ fontSize: 24, fontWeight: 600, letterSpacing: '-0.02em', margin: 0 }}>Questions</h2>
         <Accordion items={[
           { title: 'What do you work on?', content: 'Brand and product design for teams shaping new things — identity, interface and the systems that hold them together.' },

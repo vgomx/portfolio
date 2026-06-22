@@ -56,8 +56,7 @@ export default function HomeScreen({ projects }) {
         </div>
       </section>
 
-      <section className="grid-2col section-pad" style={{ borderTop: '1px solid var(--border-hairline)', maxWidth: 'var(--container)', margin: '0 auto', padding: '64px 48px', display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 56, alignItems: 'start', position: 'relative', overflow: 'hidden' }}>
-        <GridLines />
+      <section className="grid-2col section-pad" style={{ borderTop: '1px solid var(--border-hairline)', maxWidth: 'var(--container)', margin: '0 auto', padding: '64px 48px', display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 56, alignItems: 'start' }}>
         <h2 style={{ fontSize: 'clamp(34px,5vw,56px)', lineHeight: 1.02, letterSpacing: '-0.03em', fontWeight: 700, margin: 0 }}>What do I do?</h2>
         <Accordion items={[
           { title: 'Business and stakeholder support', content: 'I support the requirements and discovery process by helping clarify business needs, synthesize stakeholder input, and translate early ideas into structured product direction. I work closely with product, design, and engineering teams to create alignment, reduce ambiguity, and ensure the solution is feasible, user-centered, and ready for delivery.' },

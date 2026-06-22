@@ -69,7 +69,11 @@ export function TopBar({ activePage }) {
               padding: '8px 12px', textDecoration: 'none',
               color: activePage === it.key ? 'var(--text-primary)' : 'var(--text-secondary)',
               borderBottom: activePage === it.key ? '2px solid var(--accent)' : '2px solid transparent',
-            }}>{it.label}</a>
+              transition: 'color 0.18s ease, border-color 0.18s ease',
+            }}
+            onMouseEnter={e => { if (activePage !== it.key) { e.currentTarget.style.color = 'var(--text-primary)'; e.currentTarget.style.borderBottomColor = 'var(--border-default)'; } }}
+            onMouseLeave={e => { if (activePage !== it.key) { e.currentTarget.style.color = 'var(--text-secondary)'; e.currentTarget.style.borderBottomColor = 'transparent'; } }}
+            >{it.label}</a>
           ))}
           <Button size="sm" style={{ marginLeft: 8 }} onClick={() => window.location.href = '/about'}>Contact</Button>
         </div>
