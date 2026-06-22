@@ -8,7 +8,7 @@ import { ImagePlaceholder, Eyebrow, GridLines } from './Chrome.jsx';
 export default function HomeScreen({ projects }) {
   const featured = projects.filter((p) => p.featured !== false).slice(0, 4);
   return (
-    <div>
+    <div className="page-enter">
       <section style={{ position: 'relative', overflow: 'hidden' }}>
         {/* Globe animation background */}
         <iframe

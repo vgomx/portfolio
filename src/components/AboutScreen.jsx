@@ -195,7 +195,7 @@ export default function AboutScreen() {
   }, []);
 
   return (
-    <div>
+    <div className="page-enter">
       <div style={{ position: 'relative', overflow: 'hidden' }}>
         <GridLines />
       <section className="grid-hero section-pad" style={{ maxWidth: 'var(--container)', margin: '0 auto', padding: '88px 48px 56px', display: 'grid', gridTemplateColumns: '1.4fr 1fr', gap: 56, alignItems: 'start', position: 'relative', zIndex: 1 }}>

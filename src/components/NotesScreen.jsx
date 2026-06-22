@@ -16,7 +16,7 @@ export default function NotesScreen({ notes }) {
   const rest = notes.filter((n) => !n.featured);
 
   return (
-    <div>
+    <div className="page-enter">
       {/* Hero */}
       <section style={{ maxWidth: 'var(--container)', margin: '0 auto', padding: '88px 48px 64px', borderBottom: '1px solid var(--border-hairline)' }}>
         <Eyebrow style={{ marginBottom: 24 }}>Notes</Eyebrow>

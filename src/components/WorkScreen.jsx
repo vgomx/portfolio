@@ -12,7 +12,7 @@ export default function WorkScreen({ projects }) {
   const rows = projects.filter((p) => discipline === 'All' || p.discipline === discipline);
 
   return (
-    <div>
+    <div className="page-enter">
       <section style={{ maxWidth: 'var(--container)', margin: '0 auto', padding: '72px 48px 40px', position: 'relative', overflow: 'hidden' }}>
         <GridLines />
         <Eyebrow style={{ marginBottom: 18 }}>Index / {rows.length} projects</Eyebrow>

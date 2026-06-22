@@ -16,10 +16,48 @@ function SectionHead({ n, title }) {
   );
 }
 
-export default function CaseStudyScreen({ project }) {
+function CaseNav({ prev, next }) {
+  return (
+    <div style={{
+      borderTop: '1px solid var(--border-hairline)',
+      display: 'flex',
+      justifyContent: 'space-between',
+      alignItems: 'stretch',
+    }}>
+      {prev ? (
+        <a href={`/work/${prev.slug}`} style={{
+          display: 'flex', alignItems: 'center', gap: 12, padding: '28px 0',
+          textDecoration: 'none', color: 'var(--text-secondary)',
+          transition: 'color 0.18s ease',
+        }}
+        onMouseEnter={e => e.currentTarget.style.color = 'var(--text-primary)'}
+        onMouseLeave={e => e.currentTarget.style.color = 'var(--text-secondary)'}
+        >
+          <span style={{ fontSize: 18, lineHeight: 1 }}>‹</span>
+          <span style={{ fontSize: 15, fontWeight: 600, letterSpacing: '-0.01em' }}>{prev.title}</span>
+        </a>
+      ) : <div />}
+      {next ? (
+        <a href={`/work/${next.slug}`} style={{
+          display: 'flex', alignItems: 'center', gap: 12, padding: '28px 0',
+          textDecoration: 'none', color: 'var(--text-secondary)',
+          transition: 'color 0.18s ease',
+        }}
+        onMouseEnter={e => e.currentTarget.style.color = 'var(--text-primary)'}
+        onMouseLeave={e => e.currentTarget.style.color = 'var(--text-secondary)'}
+        >
+          <span style={{ fontSize: 15, fontWeight: 600, letterSpacing: '-0.01em' }}>{next.title}</span>
+          <span style={{ fontSize: 18, lineHeight: 1 }}>›</span>
+        </a>
+      ) : <div />}
+    </div>
+  );
+}
+
+export default function CaseStudyScreen({ project, prev, next }) {
   const p = project;
   return (
-    <div>
+    <div className="page-enter">
       <section style={{ maxWidth: 'var(--container)', margin: '0 auto', padding: '40px 48px 0' }}>
         <Breadcrumb
           items={[{ label: 'Work' }, { label: p.discipline }, { label: p.title }]}
@@ -83,10 +121,11 @@ export default function CaseStudyScreen({ project }) {
               </div>
             </div>
           )}
-          <div style={{ marginLeft: 76 }}>
-            <Button variant="accent" onClick={() => window.location.href = '/about'}>Start a project like this</Button>
-          </div>
         </div>
+      </section>
+
+      <section style={{ maxWidth: 'var(--container)', margin: '0 auto', padding: '0 48px' }}>
+        <CaseNav prev={prev} next={next} />
       </section>
     </div>
   );

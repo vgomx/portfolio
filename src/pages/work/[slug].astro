@@ -12,18 +12,22 @@ export async function getStaticPaths() {
 
 const { slug } = Astro.params;
 const entries = await getCollection('work');
+const sorted = entries.map((e) => e.data).sort((a, b) => b.year - a.year);
 const entry = entries.find((e) => e.data.slug === slug);
 if (!entry) return Astro.redirect('/work');
 
 const project = { ...entry.data };
+const idx = sorted.findIndex((p) => p.slug === slug);
+const prev = idx > 0 ? { title: sorted[idx - 1].title, slug: sorted[idx - 1].slug } : null;
+const next = idx < sorted.length - 1 ? { title: sorted[idx + 1].title, slug: sorted[idx + 1].slug } : null;
 ---
 <Base title={`${project.title} — Vitor Gomes`} description={project.summary}>
   <TopBar activePage="work" client:load />
   <SiteBanner client:load />
   {project.template === 'alt' ? (
-    <CaseStudyScreenAlt project={project} client:load />
+    <CaseStudyScreenAlt project={project} prev={prev} next={next} client:load />
   ) : (
-    <CaseStudyScreen project={project} client:load />
+    <CaseStudyScreen project={project} prev={prev} next={next} client:load />
   )}
   <Footer client:load />
 </Base>

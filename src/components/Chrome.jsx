@@ -83,10 +83,10 @@ export function TopBar({ activePage }) {
 }
 
 export function SiteBanner() {
-  const [visible, setVisible] = useState(true);
+  const [visible, setVisible] = useState(false);
 
   useEffect(() => {
-    if (sessionStorage.getItem('banner-dismissed')) setVisible(false);
+    if (!sessionStorage.getItem('banner-dismissed')) setVisible(true);
   }, []);
 
   if (!visible) return null;
