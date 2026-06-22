@@ -1,0 +1,27 @@
+[data-theme="dark"] {
+  --text-primary:   var(--paper);
+  --text-secondary: var(--gray-400);
+  --text-muted:     var(--gray-500);
+  --text-faint:     var(--gray-500);
+  --text-disabled:  var(--gray-600);
+
+  --surface-page:   var(--ink-900);
+  --surface-card:   var(--ink-850);
+  --surface-subtle: var(--ink-850);
+  --surface-sunken: #0f0f11;
+  --surface-ink:    var(--ink-850);
+  --surface-ink-2:  var(--ink-800);
+  --surface-ink-3:  var(--ink-800);
+
+  --border-hairline: var(--ink-800);
+  --border-default:  var(--gray-600);
+  --border-mute:     var(--gray-600);
+  --border-strong:   var(--paper);
+  --border-on-ink:   var(--ink-800);
+
+  --accent:           var(--paper);
+  --accent-ink:       var(--ink-900);
+  --accent-tint:      var(--ink-850);
+
+  color-scheme: dark;
+}

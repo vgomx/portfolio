@@ -7,6 +7,7 @@ import '../ds/tokens/keyframes.css';
 import '../ds/styles.css';
 import '../styles/eye-glitch.css';
 import '../styles/responsive.css';
+import '../styles/dark-mode.css';
 
 export interface Props {
   title?: string;
@@ -37,6 +38,12 @@ const { title = 'Vitor Gomes — Product Designer', description = 'Product desig
       *, *::before, *::after { box-sizing: border-box; }
       body { margin: 0; background: var(--surface-page); color: var(--text-primary); font-family: var(--font-sans); }
     </style>
+    <script is:inline>
+      (function() {
+        const t = localStorage.getItem('theme');
+        if (t === 'dark') document.documentElement.setAttribute('data-theme', 'dark');
+      })();
+    </script>
   </head>
   <body>
     <slot />

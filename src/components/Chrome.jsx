@@ -87,23 +87,20 @@ export function SiteBanner() {
   if (!visible) return null;
 
   return (
-    <div style={{
-      background: 'var(--surface-raised, #F5F5F4)',
-      borderBottom: '1px solid var(--border-hairline)',
-      padding: '10px 48px',
-      display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 16,
-    }}>
-      <p style={{ margin: 0, fontSize: 13, lineHeight: 1.5, color: 'var(--text-secondary)' }}>
-        <span style={{ fontWeight: 600, color: 'var(--text-primary)' }}>Work in progress —</span>{' '}
-        This website is currently being updated. Some information or projects may be missing or incomplete.
-      </p>
-      <button
-        onClick={() => { sessionStorage.setItem('banner-dismissed', '1'); setVisible(false); }}
-        aria-label="Dismiss"
-        style={{ background: 'none', border: 'none', cursor: 'pointer', color: 'var(--text-faint)', fontSize: 18, lineHeight: 1, padding: '2px 4px', flexShrink: 0 }}
-      >
-        ×
-      </button>
+    <div style={{ background: 'var(--surface-subtle)', borderBottom: '1px solid var(--border-hairline)' }}>
+      <div style={{ maxWidth: 'var(--container)', margin: '0 auto', padding: '10px 48px', display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 16 }}>
+        <p style={{ margin: 0, fontSize: 13, lineHeight: 1.5, color: 'var(--text-secondary)' }}>
+          <span style={{ fontWeight: 600, color: 'var(--text-primary)' }}>Work in progress —</span>{' '}
+          This website is currently being updated. Some information or projects may be missing or incomplete.
+        </p>
+        <button
+          onClick={() => { sessionStorage.setItem('banner-dismissed', '1'); setVisible(false); }}
+          aria-label="Dismiss"
+          style={{ background: 'none', border: 'none', cursor: 'pointer', color: 'var(--text-faint)', fontSize: 18, lineHeight: 1, padding: '2px 4px', flexShrink: 0 }}
+        >
+          ×
+        </button>
+      </div>
     </div>
   );
 }
@@ -171,6 +168,33 @@ function CookieBanner() {
   );
 }
 
+function ThemeToggle() {
+  const [dark, setDark] = useState(false);
+  useEffect(() => {
+    setDark(document.documentElement.getAttribute('data-theme') === 'dark');
+  }, []);
+  function toggle() {
+    const next = !dark;
+    setDark(next);
+    document.documentElement.setAttribute('data-theme', next ? 'dark' : '');
+    localStorage.setItem('theme', next ? 'dark' : 'light');
+  }
+  return (
+    <button
+      onClick={toggle}
+      aria-label="Toggle dark mode"
+      style={{ background: 'none', border: 'none', cursor: 'pointer', color: 'var(--text-inverse-faint)', padding: 0, display: 'flex', alignItems: 'center', transition: 'color 0.2s' }}
+      onMouseEnter={e => e.currentTarget.style.color = 'var(--paper)'}
+      onMouseLeave={e => e.currentTarget.style.color = 'var(--text-inverse-faint)'}
+    >
+      {dark
+        ? <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 5a1 1 0 0 1 1-1V2a1 1 0 1 0-2 0v2a1 1 0 0 1 1-1zm0 14a1 1 0 0 1 1 1v2a1 1 0 1 0-2 0v-2a1 1 0 0 1 1-1zm9-7a1 1 0 0 1-1 1h-2a1 1 0 1 0 0-2h2a1 1 0 0 1 1 1zM4 12a1 1 0 0 1-1 1H1a1 1 0 1 0 0-2h2a1 1 0 0 1 1 1zm14.95-6.364a1 1 0 0 1 0 1.414l-1.414 1.414a1 1 0 1 1-1.414-1.414l1.414-1.414a1 1 0 0 1 1.414 0zM7.05 18.364a1 1 0 0 1 0 1.414L5.636 21.19a1 1 0 1 1-1.414-1.414l1.414-1.414a1 1 0 0 1 1.414 0zM18.95 18.364a1 1 0 0 1-1.414 0l-1.414-1.414a1 1 0 0 1 1.414-1.414l1.414 1.414a1 1 0 0 1 0 1.414zM7.05 5.636a1 1 0 0 1-1.414 0L4.222 4.222A1 1 0 0 1 5.636 2.808L7.05 4.222a1 1 0 0 1 0 1.414zM12 8a4 4 0 1 0 0 8 4 4 0 0 0 0-8z"/></svg>
+        : <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 3a9 9 0 1 0 9 9c0-.46-.04-.92-.1-1.36a5.389 5.389 0 0 1-4.4 2.26 5.403 5.403 0 0 1-3.14-9.8c-.44-.06-.9-.1-1.36-.1z"/></svg>
+      }
+    </button>
+  );
+}
+
 export function Footer() {
   return (
     <>
@@ -182,6 +206,8 @@ export function Footer() {
           <span style={{ fontFamily: 'var(--font-mono)', fontSize: 11, letterSpacing: '0.12em', textTransform: 'uppercase' }}>Vitor Gomes · Product Designer</span>
         </div>
         <div style={{ display: 'flex', alignItems: 'center', gap: 24 }}>
+          <ThemeToggle />
+          <div style={{ width: 1, height: 16, background: 'var(--border-on-ink)' }} />
           {SOCIAL_LINKS.map(({ label, icon, href }) => (
             <a
               key={label}
