@@ -12,6 +12,7 @@
   --surface-ink:    var(--ink-850);
   --surface-ink-2:  var(--ink-800);
   --surface-ink-3:  var(--ink-800);
+  --surface-button-secondary: var(--ink-850);
 
   --border-hairline: var(--ink-800);
   --border-default:  var(--gray-600);

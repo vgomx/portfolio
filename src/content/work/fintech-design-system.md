@@ -1,6 +1,7 @@
 ---
 title: "A design system for fintech"
 slug: "fintech-design-system"
+hidden: true
 discipline: "Product Design"
 year: 2025
 tags: ["Case Study", "Systems"]

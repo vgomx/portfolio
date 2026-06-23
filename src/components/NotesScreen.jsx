@@ -61,8 +61,7 @@ export default function NotesScreen({ notes }) {
       )}
 
       {/* Note list */}
-      <section style={{ maxWidth: 'var(--container)', margin: '0 auto', padding: '0 48px 80px', position: 'relative', overflow: 'hidden' }}>
-        <GridLines />
+      <section style={{ maxWidth: 'var(--container)', margin: '0 auto', padding: '0 48px 80px' }}>
         {rest.map((note, i) => (
           <a
             key={note.slug}

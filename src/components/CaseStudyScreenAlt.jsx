@@ -228,6 +228,40 @@ function AnimatedDuo({ images, onClickImage }) {
   );
 }
 
+function AnimatedTrio({ images, onClickImage }) {
+  const ref = useRef(null);
+  const [visible, setVisible] = useState(false);
+
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+    const obs = new IntersectionObserver(
+      ([entry]) => { if (entry.isIntersecting) { setVisible(true); obs.disconnect(); } },
+      { rootMargin: '0px 0px -80px 0px', threshold: 0.08 }
+    );
+    obs.observe(el);
+    return () => obs.disconnect();
+  }, []);
+
+  return (
+    <div ref={ref} style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: 16, marginBottom: 40 }}>
+      {images.map((img, i) => (
+        <div key={i} onClick={() => onClickImage?.(img)} style={{
+          opacity: visible ? 1 : 0,
+          transform: visible ? 'translateY(0)' : 'translateY(28px)',
+          transition: `opacity 0.7s ease ${i * 100}ms, transform 0.7s ease ${i * 100}ms`,
+          cursor: 'zoom-in',
+        }}>
+          <img src={img.src} alt={img.alt || ''} style={{ display: 'block', width: '100%', height: 'auto', objectFit: 'cover' }} />
+          {img.caption && (
+            <div style={{ fontFamily: 'var(--font-mono)', fontSize: 10, letterSpacing: '0.08em', textTransform: 'uppercase', color: 'var(--text-faint)', marginTop: 10 }}>{img.caption}</div>
+          )}
+        </div>
+      ))}
+    </div>
+  );
+}
+
 function BodyEmbeds({ embeds, after }) {
   if (!embeds) return null;
   const matches = embeds.filter((e) => e.after === after);
@@ -236,6 +270,8 @@ function BodyEmbeds({ embeds, after }) {
     <div style={{ marginTop: 40, display: 'flex', flexDirection: 'column', gap: 24 }}>
       {matches.map((e, i) => {
         const mobile = e.layout === 'mobile';
+        const [rw, rh] = (e.ratio || '16/9').split('/').map(Number);
+        const paddingBottom = `${(rh / rw) * 100}%`;
         return (
           <div key={i}>
             {e.label && (
@@ -243,7 +279,7 @@ function BodyEmbeds({ embeds, after }) {
             )}
             <div style={mobile
               ? { maxWidth: 420, margin: '0 auto', border: '1px solid var(--border-hairline)', borderRadius: 8, overflow: 'hidden' }
-              : { position: 'relative', width: '100%', paddingBottom: '56.25%', border: '1px solid var(--border-hairline)', borderRadius: 4, overflow: 'hidden' }
+              : { position: 'relative', width: '100%', paddingBottom, border: '1px solid var(--border-hairline)', borderRadius: 4, overflow: 'hidden' }
             }>
               <iframe
                 src={e.src}
@@ -287,11 +323,14 @@ function BodyImages({ images, after, allImages, openLightbox }) {
   const matches = images.filter((img) => img.after === after);
   if (!matches.length) return null;
 
-  // Group consecutive duo images
+  // Group consecutive duo/trio images
   const grouped = [];
   let i = 0;
   while (i < matches.length) {
-    if (matches[i].layout === 'duo' && matches[i + 1]?.layout === 'duo') {
+    if (matches[i].layout === 'trio' && matches[i + 1]?.layout === 'trio' && matches[i + 2]?.layout === 'trio') {
+      grouped.push({ type: 'trio', items: [matches[i], matches[i + 1], matches[i + 2]] });
+      i += 3;
+    } else if (matches[i].layout === 'duo' && matches[i + 1]?.layout === 'duo') {
       grouped.push({ type: 'duo', items: [matches[i], matches[i + 1]] });
       i += 2;
     } else {
@@ -303,7 +342,9 @@ function BodyImages({ images, after, allImages, openLightbox }) {
   return (
     <div style={{ marginTop: 40 }}>
       {grouped.map((g, idx) =>
-        g.type === 'duo'
+        g.type === 'trio'
+          ? <AnimatedTrio key={idx} images={g.items} onClickImage={(img) => openLightbox?.(allImages?.indexOf(img) ?? -1)} />
+          : g.type === 'duo'
           ? <AnimatedDuo key={idx} images={g.items} onClickImage={(img) => openLightbox?.(allImages?.indexOf(img) ?? -1)} />
           : <AnimatedImage key={idx} {...g.item} delay={0} onClick={() => openLightbox?.(allImages?.indexOf(g.item) ?? -1)} />
       )}
@@ -371,7 +412,7 @@ export default function CaseStudyScreenAlt({ project, prev, next }) {
   }, []);
 
   return (
-    <div className="page-enter">
+    <>
       {lbIndex >= 0 && (
         <Lightbox
           images={allImages}
@@ -381,6 +422,7 @@ export default function CaseStudyScreenAlt({ project, prev, next }) {
           onNext={() => setLbIndex((lbIndex + 1) % allImages.length)}
         />
       )}
+      <div className="page-enter">
       <NotionNav active={activeSection} />
 
       <section style={{ maxWidth: 'var(--container)', margin: '0 auto', padding: '40px 48px 0' }}>
@@ -467,5 +509,6 @@ export default function CaseStudyScreenAlt({ project, prev, next }) {
         <CaseNav prev={prev} next={next} />
       </section>
     </div>
+    </>
   );
 }
