@@ -275,8 +275,8 @@ export function Footer() {
   );
 }
 
-export function ImagePlaceholder({ ratio = '16/10', label = '[ Project image ]', src, style }) {
-  if (src) return <img src={src} alt={label} style={{ width: '100%', aspectRatio: ratio, objectFit: 'cover', display: 'block', ...style }} />;
+export function ImagePlaceholder({ ratio = '16/10', label = '[ Project image ]', src, style, loading = 'lazy' }) {
+  if (src) return <img src={src} alt={label} loading={loading} decoding="async" style={{ width: '100%', aspectRatio: ratio, objectFit: 'cover', display: 'block', ...style }} />;
   return (
     <div style={{ aspectRatio: ratio, background: 'repeating-linear-gradient(135deg,#F4F4F5 0 11px,#E9E9EB 11px 22px)', display: 'flex', alignItems: 'center', justifyContent: 'center', ...style }}>
       <span style={{ fontFamily: 'var(--font-mono)', fontSize: 11, letterSpacing: '0.08em', color: 'var(--text-faint)', textTransform: 'uppercase' }}>{label}</span>

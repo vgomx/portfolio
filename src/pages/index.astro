@@ -12,7 +12,7 @@ const projects = entries
 ---
 <Base>
   <TopBar activePage="home" client:load />
-  <SiteBanner client:load />
+  <SiteBanner client:idle />
   <HomeScreen projects={projects} client:load />
-  <Footer client:load />
+  <Footer client:idle />
 </Base>

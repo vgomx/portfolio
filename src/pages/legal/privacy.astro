@@ -4,7 +4,7 @@ import { TopBar, Footer, SiteBanner } from '../../components/Chrome.jsx';
 ---
 <Base title="Privacy Notice — Vitor Gomes">
   <TopBar client:load />
-  <SiteBanner client:load />
+  <SiteBanner client:idle />
   <main class="page-enter" style="max-width: var(--container); margin: 0 auto; padding: 80px 48px 120px;">
     <div style="max-width: 72ch;">
       <p style="font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--text-faint); margin-bottom: 24px;">Legal</p>
@@ -29,8 +29,8 @@ import { TopBar, Footer, SiteBanner } from '../../components/Chrome.jsx';
         </section>
 
         <section>
-          <h2 style="font-size: 18px; font-weight: 600; color: var(--text-primary); margin-bottom: 12px;">What data is NOT collected?</h2>
-          <p>This site does not use analytics tools, advertising networks, or tracking pixels. No data about your browsing behaviour, location, or device fingerprint is collected or shared with any third party.</p>
+          <h2 style="font-size: 18px; font-weight: 600; color: var(--text-primary); margin-bottom: 12px;">Analytics</h2>
+          <p>This site uses <strong>Google Analytics 4 (GA4)</strong> to collect anonymised usage data — such as pages visited, session duration, and approximate geographic region. This helps understand how the portfolio is being used. No personally identifiable information is collected through analytics. GA4 data is processed by Google and subject to <a href="https://policies.google.com/privacy" target="_blank" rel="noopener noreferrer" style="color: var(--text-primary); text-decoration: underline; text-underline-offset: 3px;">Google's Privacy Policy</a>.</p>
         </section>
 
         <section>
@@ -68,5 +68,5 @@ import { TopBar, Footer, SiteBanner } from '../../components/Chrome.jsx';
       </div>
     </div>
   </main>
-  <Footer client:load />
+  <Footer client:idle />
 </Base>

@@ -4,7 +4,7 @@ import { TopBar, Footer, SiteBanner } from '../../components/Chrome.jsx';
 ---
 <Base title="Terms & Conditions — Vitor Gomes">
   <TopBar client:load />
-  <SiteBanner client:load />
+  <SiteBanner client:idle />
   <main class="page-enter" style="max-width: var(--container); margin: 0 auto; padding: 80px 48px 120px;">
     <div style="max-width: 72ch;">
       <p style="font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--text-faint); margin-bottom: 24px;">Legal</p>
@@ -67,5 +67,5 @@ import { TopBar, Footer, SiteBanner } from '../../components/Chrome.jsx';
       </div>
     </div>
   </main>
-  <Footer client:load />
+  <Footer client:idle />
 </Base>

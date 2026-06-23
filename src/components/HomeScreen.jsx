@@ -13,6 +13,7 @@ export default function HomeScreen({ projects }) {
         {/* Globe animation background */}
         <iframe
           src="/hero-globe.html"
+          loading="lazy"
           style={{
             position: 'absolute', inset: 0, width: '100%', height: '100%',
             border: 'none', pointerEvents: 'none',

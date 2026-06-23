@@ -5,8 +5,8 @@ import AboutScreen from '../components/AboutScreen.jsx';
 ---
 <Base title="About — Vitor Gomes">
   <TopBar activePage="about" client:load />
-  <SiteBanner client:load />
+  <SiteBanner client:idle />
   <AboutScreen client:load />
-  <Footer client:load />
+  <Footer client:idle />
   <script is:inline src="/vg-eye-glitch.js"></script>
 </Base>

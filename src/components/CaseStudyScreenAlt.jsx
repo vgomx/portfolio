@@ -218,7 +218,7 @@ function AnimatedDuo({ images, onClickImage }) {
           transition: `opacity 0.7s ease ${i * 120}ms, transform 0.7s ease ${i * 120}ms`,
           cursor: 'zoom-in',
         }}>
-          <img src={img.src} alt={img.alt || ''} style={{ display: 'block', width: '100%', height: 'auto', objectFit: 'cover' }} />
+          <img src={img.src} alt={img.alt || ''} loading="lazy" decoding="async" style={{ display: 'block', width: '100%', height: 'auto', objectFit: 'cover' }} />
           {img.caption && (
             <div style={{ fontFamily: 'var(--font-mono)', fontSize: 10, letterSpacing: '0.08em', textTransform: 'uppercase', color: 'var(--text-faint)', marginTop: 10 }}>{img.caption}</div>
           )}
@@ -252,7 +252,7 @@ function AnimatedTrio({ images, onClickImage }) {
           transition: `opacity 0.7s ease ${i * 100}ms, transform 0.7s ease ${i * 100}ms`,
           cursor: 'zoom-in',
         }}>
-          <img src={img.src} alt={img.alt || ''} style={{ display: 'block', width: '100%', height: 'auto', objectFit: 'cover' }} />
+          <img src={img.src} alt={img.alt || ''} loading="lazy" decoding="async" style={{ display: 'block', width: '100%', height: 'auto', objectFit: 'cover' }} />
           {img.caption && (
             <div style={{ fontFamily: 'var(--font-mono)', fontSize: 10, letterSpacing: '0.08em', textTransform: 'uppercase', color: 'var(--text-faint)', marginTop: 10 }}>{img.caption}</div>
           )}
@@ -443,7 +443,7 @@ export default function CaseStudyScreenAlt({ project, prev, next }) {
 
       {/* Hero image */}
       <section style={{ maxWidth: 'var(--container)', margin: '0 auto', padding: '0 48px 0' }}>
-        <ImagePlaceholder ratio="16/8" label="[ Hero — case study cover ]" src={p.coverImage} style={{ border: '1px solid var(--border-hairline)' }} />
+        <ImagePlaceholder ratio="16/8" label="[ Hero — case study cover ]" src={p.coverImage} loading="eager" style={{ border: '1px solid var(--border-hairline)' }} />
       </section>
 
       {/* Project meta strip */}
