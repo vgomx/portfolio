@@ -27,6 +27,7 @@ function NotionNav({ active }) {
 
   return (
     <div
+      className="case-sidenav"
       onMouseEnter={() => setOpen(true)}
       onMouseLeave={() => setOpen(false)}
       style={{ position: 'fixed', left: 24, top: '50%', transform: 'translateY(-50%)', zIndex: 40 }}

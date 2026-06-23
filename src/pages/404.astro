@@ -1,0 +1,17 @@
+---
+import Base from '../layouts/Base.astro';
+import { TopBar, Footer } from '../components/Chrome.jsx';
+---
+<Base title="Page not found — Vitor Gomes">
+  <TopBar client:load />
+  <main class="page-enter" style="max-width: var(--container); margin: 0 auto; padding: 120px 48px 160px; min-height: 60vh; display: flex; flex-direction: column; justify-content: center;">
+    <p style="font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--text-faint); margin-bottom: 24px;">404</p>
+    <h1 style="font-size: clamp(36px, 7vw, 72px); font-weight: 700; line-height: 1.05; margin-bottom: 20px;">Page not found.</h1>
+    <p style="font-size: 16px; line-height: 1.6; color: var(--text-secondary); max-width: 44ch; margin-bottom: 40px;">The page you're looking for doesn't exist or has been moved.</p>
+    <a href="/" style="display: inline-flex; align-items: center; gap: 8px; font-family: var(--font-mono); font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--text-primary); text-decoration: none; border-bottom: 1px solid var(--border-default); padding-bottom: 2px; width: fit-content; transition: opacity 0.18s ease;"
+      onmouseover="this.style.opacity='0.5'"
+      onmouseout="this.style.opacity='1'"
+    >← Back to home</a>
+  </main>
+  <Footer client:idle />
+</Base>

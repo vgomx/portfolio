@@ -39,6 +39,34 @@
     order: -1;
   }
 
+  /* TopBar: tighter padding and nav spacing on mobile */
+  .topbar-inner {
+    padding-left: 20px !important;
+    padding-right: 20px !important;
+  }
+  .topbar-nav {
+    gap: 0 !important;
+  }
+  .topbar-link {
+    padding: 8px 8px !important;
+    letter-spacing: 0.06em !important;
+  }
+
+  /* Hide side nav on mobile — hover/fixed doesn't work on touch */
+  .case-sidenav {
+    display: none !important;
+  }
+
+  /* Footer: stack columns on mobile */
+  .footer-wrap {
+    padding-left: 24px !important;
+    padding-right: 24px !important;
+  }
+  .footer-grid {
+    grid-template-columns: 1fr !important;
+    gap: 32px !important;
+  }
+
   /* Case study meta strip: 2×2 grid on mobile */
   .meta-strip {
     display: grid !important;
@@ -46,13 +74,16 @@
     gap: 0 !important;
   }
   .meta-strip > div {
-    padding: 16px 16px 16px 0 !important;
+    padding: 16px 0 !important;
     margin-right: 0 !important;
     border-right: none !important;
     border-bottom: 1px solid var(--border-hairline) !important;
   }
   .meta-strip > div:nth-child(odd) {
-    border-right: 1px solid var(--border-hairline) !important;
     padding-right: 16px !important;
+    border-right: 1px solid var(--border-hairline) !important;
+  }
+  .meta-strip > div:nth-child(even) {
+    padding-left: 16px !important;
   }
 }

@@ -13,11 +13,13 @@ export default function WorkScreen({ projects }) {
 
   return (
     <div className="page-enter">
-      <section style={{ maxWidth: 'var(--container)', margin: '0 auto', padding: '72px 48px 40px', position: 'relative', overflow: 'hidden' }}>
+      <section className="section-pad" style={{ maxWidth: 'var(--container)', margin: '0 auto', padding: '72px 48px 40px', position: 'relative', overflow: 'hidden' }}>
         <GridLines />
         <Eyebrow style={{ marginBottom: 18 }}>Index / {rows.length} projects</Eyebrow>
         <h1 style={{ fontSize: 'clamp(34px,5vw,56px)', lineHeight: 1, letterSpacing: '-0.03em', fontWeight: 700, margin: '0 0 36px' }}>All work</h1>
-        <SegmentedControl options={disciplines} value={discipline} onChange={setDiscipline} />
+        <div className="segment-wrap" style={{ overflowX: 'auto', WebkitOverflowScrolling: 'touch' }}>
+          <SegmentedControl options={disciplines} value={discipline} onChange={setDiscipline} />
+        </div>
       </section>
 
       <section className="section-pad" style={{ maxWidth: 'var(--container)', margin: '0 auto', padding: '0 48px 80px', position: 'relative', overflow: 'hidden' }}>

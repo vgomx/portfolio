@@ -56,16 +56,16 @@ export function TopBar({ activePage }) {
   }, []);
   return (
     <div style={{ borderBottom: '1px solid var(--border-hairline)', background: 'var(--surface-page)', position: 'sticky', top: 0, zIndex: 50 }}>
-      <div style={{ maxWidth: 'var(--container)', margin: '0 auto', padding: '16px 48px', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+      <div className="topbar-inner" style={{ maxWidth: 'var(--container)', margin: '0 auto', padding: '16px 48px', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
         <a href="/" style={{ textDecoration: 'none', display: 'inline-flex', alignItems: 'center' }}
           onMouseEnter={() => setActive(true)}
           onMouseLeave={() => setActive(false)}>
           <span style={{ display: active ? 'none' : 'inline-flex' }}><VGMark size={40} /></span>
           <span style={{ display: active ? 'inline-flex' : 'none' }}><VGEyeGlitch size={40} /></span>
         </a>
-        <div style={{ display: 'flex', gap: 8, alignItems: 'center', fontFamily: 'var(--font-mono)', fontSize: 11, letterSpacing: '0.1em', textTransform: 'uppercase' }}>
+        <div className="topbar-nav" style={{ display: 'flex', gap: 8, alignItems: 'center', fontFamily: 'var(--font-mono)', fontSize: 11, letterSpacing: '0.1em', textTransform: 'uppercase' }}>
           {items.map((it) => (
-            <a key={it.key} href={it.href} style={{
+            <a key={it.key} href={it.href} className="topbar-link" style={{
               padding: '8px 12px', textDecoration: 'none',
               color: activePage === it.key ? 'var(--text-primary)' : 'var(--text-secondary)',
               borderBottom: activePage === it.key ? '2px solid var(--accent)' : '2px solid transparent',
@@ -228,10 +228,10 @@ export function Footer() {
   return (
     <>
     <CookieBanner />
-    <footer style={{ background: 'var(--surface-ink)', color: 'var(--text-inverse-faint)' }}>
-      <div style={{ maxWidth: 'var(--container)', margin: '0 auto', padding: '48px 48px 0' }}>
+    <footer style={{ background: 'var(--surface-ink)', color: 'var(--text-inverse-faint)', borderTop: '1px solid var(--border-on-ink)' }}>
+      <div style={{ maxWidth: 'var(--container)', margin: '0 auto', padding: '48px 48px 0' }} className="footer-wrap">
         {/* Three-column grid */}
-        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: 48, paddingBottom: 40, borderBottom: '1px solid var(--border-on-ink)' }}>
+        <div className="footer-grid" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: 48, paddingBottom: 40, borderBottom: '1px solid var(--border-on-ink)' }}>
 
           {/* Left: identity + social */}
           <div style={{ display: 'flex', flexDirection: 'column', gap: 20 }}>
@@ -263,11 +263,11 @@ export function Footer() {
 
         {/* Copyright bar */}
         <div style={{ padding: '20px 0', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-          <ThemeToggle />
           <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
             <VGMark size={22} color="var(--text-inverse-faint)" />
             <span style={{ fontFamily: 'var(--font-mono)', fontSize: 11, letterSpacing: '0.04em' }}>© Vitor Gomes. All rights reserved.</span>
           </div>
+          <ThemeToggle />
         </div>
       </div>
     </footer>
