@@ -1,0 +1,71 @@
+---
+import Base from '../../layouts/Base.astro';
+import { TopBar, Footer, SiteBanner } from '../../components/Chrome.jsx';
+---
+<Base title="Terms & Conditions — Vitor Gomes">
+  <TopBar client:load />
+  <SiteBanner client:load />
+  <main class="page-enter" style="max-width: var(--container); margin: 0 auto; padding: 80px 48px 120px;">
+    <div style="max-width: 72ch;">
+      <p style="font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--text-faint); margin-bottom: 24px;">Legal</p>
+      <h1 style="font-size: clamp(28px, 5vw, 42px); font-weight: 700; line-height: 1.1; margin-bottom: 16px;">Terms & Conditions</h1>
+      <p style="font-family: var(--font-mono); font-size: 12px; color: var(--text-faint); margin-bottom: 56px;">Last updated: June 2025</p>
+
+      <div style="display: flex; flex-direction: column; gap: 40px; font-size: 16px; line-height: 1.7; color: var(--text-secondary);">
+
+        <section>
+          <h2 style="font-size: 18px; font-weight: 600; color: var(--text-primary); margin-bottom: 12px;">About this website</h2>
+          <p>This website (<strong style="color: var(--text-primary);">vgomes.design</strong>) is the personal portfolio of Vitor Gomes, a freelance product designer. By accessing and using this site, you agree to the terms set out below. If you do not agree, please do not use this site.</p>
+        </section>
+
+        <section>
+          <h2 style="font-size: 18px; font-weight: 600; color: var(--text-primary); margin-bottom: 12px;">Intellectual property</h2>
+          <p>All content on this site — including but not limited to design work, case studies, written copy, visuals, and code — is the intellectual property of Vitor Gomes unless otherwise stated. You may not reproduce, distribute, or use any content from this site for commercial purposes without prior written permission.</p>
+          <p style="margin-top: 12px;">Case studies may reference work produced for clients. In such cases, any client-owned assets, brand marks, or proprietary visuals remain the property of the respective client or rights holder.</p>
+        </section>
+
+        <section>
+          <h2 style="font-size: 18px; font-weight: 600; color: var(--text-primary); margin-bottom: 12px;">Use of this site</h2>
+          <p>You agree to use this site for lawful purposes only. You must not:</p>
+          <ul style="margin: 12px 0 0 20px; display: flex; flex-direction: column; gap: 8px;">
+            <li>Attempt to gain unauthorised access to any part of the site or its underlying systems</li>
+            <li>Use automated tools to scrape, index, or harvest content without permission</li>
+            <li>Use content from this site in a way that misrepresents the original work or its authorship</li>
+          </ul>
+        </section>
+
+        <section>
+          <h2 style="font-size: 18px; font-weight: 600; color: var(--text-primary); margin-bottom: 12px;">Accuracy of information</h2>
+          <p>The content on this site is provided for general informational purposes and to showcase design work. While care is taken to keep information accurate and up to date, no warranty is made as to its completeness or suitability for any particular purpose.</p>
+        </section>
+
+        <section>
+          <h2 style="font-size: 18px; font-weight: 600; color: var(--text-primary); margin-bottom: 12px;">External links</h2>
+          <p>This site may contain links to third-party websites or embedded content (e.g., Figma prototypes, social platforms). These links are provided for convenience only. Vitor Gomes is not responsible for the content, privacy practices, or availability of any external site.</p>
+        </section>
+
+        <section>
+          <h2 style="font-size: 18px; font-weight: 600; color: var(--text-primary); margin-bottom: 12px;">Limitation of liability</h2>
+          <p>To the fullest extent permitted by law, Vitor Gomes accepts no liability for any loss or damage arising from your use of this site, including but not limited to direct, indirect, or consequential loss resulting from reliance on any content published here.</p>
+        </section>
+
+        <section>
+          <h2 style="font-size: 18px; font-weight: 600; color: var(--text-primary); margin-bottom: 12px;">Governing law</h2>
+          <p>These terms are governed by and construed in accordance with applicable law. Any disputes arising in connection with this site shall be subject to the jurisdiction of the courts of the country in which Vitor Gomes is based at the time of the dispute.</p>
+        </section>
+
+        <section>
+          <h2 style="font-size: 18px; font-weight: 600; color: var(--text-primary); margin-bottom: 12px;">Changes to these terms</h2>
+          <p>These terms may be updated from time to time. Continued use of this site after changes are published constitutes acceptance of the updated terms. The revision date at the top of this page will reflect any updates.</p>
+        </section>
+
+        <section>
+          <h2 style="font-size: 18px; font-weight: 600; color: var(--text-primary); margin-bottom: 12px;">Contact</h2>
+          <p>For any questions regarding these terms, please contact: <a href="mailto:vitor_gomes@outlook.com" style="color: var(--text-primary); text-decoration: underline; text-underline-offset: 3px;">vitor_gomes@outlook.com</a></p>
+        </section>
+
+      </div>
+    </div>
+  </main>
+  <Footer client:load />
+</Base>

@@ -200,38 +200,74 @@ function ThemeToggle() {
   );
 }
 
+const NAV_LINKS = [
+  { href: '/work', label: 'Cases' },
+  { href: '/about', label: 'About' },
+  { href: 'mailto:vitor_gomes@outlook.com', label: 'Contact' },
+];
+
+const LEGAL_LINKS = [
+  { href: '/legal/cookies', label: 'Cookies policy' },
+  { href: '/legal/privacy', label: 'Privacy notice' },
+  { href: '/legal/terms', label: 'Terms & Conditions' },
+];
+
+function FooterLink({ href, label, external }) {
+  return (
+    <a
+      href={href}
+      {...(external ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
+      style={{ fontFamily: 'var(--font-sans)', fontSize: 14, color: 'var(--text-inverse-faint)', textDecoration: 'none', transition: 'color 0.18s ease' }}
+      onMouseEnter={e => e.currentTarget.style.color = 'var(--paper)'}
+      onMouseLeave={e => e.currentTarget.style.color = 'var(--text-inverse-faint)'}
+    >{label}</a>
+  );
+}
+
 export function Footer() {
   return (
     <>
     <CookieBanner />
     <footer style={{ background: 'var(--surface-ink)', color: 'var(--text-inverse-faint)' }}>
-      <div style={{ maxWidth: 'var(--container)', margin: '0 auto', padding: '40px 48px', display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: 24 }}>
-        <div style={{ display: 'flex', alignItems: 'center', gap: 14 }}>
-          <VGMark size={34} color="var(--paper)" />
-          <span style={{ fontFamily: 'var(--font-mono)', fontSize: 11, letterSpacing: '0.12em', textTransform: 'uppercase' }}>Vitor Gomes · Product Designer</span>
+      <div style={{ maxWidth: 'var(--container)', margin: '0 auto', padding: '48px 48px 0' }}>
+        {/* Three-column grid */}
+        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: 48, paddingBottom: 40, borderBottom: '1px solid var(--border-on-ink)' }}>
+
+          {/* Left: identity + social */}
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 20 }}>
+            <div>
+              <div style={{ fontFamily: 'var(--font-sans)', fontSize: 14, fontWeight: 500, color: 'var(--paper)', marginBottom: 4 }}>Vitor Gomes</div>
+              <div style={{ fontFamily: 'var(--font-sans)', fontSize: 14 }}>Product Designer</div>
+            </div>
+            <div style={{ display: 'flex', alignItems: 'center', gap: 16 }}>
+              {SOCIAL_LINKS.map(({ label, icon, href }) => (
+                <a key={label} href={href} target="_blank" rel="noopener noreferrer" aria-label={label} title={label}
+                  style={{ color: 'var(--text-inverse-faint)', textDecoration: 'none', display: 'flex', alignItems: 'center', transition: 'color 0.18s ease' }}
+                  onMouseEnter={e => e.currentTarget.style.color = 'var(--paper)'}
+                  onMouseLeave={e => e.currentTarget.style.color = 'var(--text-inverse-faint)'}
+                >{icon}</a>
+              ))}
+            </div>
+          </div>
+
+          {/* Middle: nav */}
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 14 }}>
+            {NAV_LINKS.map(l => <FooterLink key={l.label} href={l.href} label={l.label} />)}
+          </div>
+
+          {/* Right: legal */}
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 14 }}>
+            {LEGAL_LINKS.map(l => <FooterLink key={l.label} href={l.href} label={l.label} />)}
+          </div>
         </div>
-        <div style={{ display: 'flex', alignItems: 'center', gap: 24 }}>
+
+        {/* Copyright bar */}
+        <div style={{ padding: '20px 0', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
           <ThemeToggle />
-          <div style={{ width: 1, height: 16, background: 'var(--border-on-ink)' }} />
-          {SOCIAL_LINKS.map(({ label, icon, href }) => (
-            <a
-              key={label}
-              href={href}
-              target="_blank"
-              rel="noopener noreferrer"
-              aria-label={label}
-              title={label}
-              style={{
-                color: 'var(--text-inverse-faint)',
-                textDecoration: 'none', transition: 'color 0.2s',
-                display: 'flex', alignItems: 'center',
-              }}
-              onMouseEnter={e => e.currentTarget.style.color = 'var(--paper)'}
-              onMouseLeave={e => e.currentTarget.style.color = 'var(--text-inverse-faint)'}
-            >
-              {icon}
-            </a>
-          ))}
+          <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
+            <VGMark size={22} color="var(--text-inverse-faint)" />
+            <span style={{ fontFamily: 'var(--font-mono)', fontSize: 11, letterSpacing: '0.04em' }}>© Vitor Gomes. All rights reserved.</span>
+          </div>
         </div>
       </div>
     </footer>

@@ -447,8 +447,8 @@ export default function CaseStudyScreenAlt({ project, prev, next }) {
       </section>
 
       {/* Project meta strip */}
-      <section style={{ maxWidth: 'var(--container)', margin: '0 auto', padding: '0 48px' }}>
-        <div style={{ display: 'flex', borderBottom: '1px solid var(--border-hairline)' }}>
+      <section className="section-pad" style={{ maxWidth: 'var(--container)', margin: '0 auto', padding: '0 48px' }}>
+        <div className="meta-strip" style={{ display: 'flex', borderBottom: '1px solid var(--border-hairline)' }}>
           {[
             { label: 'Role', value: p.role || 'Lead Designer' },
             { label: 'Year', value: p.year },

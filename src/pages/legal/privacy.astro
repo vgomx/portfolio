@@ -1,0 +1,72 @@
+---
+import Base from '../../layouts/Base.astro';
+import { TopBar, Footer, SiteBanner } from '../../components/Chrome.jsx';
+---
+<Base title="Privacy Notice — Vitor Gomes">
+  <TopBar client:load />
+  <SiteBanner client:load />
+  <main class="page-enter" style="max-width: var(--container); margin: 0 auto; padding: 80px 48px 120px;">
+    <div style="max-width: 72ch;">
+      <p style="font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--text-faint); margin-bottom: 24px;">Legal</p>
+      <h1 style="font-size: clamp(28px, 5vw, 42px); font-weight: 700; line-height: 1.1; margin-bottom: 16px;">Privacy Notice</h1>
+      <p style="font-family: var(--font-mono); font-size: 12px; color: var(--text-faint); margin-bottom: 56px;">Last updated: June 2025</p>
+
+      <div style="display: flex; flex-direction: column; gap: 40px; font-size: 16px; line-height: 1.7; color: var(--text-secondary);">
+
+        <section>
+          <h2 style="font-size: 18px; font-weight: 600; color: var(--text-primary); margin-bottom: 12px;">Who is responsible for your data?</h2>
+          <p>This website is operated by Vitor Gomes, a freelance product designer. For any privacy-related enquiries, contact: <a href="mailto:vitor_gomes@outlook.com" style="color: var(--text-primary); text-decoration: underline; text-underline-offset: 3px;">vitor_gomes@outlook.com</a></p>
+        </section>
+
+        <section>
+          <h2 style="font-size: 18px; font-weight: 600; color: var(--text-primary); margin-bottom: 12px;">What data is collected?</h2>
+          <p>This site collects only the minimum data necessary to operate. Specifically:</p>
+          <ul style="margin: 12px 0 0 20px; display: flex; flex-direction: column; gap: 8px;">
+            <li><strong style="color: var(--text-primary);">Contact enquiries.</strong> If you contact me via the email link or any contact form, I will receive your email address and the content of your message. This data is used solely to respond to your enquiry.</li>
+            <li><strong style="color: var(--text-primary);">Preference storage.</strong> Your colour scheme preference (light/dark mode) is stored locally in your browser. This data never leaves your device.</li>
+            <li><strong style="color: var(--text-primary);">Session data.</strong> A session flag is stored to remember that you have dismissed the site notice banner. This is cleared when you close your browser tab.</li>
+          </ul>
+        </section>
+
+        <section>
+          <h2 style="font-size: 18px; font-weight: 600; color: var(--text-primary); margin-bottom: 12px;">What data is NOT collected?</h2>
+          <p>This site does not use analytics tools, advertising networks, or tracking pixels. No data about your browsing behaviour, location, or device fingerprint is collected or shared with any third party.</p>
+        </section>
+
+        <section>
+          <h2 style="font-size: 18px; font-weight: 600; color: var(--text-primary); margin-bottom: 12px;">Legal basis for processing</h2>
+          <p>Any personal data you voluntarily provide (e.g., by sending a contact message) is processed on the basis of <strong style="color: var(--text-primary);">legitimate interest</strong> and your implied consent, for the sole purpose of responding to your communication. No data is processed for marketing or profiling purposes.</p>
+        </section>
+
+        <section>
+          <h2 style="font-size: 18px; font-weight: 600; color: var(--text-primary); margin-bottom: 12px;">Data retention</h2>
+          <p>Email correspondence is retained only for as long as necessary to handle your enquiry and any related follow-up. Locally stored preferences are retained in your browser until you clear your browser storage.</p>
+        </section>
+
+        <section>
+          <h2 style="font-size: 18px; font-weight: 600; color: var(--text-primary); margin-bottom: 12px;">Third-party services</h2>
+          <p>This site may embed content from third-party platforms (e.g., Figma prototypes). These embeds are subject to the privacy policies of their respective providers. Please refer to those policies before interacting with embedded content.</p>
+        </section>
+
+        <section>
+          <h2 style="font-size: 18px; font-weight: 600; color: var(--text-primary); margin-bottom: 12px;">Your rights</h2>
+          <p>Under applicable data protection law (including the GDPR where relevant), you have the right to:</p>
+          <ul style="margin: 12px 0 0 20px; display: flex; flex-direction: column; gap: 8px;">
+            <li>Access the personal data held about you</li>
+            <li>Request correction or deletion of your personal data</li>
+            <li>Object to or restrict processing of your personal data</li>
+            <li>Lodge a complaint with a supervisory authority</li>
+          </ul>
+          <p style="margin-top: 12px;">To exercise any of these rights, contact <a href="mailto:vitor_gomes@outlook.com" style="color: var(--text-primary); text-decoration: underline; text-underline-offset: 3px;">vitor_gomes@outlook.com</a>.</p>
+        </section>
+
+        <section>
+          <h2 style="font-size: 18px; font-weight: 600; color: var(--text-primary); margin-bottom: 12px;">Changes to this notice</h2>
+          <p>This privacy notice may be updated periodically to reflect changes in practice or applicable law. The revision date at the top of this page will be updated accordingly.</p>
+        </section>
+
+      </div>
+    </div>
+  </main>
+  <Footer client:load />
+</Base>

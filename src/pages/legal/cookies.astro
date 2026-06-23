@@ -1,0 +1,72 @@
+---
+import Base from '../../layouts/Base.astro';
+import { TopBar, Footer, SiteBanner } from '../../components/Chrome.jsx';
+---
+<Base title="Cookies Policy — Vitor Gomes">
+  <TopBar client:load />
+  <SiteBanner client:load />
+  <main class="page-enter" style="max-width: var(--container); margin: 0 auto; padding: 80px 48px 120px;">
+    <div style="max-width: 72ch;">
+      <p style="font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--text-faint); margin-bottom: 24px;">Legal</p>
+      <h1 style="font-size: clamp(28px, 5vw, 42px); font-weight: 700; line-height: 1.1; margin-bottom: 16px;">Cookies Policy</h1>
+      <p style="font-family: var(--font-mono); font-size: 12px; color: var(--text-faint); margin-bottom: 56px;">Last updated: June 2025</p>
+
+      <div style="display: flex; flex-direction: column; gap: 40px; font-size: 16px; line-height: 1.7; color: var(--text-secondary);">
+
+        <section>
+          <h2 style="font-size: 18px; font-weight: 600; color: var(--text-primary); margin-bottom: 12px;">What are cookies?</h2>
+          <p>Cookies are small text files placed on your device when you visit a website. They are widely used to make websites work more efficiently and to provide basic functionality and analytics information to the site owner.</p>
+        </section>
+
+        <section>
+          <h2 style="font-size: 18px; font-weight: 600; color: var(--text-primary); margin-bottom: 12px;">How this site uses cookies</h2>
+          <p>This is a personal portfolio website. It uses a minimal number of cookies, strictly limited to what is necessary for the site to function correctly. No third-party advertising or tracking cookies are used.</p>
+        </section>
+
+        <section>
+          <h2 style="font-size: 18px; font-weight: 600; color: var(--text-primary); margin-bottom: 16px;">Types of cookies used</h2>
+
+          <div style="border: 1px solid var(--border-hairline); border-radius: var(--radius);">
+            <div style="display: grid; grid-template-columns: 1fr 1fr 2fr; gap: 0; border-bottom: 1px solid var(--border-hairline);">
+              <div style="padding: 12px 16px; font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--text-faint);">Name</div>
+              <div style="padding: 12px 16px; font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--text-faint); border-left: 1px solid var(--border-hairline);">Type</div>
+              <div style="padding: 12px 16px; font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--text-faint); border-left: 1px solid var(--border-hairline);">Purpose</div>
+            </div>
+            <div style="display: grid; grid-template-columns: 1fr 1fr 2fr;">
+              <div style="padding: 14px 16px; font-family: var(--font-mono); font-size: 12px;">banner_dismissed</div>
+              <div style="padding: 14px 16px; font-family: var(--font-mono); font-size: 12px; border-left: 1px solid var(--border-hairline);">Session storage</div>
+              <div style="padding: 14px 16px; font-size: 14px; border-left: 1px solid var(--border-hairline);">Remembers that you have dismissed the site notice banner, so it does not reappear during your visit.</div>
+            </div>
+            <div style="display: grid; grid-template-columns: 1fr 1fr 2fr; border-top: 1px solid var(--border-hairline);">
+              <div style="padding: 14px 16px; font-family: var(--font-mono); font-size: 12px;">theme</div>
+              <div style="padding: 14px 16px; font-family: var(--font-mono); font-size: 12px; border-left: 1px solid var(--border-hairline);">Local storage</div>
+              <div style="padding: 14px 16px; font-size: 14px; border-left: 1px solid var(--border-hairline);">Stores your preferred colour scheme (light or dark mode) so it is applied on your next visit.</div>
+            </div>
+          </div>
+        </section>
+
+        <section>
+          <h2 style="font-size: 18px; font-weight: 600; color: var(--text-primary); margin-bottom: 12px;">Analytics</h2>
+          <p>This site does not currently use any analytics or tracking services. No data about your browsing behaviour is collected or shared with third parties.</p>
+        </section>
+
+        <section>
+          <h2 style="font-size: 18px; font-weight: 600; color: var(--text-primary); margin-bottom: 12px;">Managing cookies</h2>
+          <p>You can control and manage cookies through your browser settings. Most browsers allow you to refuse or delete cookies. Please note that disabling cookies may affect certain site functionality. For guidance on how to manage cookies in your browser, refer to your browser's help documentation.</p>
+        </section>
+
+        <section>
+          <h2 style="font-size: 18px; font-weight: 600; color: var(--text-primary); margin-bottom: 12px;">Changes to this policy</h2>
+          <p>This cookies policy may be updated from time to time. Any changes will be reflected on this page with an updated revision date.</p>
+        </section>
+
+        <section>
+          <h2 style="font-size: 18px; font-weight: 600; color: var(--text-primary); margin-bottom: 12px;">Contact</h2>
+          <p>If you have any questions about how this site uses cookies, please contact: <a href="mailto:vitor_gomes@outlook.com" style="color: var(--text-primary); text-decoration: underline; text-underline-offset: 3px;">vitor_gomes@outlook.com</a></p>
+        </section>
+
+      </div>
+    </div>
+  </main>
+  <Footer client:load />
+</Base>

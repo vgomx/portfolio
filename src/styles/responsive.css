@@ -38,4 +38,21 @@
   .about-hero-card {
     order: -1;
   }
+
+  /* Case study meta strip: 2×2 grid on mobile */
+  .meta-strip {
+    display: grid !important;
+    grid-template-columns: 1fr 1fr !important;
+    gap: 0 !important;
+  }
+  .meta-strip > div {
+    padding: 16px 16px 16px 0 !important;
+    margin-right: 0 !important;
+    border-right: none !important;
+    border-bottom: 1px solid var(--border-hairline) !important;
+  }
+  .meta-strip > div:nth-child(odd) {
+    border-right: 1px solid var(--border-hairline) !important;
+    padding-right: 16px !important;
+  }
 }
