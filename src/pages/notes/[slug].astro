@@ -11,11 +11,16 @@ export async function getStaticPaths() {
 
 const { slug } = Astro.params;
 const entries = await getCollection('blog');
+const sorted = entries.map((e) => e.data).sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
 const entry = entries.find((e) => e.data.slug === slug);
 if (!entry) return Astro.redirect('/notes');
 
 const { Content } = await render(entry);
 const note = entry.data;
+
+const idx = sorted.findIndex((n) => n.slug === slug);
+const prev = idx > 0 ? sorted[idx - 1] : null;
+const next = idx < sorted.length - 1 ? sorted[idx + 1] : null;
 
 function formatDate(iso: string) {
   return new Date(iso).toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' });
@@ -49,6 +54,21 @@ function formatDate(iso: string) {
     <article class="note-body">
       <Content />
     </article>
+
+    <nav style="border-top: 1px solid var(--border-hairline); display: flex; justify-content: space-between; align-items: stretch; margin-top: 80px;">
+      {prev ? (
+        <a href={`/notes/${prev.slug}`} class="note-nav-link">
+          <span style="font-size: 18px; line-height: 1;">‹</span>
+          <span>{prev.title}</span>
+        </a>
+      ) : <div />}
+      {next ? (
+        <a href={`/notes/${next.slug}`} class="note-nav-link" style="text-align: right;">
+          <span>{next.title}</span>
+          <span style="font-size: 18px; line-height: 1;">›</span>
+        </a>
+      ) : <div />}
+    </nav>
   </div>
 
   <Footer client:idle />
@@ -67,4 +87,19 @@ function formatDate(iso: string) {
   .note-body :global(a) { color: var(--accent); text-decoration: underline; text-underline-offset: 3px; }
   .note-body :global(code) { font-family: var(--font-mono); font-size: 13px; background: var(--surface-subtle); padding: 2px 6px; border-radius: 4px; }
   .note-body :global(blockquote) { border-left: 3px solid var(--border-default); margin: 0 0 1.4em; padding: 0 0 0 20px; color: var(--text-secondary); font-style: italic; }
+
+  .note-nav-link {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 28px 0;
+    text-decoration: none;
+    color: var(--text-secondary);
+    font-size: 15px;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+    transition: color 0.18s ease;
+    max-width: 44%;
+  }
+  .note-nav-link:hover { color: var(--text-primary); }
 </style>
