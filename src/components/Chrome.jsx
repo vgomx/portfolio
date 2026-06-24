@@ -203,7 +203,7 @@ function ThemeToggle() {
 const NAV_LINKS = [
   { href: '/work', label: 'Cases' },
   { href: '/about', label: 'About' },
-  { href: 'mailto:vitor_gomes@outlook.com', label: 'Contact' },
+  { href: 'mailto:vgmxx@proton.me', label: 'Contact' },
 ];
 
 const LEGAL_LINKS = [

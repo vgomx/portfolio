@@ -500,6 +500,7 @@ export default function CaseStudyScreenAlt({ project, prev, next }) {
                 ))}
               </div>
               <BodyImages images={p.bodyImages} after="outcome" allImages={allImages} openLightbox={openLightbox} />
+              <BodyEmbeds embeds={p.embeds} after="outcome" />
             </div>
           )}
 

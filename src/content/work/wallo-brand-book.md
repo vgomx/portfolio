@@ -22,6 +22,15 @@ outcomes:
     label: "Deliverable categories — mark, colour, type, icon, usage, voice"
   - value: "2"
     label: "Colour modes — full system for light and dark"
+embeds:
+  - src: "https://embed.figma.com/board/ANmFKClYJrix6Hsmd7ZGsC/Wallo?node-id=0-1&embed-host=share"
+    label: "Exploration & Moodboard"
+    after: "process"
+    ratio: "16/9"
+  - src: "https://embed.figma.com/proto/gqWeho351zPs81tb3AtQcK/Wallo---Brand-Book?node-id=4421-3710&viewport=1259%2C-574%2C0.06&scaling=scale-down-width&content-scaling=fixed&page-id=4420%3A26708&embed-host=share"
+    label: "Brand Book — Live Prototype"
+    after: "outcome"
+    ratio: "16/9"
 bodyImages:
   - src: "/images/wallo/cover.png"
     alt: "Brand Guidelines document"
