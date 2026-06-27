@@ -8,7 +8,7 @@ export default function NoteScreen({ note, body }) {
   return (
     <div>
       {/* Header */}
-      <section style={{ maxWidth: 720, margin: '0 auto', padding: '80px 48px 48px' }}>
+      <section className="section-pad" style={{ maxWidth: 720, margin: '0 auto', padding: '80px 48px 48px' }}>
         <a
           href="/notes"
           style={{ fontFamily: 'var(--font-mono)', fontSize: 11, letterSpacing: '0.1em', textTransform: 'uppercase', color: 'var(--text-faint)', textDecoration: 'none', display: 'inline-block', marginBottom: 40 }}
@@ -31,7 +31,7 @@ export default function NoteScreen({ note, body }) {
 
       {/* Body */}
       <article
-        className="note-body"
+        className="note-body section-pad"
         style={{ maxWidth: 720, margin: '0 auto', padding: '0 48px 120px' }}
         dangerouslySetInnerHTML={{ __html: body }}
       />

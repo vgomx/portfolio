@@ -12,6 +12,7 @@
 (function () {
   var STYLE_ID = "vg-eye-glitch-style";
   var CSS = "\
+:root{--veg-ink:var(--text-primary,#141416)}\
 .veg{display:block;width:100%;height:auto;overflow:visible}\
 .veg-eye{fill:currentColor}\
 .veg-ghostG{color:var(--veg-signal,#2F6F4F);transform:translateX(-10px);animation:vegGhostG 9s linear infinite}\
@@ -23,6 +24,7 @@
 .veg-blink{transform-box:fill-box;transform-origin:center;animation:vegBlink 9s ease infinite}\
 .veg-jitter{animation:vegJitter 9s ease infinite}\
 .veg-scan{fill:var(--veg-signal,#2F6F4F);animation:vegScan 4.5s linear infinite,vegScanOp 4.5s ease-in-out infinite}\
+.veg-lf{fill:var(--veg-ink,#141416)}\
 @keyframes vegSaccade{0%,12%{transform:translate(0,0)}13%,30%{transform:translate(-46px,-6px)}31%,46%{transform:translate(44px,4px)}47%,60%{transform:translate(0,-24px)}61%,74%{transform:translate(26px,22px)}75%,100%{transform:translate(0,0)}}\
 @keyframes vegBlink{0%,33%{transform:scaleY(1)}34%{transform:scaleY(1)}35%{transform:scaleY(.05)}36.5%{transform:scaleY(1)}85%{transform:scaleY(1)}86%{transform:scaleY(.05)}87.5%,100%{transform:scaleY(1)}}\
 @keyframes vegJitter{0%,22%{transform:translate(0,0)}23%{transform:translate(calc(-6px*var(--veg-glitch,1)),1px)}23.6%{transform:translate(calc(8px*var(--veg-glitch,1)),-2px)}24.4%{transform:translate(0,0)}65%{transform:translate(0,0)}66%{transform:translate(calc(7px*var(--veg-glitch,1)),-2px)}66.6%{transform:translate(calc(-5px*var(--veg-glitch,1)),2px)}67.4%,100%{transform:translate(0,0)}}\
@@ -56,7 +58,7 @@
           '<clipPath id="' + cm + '"><rect x="-40" y="150" width="642" height="82"></rect></clipPath>' +
           '<clipPath id="' + cb + '"><rect x="-40" y="230" width="642" height="160"></rect></clipPath>' +
           '<clipPath id="' + ce + '"><path d="M281,21 L552,186 L281,348 L10,186 Z"></path></clipPath>' +
-          '<pattern id="' + ln + '" width="3" height="3" patternUnits="userSpaceOnUse"><rect width="3" height="1" fill="#141416"></rect></pattern>' +
+          '<pattern id="' + ln + '" width="3" height="3" patternUnits="userSpaceOnUse"><rect class="veg-lf" width="3" height="1"></rect></pattern>' +
         '</defs>' +
         '<g class="veg-jitter"><g class="veg-blink">' +
           '<g class="veg-ghostG"><use href="#' + eye + '"></use></g>' +
@@ -78,7 +80,7 @@
     var signal = el.getAttribute("data-signal") || "#2F6F4F";
     var live = el.getAttribute("data-live") !== "false";
     el.style.setProperty("--veg-glitch", glitch != null ? glitch : "1");
-    el.style.setProperty("--veg-signal", live ? signal : "#141416");
+    el.style.setProperty("--veg-signal", live ? signal : "var(--veg-ink)");
     el.innerHTML = svgMarkup("_" + (++counter));
     el.setAttribute("data-veg-mounted", "1");
   }

@@ -23,7 +23,7 @@ export default function HomeScreen({ projects }) {
           aria-hidden="true"
         />
         {/* Hero content */}
-        <div style={{ position: 'relative', zIndex: 1, maxWidth: 'var(--container)', margin: '0 auto', padding: '88px 48px 56px' }}>
+        <div className="section-pad" style={{ position: 'relative', zIndex: 1, maxWidth: 'var(--container)', margin: '0 auto', padding: '88px 48px 56px' }}>
           <Eyebrow style={{ marginBottom: 24 }}>Senior Product Designer · Backbase · Amsterdam</Eyebrow>
           <h1 style={{ fontSize: 'clamp(38px,6vw,72px)', lineHeight: 0.98, letterSpacing: '-0.03em', fontWeight: 700, margin: 0, maxWidth: '15ch' }}>Design for teams shaping new things.</h1>
           <p style={{ fontSize: 18, lineHeight: 1.55, color: 'var(--text-secondary)', maxWidth: '54ch', margin: '24px 0 0', fontWeight: 400 }}>Twelve years of brand, product and the systems that hold them together — identity through interface, shipped end to end.</p>

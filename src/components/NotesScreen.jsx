@@ -18,7 +18,7 @@ export default function NotesScreen({ notes }) {
   return (
     <div className="page-enter">
       {/* Hero */}
-      <section style={{ maxWidth: 'var(--container)', margin: '0 auto', padding: '88px 48px 64px', borderBottom: '1px solid var(--border-hairline)' }}>
+      <section className="section-pad" style={{ maxWidth: 'var(--container)', margin: '0 auto', padding: '88px 48px 64px', borderBottom: '1px solid var(--border-hairline)' }}>
         <Eyebrow style={{ marginBottom: 24 }}>Notes</Eyebrow>
         <h1 style={{ fontSize: 'clamp(34px,5vw,56px)', lineHeight: 1.02, letterSpacing: '-0.03em', fontWeight: 700, margin: '0 0 16px', maxWidth: '20ch' }}>
           Writing on design, systems and process.
@@ -32,7 +32,7 @@ export default function NotesScreen({ notes }) {
       {featured && (
         <section style={{ borderBottom: '1px solid var(--border-hairline)', position: 'relative', overflow: 'hidden' }}>
           <GridLines />
-          <div style={{ maxWidth: 'var(--container)', margin: '0 auto', padding: '64px 48px', position: 'relative', zIndex: 1 }}>
+          <div className="section-pad" style={{ maxWidth: 'var(--container)', margin: '0 auto', padding: '64px 48px', position: 'relative', zIndex: 1 }}>
             <a
               href={`/notes/${featured.slug}`}
               className="grid-2col"
@@ -61,7 +61,7 @@ export default function NotesScreen({ notes }) {
       )}
 
       {/* Note list */}
-      <section style={{ maxWidth: 'var(--container)', margin: '0 auto', padding: '0 48px 80px' }}>
+      <section className="section-pad" style={{ maxWidth: 'var(--container)', margin: '0 auto', padding: '0 48px 80px' }}>
         {rest.map((note, i) => (
           <a
             key={note.slug}
