@@ -426,14 +426,14 @@ export default function CaseStudyScreenAlt({ project, prev, next }) {
       <div className="page-enter">
       <NotionNav active={activeSection} />
 
-      <section style={{ maxWidth: 'var(--container)', margin: '0 auto', padding: '40px 48px 0' }}>
+      <section className="section-pad" style={{ maxWidth: 'var(--container)', margin: '0 auto', padding: '40px 48px 0' }}>
         <Breadcrumb
           items={[{ label: 'Work' }, { label: p.discipline }, { label: p.title }]}
           onNavigate={(_, i) => { if (i < 2) window.location.href = '/work'; }}
         />
       </section>
 
-      <section style={{ maxWidth: 'var(--container)', margin: '0 auto', padding: '40px 48px 48px' }}>
+      <section className="section-pad" style={{ maxWidth: 'var(--container)', margin: '0 auto', padding: '40px 48px 48px' }}>
         <div style={{ display: 'flex', gap: 10, marginBottom: 20, flexWrap: 'wrap', alignItems: 'center' }}>
           {p.tags.map((t) => <Tag key={t}>{t}</Tag>)}
           <Badge status={p.status}>{p.statusLabel}</Badge>
@@ -443,7 +443,7 @@ export default function CaseStudyScreenAlt({ project, prev, next }) {
       </section>
 
       {/* Hero image */}
-      <section style={{ maxWidth: 'var(--container)', margin: '0 auto', padding: '0 48px 0' }}>
+      <section className="section-pad" style={{ maxWidth: 'var(--container)', margin: '0 auto', padding: '0 48px 0' }}>
         <ImagePlaceholder ratio="16/8" label="[ Hero — case study cover ]" src={p.coverImage} loading="eager" style={{ border: '1px solid var(--border-hairline)' }} />
       </section>
 
@@ -465,7 +465,7 @@ export default function CaseStudyScreenAlt({ project, prev, next }) {
       </section>
 
       {/* Body content */}
-      <section style={{ maxWidth: 'var(--container)', margin: '0 auto', padding: '64px 48px 80px', position: 'relative', overflow: 'hidden' }}>
+      <section className="section-pad" style={{ maxWidth: 'var(--container)', margin: '0 auto', padding: '64px 48px 80px', position: 'relative', overflow: 'hidden' }}>
         <GridLines />
         <div style={{ maxWidth: 940, margin: '0 auto' }}>
 
@@ -505,7 +505,7 @@ export default function CaseStudyScreenAlt({ project, prev, next }) {
         </div>
       </section>
 
-      <section style={{ maxWidth: 'var(--container)', margin: '0 auto', padding: '0 48px' }}>
+      <section className="section-pad" style={{ maxWidth: 'var(--container)', margin: '0 auto', padding: '0 48px' }}>
         <CaseNav prev={prev} next={next} />
       </section>
     </div>
