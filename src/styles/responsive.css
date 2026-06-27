@@ -1,5 +1,16 @@
+/* Stepper orientation: vertical hidden by default, horizontal hidden on mobile */
+.stepper-v { display: none; }
+
 /* Mobile-first responsive overrides */
 @media (max-width: 640px) {
+  .stepper-h { display: none; }
+  .stepper-v { display: block; }
+
+  /* Outcome stat cards: single column on mobile */
+  .outcome-grid {
+    grid-template-columns: 1fr !important;
+    margin-left: 0 !important;
+  }
   /* Generic grid breakpoints */
   .grid-2col {
     grid-template-columns: 1fr !important;

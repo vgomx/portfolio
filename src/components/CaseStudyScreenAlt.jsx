@@ -484,7 +484,8 @@ export default function CaseStudyScreenAlt({ project, prev, next }) {
 
           <div id="section-process" style={{ marginBottom: 72, scrollMarginTop: 100 }}>
             <SectionHead n="03" title="Process" />
-            <Stepper steps={p.steps || ['Brief', 'Design', 'Ship']} current={(p.steps || []).length - 1} style={{ maxWidth: '100%', marginLeft: 76 }} />
+            <div className="stepper-h"><Stepper steps={p.steps || ['Brief', 'Design', 'Ship']} current={(p.steps || []).length - 1} style={{ maxWidth: '100%', marginLeft: 76 }} /></div>
+            <div className="stepper-v"><Stepper vertical steps={p.steps || ['Brief', 'Design', 'Ship']} current={(p.steps || []).length - 1} style={{ marginLeft: 76 }} /></div>
             <BodyImages images={p.bodyImages} after="process" allImages={allImages} openLightbox={openLightbox} />
             <BodyEmbeds embeds={p.embeds} after="process" />
           </div>
@@ -492,7 +493,7 @@ export default function CaseStudyScreenAlt({ project, prev, next }) {
           {p.outcomes && (
             <div id="section-outcome" style={{ marginBottom: 56, scrollMarginTop: 100 }}>
               <SectionHead n="04" title="Outcome" />
-              <div style={{ marginLeft: 76, display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 24 }}>
+              <div className="outcome-grid" style={{ marginLeft: 76, display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 24 }}>
                 {p.outcomes.map((o) => (
                   <Card key={o.label} tone="ink"><StatCard value={o.value} label={o.label} onDark /></Card>
                 ))}
