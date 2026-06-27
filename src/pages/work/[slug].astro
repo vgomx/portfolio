@@ -24,10 +24,6 @@ const next = idx < sorted.length - 1 ? { title: sorted[idx + 1].title, slug: sor
 <Base title={`${project.title} — Vitor Gomes`} description={project.summary}>
   <TopBar activePage="work" client:load />
   <SiteBanner client:idle />
-  {project.template === 'alt' ? (
-    <CaseStudyScreenAlt project={project} prev={prev} next={next} client:load />
-  ) : (
-    <CaseStudyScreen project={project} prev={prev} next={next} client:load />
-  )}
+  <CaseStudyScreenAlt project={project} prev={prev} next={next} client:load />
   <Footer client:idle />
 </Base>

@@ -67,7 +67,10 @@
     gap: 32px !important;
   }
 
-  /* Case study meta strip: 2×2 grid on mobile */
+}
+
+/* Case study meta strip: 2×2 grid on phablet and below */
+@media (max-width: 960px) {
   .meta-strip {
     display: grid !important;
     grid-template-columns: 1fr 1fr !important;

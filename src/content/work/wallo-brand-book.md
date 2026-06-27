@@ -51,7 +51,7 @@ bodyImages:
   - src: "/images/wallo/typography.png"
     alt: "Typography system"
     after: "challenge"
-    layout: "full"
+    layout: "wide"
   - src: "/images/wallo/app-icon.png"
     alt: "App icon — section introduction"
     after: "process"

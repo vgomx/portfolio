@@ -167,11 +167,11 @@ function AnimatedImage({ src, alt, caption, layout = 'full', delay = 0, onClick 
   }, []);
 
   const wrapperStyle = {
-    full:       { width: '100%' },
-    offset:     { width: '88%', marginLeft: 'auto' },
+    full:          { width: '100%' },
+    offset:        { width: '88%', marginLeft: 'auto' },
     'offset-left': { width: '88%', marginRight: 'auto' },
-    wide:       { width: '110%', marginLeft: '-5%' },
-    duo:        { width: '100%' },
+    wide:          { width: '100%' },
+    duo:           { width: '100%' },
   }[layout] || { width: '100%' };
 
   return (
@@ -456,7 +456,7 @@ export default function CaseStudyScreenAlt({ project, prev, next }) {
             { label: 'Team', value: p.team ? `${p.team} people` : '—' },
             ...(p.country ? [{ label: 'Country', value: p.country }] : []),
           ].map((m, i, arr) => (
-            <div key={m.label} style={{ padding: '20px 32px 20px 0', marginRight: 32, borderRight: i < arr.length - 1 ? '1px solid var(--border-hairline)' : 'none' }}>
+            <div key={m.label} style={{ flex: 1, paddingTop: 20, paddingBottom: 20, paddingLeft: i > 0 ? 24 : 0, paddingRight: i < arr.length - 1 ? 24 : 0, borderRight: i < arr.length - 1 ? '1px solid var(--border-hairline)' : 'none' }}>
               <div style={{ fontFamily: 'var(--font-mono)', fontSize: 10, letterSpacing: '0.12em', textTransform: 'uppercase', color: 'var(--text-faint)', marginBottom: 6 }}>{m.label}</div>
               <div style={{ fontFamily: 'var(--font-mono)', fontSize: 13, letterSpacing: '0.04em', color: 'var(--text-primary)' }}>{m.value}</div>
             </div>
@@ -467,26 +467,24 @@ export default function CaseStudyScreenAlt({ project, prev, next }) {
       {/* Body content */}
       <section style={{ maxWidth: 'var(--container)', margin: '0 auto', padding: '64px 48px 80px', position: 'relative', overflow: 'hidden' }}>
         <GridLines />
-        <div style={{ maxWidth: 720, margin: '0 auto' }}>
+        <div style={{ maxWidth: 940, margin: '0 auto' }}>
 
           <div id="section-overview" style={{ marginBottom: 72, scrollMarginTop: 100 }}>
             <SectionHead n="01" title="Overview" />
-            <p style={{ fontSize: 16, lineHeight: 1.65, color: 'var(--text-secondary)', maxWidth: '64ch', marginLeft: 76 }}>{p.overview}</p>
+            <p style={{ fontSize: 16, lineHeight: 1.65, color: 'var(--text-secondary)', marginLeft: 76 }}>{p.overview}</p>
             <BodyImages images={p.bodyImages} after="overview" allImages={allImages} openLightbox={openLightbox} />
           </div>
 
           <div id="section-challenge" style={{ marginBottom: 72, scrollMarginTop: 100 }}>
             <SectionHead n="02" title="Challenge" />
-            <p style={{ fontSize: 16, lineHeight: 1.65, color: 'var(--text-secondary)', maxWidth: '64ch', marginLeft: 76 }}>{p.challenge}</p>
+            <p style={{ fontSize: 16, lineHeight: 1.65, color: 'var(--text-secondary)', marginLeft: 76 }}>{p.challenge}</p>
             <BodyImages images={p.bodyImages} after="challenge" allImages={allImages} openLightbox={openLightbox} />
             <BodyQuotes quotes={p.quotes} after="challenge" />
           </div>
 
           <div id="section-process" style={{ marginBottom: 72, scrollMarginTop: 100 }}>
             <SectionHead n="03" title="Process" />
-            <div style={{ marginLeft: 76 }}>
-              <Stepper steps={p.steps || ['Brief', 'Design', 'Ship']} current={(p.steps || []).length - 1} />
-            </div>
+            <Stepper steps={p.steps || ['Brief', 'Design', 'Ship']} current={(p.steps || []).length - 1} style={{ maxWidth: '100%', marginLeft: 76 }} />
             <BodyImages images={p.bodyImages} after="process" allImages={allImages} openLightbox={openLightbox} />
             <BodyEmbeds embeds={p.embeds} after="process" />
           </div>
