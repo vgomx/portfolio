@@ -20,9 +20,7 @@ jobs:
       - run: npm ci
       - run: npm run build
 
-      - uses: amondnet/vercel-action@v25
-        with:
-          vercel-token: ${{ secrets.VERCEL }}
-          vercel-org-id: ${{ secrets.TEAM_ID }}
-          vercel-project-id: ${{ secrets.PROJECT_ID }}
-          vercel-args: '--prod'
+      - run: npx vercel@latest --prod --yes --token=${{ secrets.VERCEL }}
+        env:
+          VERCEL_ORG_ID: ${{ secrets.TEAM_ID }}
+          VERCEL_PROJECT_ID: ${{ secrets.PROJECT_ID }}
