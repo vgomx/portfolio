@@ -4,6 +4,7 @@ slug: "internet-brand-facelift"
 discipline: "Branding"
 year: 2016
 tags: ["Case Study", "Branding", "Visual Identity"]
+extraDisciplines: ["Visual Design"]
 status: "live"
 statusLabel: "Live"
 featured: true

@@ -4,6 +4,7 @@ slug: "video-platform-identity"
 discipline: "Branding"
 year: 2023
 tags: ["Case Study", "Branding", "Visual Identity"]
+extraDisciplines: ["Visual Design"]
 status: "live"
 statusLabel: "Live"
 featured: true

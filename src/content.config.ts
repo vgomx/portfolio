@@ -36,6 +36,7 @@ const work = defineCollection({
     learningsParagraphs: z.array(z.string()).optional(),
     statusNote: z.string().optional(),
     outcomes: z.array(z.object({ value: z.string(), label: z.string() })).optional(),
+    extraDisciplines: z.array(z.string()).optional(),
     template: z.enum(['default', 'alt']).optional(),
     bodyImages: z.array(z.object({
       src: z.string(),

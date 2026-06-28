@@ -9,7 +9,7 @@ export default function WorkScreen({ projects }) {
   const [discipline, setDiscipline] = useState('All');
 
   const disciplines = ['All', 'Branding', 'Product Design', 'Visual Design'];
-  const rows = projects.filter((p) => discipline === 'All' || p.discipline === discipline);
+  const rows = projects.filter((p) => discipline === 'All' || p.discipline === discipline || (p.extraDisciplines && p.extraDisciplines.includes(discipline)));
 
   return (
     <div className="page-enter">

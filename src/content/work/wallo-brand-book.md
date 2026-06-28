@@ -4,6 +4,7 @@ slug: "wallo-brand-book"
 discipline: "Branding"
 year: 2024
 tags: ["Case Study", "Branding", "Visual Identity"]
+extraDisciplines: ["Visual Design"]
 status: "live"
 statusLabel: "Live"
 featured: true
