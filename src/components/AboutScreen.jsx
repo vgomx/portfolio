@@ -98,16 +98,16 @@ function StorySection() {
           <div className="grid-sidebar" style={{ display: 'grid', gridTemplateColumns: '220px 1fr', gap: 48, marginBottom: 48, alignItems: 'start' }}>
             <div />
             <div>
-              <p style={{ fontSize: 22, lineHeight: 1.45, fontWeight: 600, letterSpacing: '-0.01em', color: 'var(--text-primary)', margin: '0 0 16px', maxWidth: '44ch' }}>
+              <p style={{ fontSize: 22, lineHeight: 1.45, fontWeight: 600, letterSpacing: '-0.01em', color: 'var(--text-primary)', margin: '0 0 16px' }}>
                 "I have always been curious. When I was a kid, I used to press every button that appeared in front of me."
               </p>
-              <p style={{ fontSize: 16, lineHeight: 1.65, color: 'var(--text-secondary)', margin: '0 0 16px', maxWidth: '56ch' }}>
+              <p style={{ fontSize: 16, lineHeight: 1.65, color: 'var(--text-secondary)', margin: '0 0 16px' }}>
                 The best story was the one when I stopped an escalator in a mall. Of course, my parents got mad all the time, but that didn't change a thing in me.
               </p>
-              <p style={{ fontSize: 16, lineHeight: 1.65, color: 'var(--text-secondary)', margin: '0 0 16px', maxWidth: '56ch' }}>
+              <p style={{ fontSize: 16, lineHeight: 1.65, color: 'var(--text-secondary)', margin: '0 0 16px' }}>
                 With my first computer, I discovered a whole new world of interfaces with even more buttons. Besides crashing everything from time to time, I also used to spend hours playing with presentation tools and website editors, creating my very first prototypes. Such a young geek.
               </p>
-              <p style={{ fontSize: 16, lineHeight: 1.65, color: 'var(--text-secondary)', margin: 0, maxWidth: '56ch' }}>
+              <p style={{ fontSize: 16, lineHeight: 1.65, color: 'var(--text-secondary)', margin: 0 }}>
                 Once I realized that design was my thing I deep-dived into it by enrolling in many courses and training. I worked at some agencies, at a music website, in a digital products hub, and even in the fintech industry.
               </p>
             </div>
@@ -125,7 +125,7 @@ function StorySection() {
               }}
             >
               <span style={{ fontFamily: 'var(--font-mono)', fontSize: 13, letterSpacing: '0.06em', color: 'var(--text-faint)', paddingTop: 2 }}>{entry.year}</span>
-              <p style={{ fontSize: 16, lineHeight: 1.65, color: 'var(--text-secondary)', margin: 0, maxWidth: '56ch' }}>{entry.text}</p>
+              <p style={{ fontSize: 16, lineHeight: 1.65, color: 'var(--text-secondary)', margin: 0 }}>{entry.text}</p>
             </div>
           ))}
 
@@ -133,10 +133,10 @@ function StorySection() {
           <div className="grid-sidebar" style={{ display: 'grid', gridTemplateColumns: '220px 1fr', gap: 48, paddingTop: 24, paddingBottom: 24, borderTop: '1px solid var(--border-hairline)' }}>
             <div />
             <div>
-              <p style={{ fontSize: 16, lineHeight: 1.65, color: 'var(--text-secondary)', margin: '0 0 12px', maxWidth: '56ch' }}>
+              <p style={{ fontSize: 16, lineHeight: 1.65, color: 'var(--text-secondary)', margin: '0 0 12px' }}>
                 I can help shape people-centered experiences in digital products — from the initial stages like research through high-fidelity prototypes.
               </p>
-              <p style={{ fontSize: 16, lineHeight: 1.65, color: 'var(--text-secondary)', margin: 0, maxWidth: '56ch' }}>
+              <p style={{ fontSize: 16, lineHeight: 1.65, color: 'var(--text-secondary)', margin: 0 }}>
                 I like to facilitate workshops and also have a background in visual design.
               </p>
             </div>
@@ -145,7 +145,7 @@ function StorySection() {
           {/* Closing line */}
           <div className="grid-sidebar" style={{ display: 'grid', gridTemplateColumns: '220px 1fr', gap: 48, paddingTop: 24, borderTop: '1px solid var(--border-hairline)' }}>
             <div />
-            <p style={{ fontSize: 16, lineHeight: 1.65, color: 'var(--text-muted)', margin: 0, fontStyle: 'italic', maxWidth: '52ch' }}>
+            <p style={{ fontSize: 16, lineHeight: 1.65, color: 'var(--text-muted)', margin: 0, fontStyle: 'italic' }}>
               Born and raised in São Paulo, I also lived in Santos on the coast. Since 2021, living in Amsterdam.
             </p>
           </div>
@@ -201,9 +201,9 @@ export default function AboutScreen() {
       <section className="grid-hero section-pad" style={{ maxWidth: 'var(--container)', margin: '0 auto', padding: '88px 48px 56px', display: 'grid', gridTemplateColumns: '1.4fr 1fr', gap: 56, alignItems: 'start', position: 'relative', zIndex: 1 }}>
         <div>
           <Eyebrow style={{ marginBottom: 24 }}>About</Eyebrow>
-          <h1 style={{ fontSize: 'clamp(34px,5vw,56px)', lineHeight: 1.02, letterSpacing: '-0.03em', fontWeight: 700, margin: 0, maxWidth: '16ch' }}>I design brands and the products they become.</h1>
-          <p style={{ fontSize: 18, lineHeight: 1.55, color: 'var(--text-secondary)', maxWidth: '52ch', margin: '24px 0 0' }}>I'm Vitor — Senior Product Designer working across identity, interface and design systems. Twelve years in, I still believe the best systems are the ones you barely notice: restraint, one clear signal, edges that do the work.</p>
-          <p style={{ fontSize: 16, lineHeight: 1.6, color: 'var(--text-secondary)', maxWidth: '52ch', margin: '16px 0 0' }}>I bridge UX and front-end through AI-assisted workflows. I use tools like Claude Code to translate design systems into responsive web interfaces, supported by a solid understanding of HTML/CSS, Git, and deployment — including connected MCP workflows that automate design work directly in tools like Penpot, allowing me to operate at the intersection of design tooling and engineering.</p>
+          <h1 style={{ fontSize: 'clamp(34px,5vw,56px)', lineHeight: 1.02, letterSpacing: '-0.03em', fontWeight: 700, margin: 0 }}>I design brands and the products they become.</h1>
+          <p style={{ fontSize: 18, lineHeight: 1.55, color: 'var(--text-secondary)', margin: '24px 0 0' }}>I'm Vitor — Senior Product Designer working across identity, interface and design systems. Twelve years in, I still believe the best systems are the ones you barely notice: restraint, one clear signal, edges that do the work.</p>
+          <p style={{ fontSize: 16, lineHeight: 1.6, color: 'var(--text-secondary)', margin: '16px 0 0' }}>I bridge UX and front-end through AI-assisted workflows. I use tools like Claude Code to translate design systems into responsive web interfaces, supported by a solid understanding of HTML/CSS, Git, and deployment — including connected MCP workflows that automate design work directly in tools like Penpot, allowing me to operate at the intersection of design tooling and engineering.</p>
           <div style={{ display: 'flex', gap: 12, marginTop: 32, flexWrap: 'wrap' }}>
             <Button variant="accent" onClick={() => setOpen(true)}>Get in touch</Button>
             <Button variant="ghost" onClick={() => { const a = document.createElement('a'); a.href = '/vitor-gomes-cv.pdf'; a.download = 'Vitor Gomes - CV.pdf'; a.click(); }}>Download CV</Button>
@@ -242,7 +242,7 @@ export default function AboutScreen() {
 
       <section className="grid-sidebar section-pad" style={{ borderTop: '1px solid var(--border-hairline)', maxWidth: 'var(--container)', margin: '0 auto', padding: '64px 48px', display: 'grid', gridTemplateColumns: '220px 1fr', gap: 48, alignItems: 'start' }}>
         <h2 style={{ fontSize: 24, fontWeight: 600, letterSpacing: '-0.02em', margin: 0 }}>Questions</h2>
-        <Accordion items={[
+        <Accordion style={{ maxWidth: '100%' }} items={[
           { title: 'What do you work on?', content: 'Brand and product design for teams shaping new things — identity, interface and the systems that hold them together.' },
           { title: 'Where are you based?', content: 'Amsterdam, working remotely across European and US time zones.' },
           { title: "What's your process?", content: 'Brief, design, ship. Tight loops, working in the open, no black boxes.' },

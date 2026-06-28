@@ -298,6 +298,12 @@ function BodyEmbeds({ embeds, after }) {
   );
 }
 
+function SubHead({ children }) {
+  return (
+    <h3 style={{ fontSize: 16, fontWeight: 600, letterSpacing: '-0.01em', color: 'var(--text-primary)', margin: '40px 0 12px' }}>{children}</h3>
+  );
+}
+
 function BodyQuotes({ quotes, after }) {
   if (!quotes) return null;
   const matches = quotes.filter((q) => q.after === after);
@@ -438,8 +444,8 @@ export default function CaseStudyScreenAlt({ project, prev, next }) {
           {p.tags.map((t) => <Tag key={t}>{t}</Tag>)}
           <Badge status={p.status}>{p.statusLabel}</Badge>
         </div>
-        <h1 style={{ fontSize: 'clamp(36px,5.5vw,64px)', lineHeight: 1, letterSpacing: '-0.03em', fontWeight: 700, margin: 0, maxWidth: '18ch' }}>{p.title}</h1>
-        <p style={{ fontSize: 18, lineHeight: 1.55, color: 'var(--text-secondary)', maxWidth: '56ch', margin: '24px 0 0' }}>{p.summary}</p>
+        <h1 style={{ fontSize: 'clamp(36px,5.5vw,64px)', lineHeight: 1, letterSpacing: '-0.03em', fontWeight: 700, margin: 0 }}>{p.title}</h1>
+        <p style={{ fontSize: 18, lineHeight: 1.55, color: 'var(--text-secondary)', margin: '24px 0 0' }}>{p.summary}</p>
       </section>
 
       {/* Hero image */}
@@ -471,33 +477,134 @@ export default function CaseStudyScreenAlt({ project, prev, next }) {
 
           <div id="section-overview" style={{ marginBottom: 72, scrollMarginTop: 100 }}>
             <SectionHead n="01" title="Overview" />
-            <p style={{ fontSize: 16, lineHeight: 1.65, color: 'var(--text-secondary)', marginLeft: 76 }}>{p.overview}</p>
+            {p.overviewBody ? (
+              <div style={{ marginLeft: 76 }}>
+                {p.overviewBody.map((para, i) => (
+                  <p key={i} style={{ fontSize: 16, lineHeight: 1.65, color: 'var(--text-secondary)', margin: i < p.overviewBody.length - 1 ? '0 0 20px' : 0 }}>{para}</p>
+                ))}
+              </div>
+            ) : (
+              <p style={{ fontSize: 16, lineHeight: 1.65, color: 'var(--text-secondary)', marginLeft: 76 }}>{p.overview}</p>
+            )}
             <BodyImages images={p.bodyImages} after="overview" allImages={allImages} openLightbox={openLightbox} />
           </div>
 
           <div id="section-challenge" style={{ marginBottom: 72, scrollMarginTop: 100 }}>
             <SectionHead n="02" title="Challenge" />
-            <p style={{ fontSize: 16, lineHeight: 1.65, color: 'var(--text-secondary)', marginLeft: 76 }}>{p.challenge}</p>
+            {p.challengeBody ? (
+              <div style={{ marginLeft: 76 }}>
+                {p.challengeBody.map((item, i) => (
+                  <p key={i} style={{ fontSize: 16, lineHeight: 1.65, color: 'var(--text-secondary)', margin: i < p.challengeBody.length - 1 ? '0 0 20px' : 0 }}>
+                    {item.lead && <strong style={{ color: 'var(--text-primary)' }}>{item.lead}</strong>}
+                    {item.lead ? ' ' : ''}{item.body}
+                  </p>
+                ))}
+              </div>
+            ) : (
+              <p style={{ fontSize: 16, lineHeight: 1.65, color: 'var(--text-secondary)', marginLeft: 76 }}>{p.challenge}</p>
+            )}
             <BodyImages images={p.bodyImages} after="challenge" allImages={allImages} openLightbox={openLightbox} />
             <BodyQuotes quotes={p.quotes} after="challenge" />
           </div>
 
           <div id="section-process" style={{ marginBottom: 72, scrollMarginTop: 100 }}>
             <SectionHead n="03" title="Process" />
+
+            {/* My Role */}
+            {p.roleItems && (
+              <div style={{ marginLeft: 76, marginBottom: 48 }}>
+                <SubHead>My Role</SubHead>
+                {p.roleIntro && <p style={{ fontSize: 16, lineHeight: 1.65, color: 'var(--text-secondary)', margin: '0 0 20px' }}>{p.roleIntro}</p>}
+                {p.roleItems.map((item, i) => (
+                  <p key={i} style={{ fontSize: 16, lineHeight: 1.65, color: 'var(--text-secondary)', margin: i < p.roleItems.length - 1 ? '0 0 20px' : 0 }}>
+                    <strong style={{ color: 'var(--text-primary)' }}>{item.heading}</strong> — {item.body}
+                  </p>
+                ))}
+              </div>
+            )}
+
+            {/* Process intro + stepper */}
+            {p.processIntro && (
+              <div style={{ marginLeft: 76, marginBottom: 24 }}>
+                <p style={{ fontSize: 16, lineHeight: 1.65, color: 'var(--text-secondary)', margin: '0 0 12px' }}>{p.processIntro}</p>
+                {p.processNote && <p style={{ fontSize: 16, lineHeight: 1.65, color: 'var(--text-secondary)', margin: 0 }}>{p.processNote}</p>}
+              </div>
+            )}
             <div className="stepper-h"><Stepper steps={p.steps || ['Brief', 'Design', 'Ship']} current={(p.steps || []).length - 1} style={{ maxWidth: '100%', marginLeft: 76 }} /></div>
             <div className="stepper-v"><Stepper vertical steps={p.steps || ['Brief', 'Design', 'Ship']} current={(p.steps || []).length - 1} style={{ marginLeft: 76 }} /></div>
+
+            {/* Process step descriptions */}
+            {p.processStepsDetail && (
+              <div style={{ marginLeft: 76, marginTop: 32 }}>
+                {p.processStepsDetail.map((step, i) => (
+                  <p key={i} style={{ fontSize: 16, lineHeight: 1.65, color: 'var(--text-secondary)', margin: i < p.processStepsDetail.length - 1 ? '0 0 16px' : 0 }}>
+                    <strong style={{ color: 'var(--text-primary)' }}>{i + 1}. {step.lead}</strong> — {step.body}
+                  </p>
+                ))}
+              </div>
+            )}
+
+            {/* Key Design Decisions */}
+            {p.decisionItems && (
+              <div style={{ marginLeft: 76, marginTop: 56 }}>
+                <SubHead>The Onboarding Journey: Key Design Decisions</SubHead>
+                {p.decisionItems.map((item, i) => (
+                  <div key={i} style={{ marginBottom: i < p.decisionItems.length - 1 ? 40 : 0 }}>
+                    <h4 style={{ fontSize: 15, fontWeight: 600, letterSpacing: '-0.01em', color: 'var(--text-primary)', margin: '0 0 10px' }}>{item.heading}</h4>
+                    {item.paragraphs.map((para, j) => (
+                      <p key={j} style={{ fontSize: 16, lineHeight: 1.65, color: 'var(--text-secondary)', margin: j < item.paragraphs.length - 1 ? '0 0 16px' : 0 }}>{para}</p>
+                    ))}
+                    {item.image && (
+                      <div style={{ marginTop: 24, overflow: 'hidden', width: '100%' }}>
+                        <img src={item.image} alt="" style={{ display: 'block', width: '100%', height: 'auto' }} />
+                      </div>
+                    )}
+                  </div>
+                ))}
+              </div>
+            )}
+
+            {/* On Working With a Platform Design System */}
+            {p.systemsBody && (
+              <div style={{ marginLeft: 76, marginTop: 56 }}>
+                <SubHead>On Working With a Platform Design System</SubHead>
+                <p style={{ fontSize: 16, lineHeight: 1.65, color: 'var(--text-secondary)', margin: 0 }}>{p.systemsBody}</p>
+              </div>
+            )}
+
             <BodyImages images={p.bodyImages} after="process" allImages={allImages} openLightbox={openLightbox} />
             <BodyEmbeds embeds={p.embeds} after="process" />
           </div>
 
-          {p.outcomes && (
+          {(p.outcomes || p.learningsParagraphs || p.statusNote) && (
             <div id="section-outcome" style={{ marginBottom: 56, scrollMarginTop: 100 }}>
               <SectionHead n="04" title="Outcome" />
-              <div className="outcome-grid" style={{ marginLeft: 76, display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 24 }}>
-                {p.outcomes.map((o) => (
-                  <Card key={o.label} tone="ink"><StatCard value={o.value} label={o.label} onDark /></Card>
-                ))}
-              </div>
+              {p.outcomes && (
+                <div className="outcome-grid" style={{ marginLeft: 76, display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 24 }}>
+                  {p.outcomes.map((o) => (
+                    <Card key={o.label} tone="ink"><StatCard value={o.value} label={o.label} onDark /></Card>
+                  ))}
+                </div>
+              )}
+
+              {/* What I Learned */}
+              {p.learningsParagraphs && (
+                <div style={{ marginLeft: 76, marginTop: 56 }}>
+                  <SubHead>What I Learned</SubHead>
+                  {p.learningsParagraphs.map((para, i) => (
+                    <p key={i} style={{ fontSize: 16, lineHeight: 1.65, color: 'var(--text-secondary)', margin: i < p.learningsParagraphs.length - 1 ? '0 0 20px' : 0 }}>{para}</p>
+                  ))}
+                </div>
+              )}
+
+              {/* Status */}
+              {p.statusNote && (
+                <div style={{ marginLeft: 76, marginTop: 40 }}>
+                  <SubHead>Status</SubHead>
+                  <p style={{ fontSize: 16, lineHeight: 1.65, color: 'var(--text-secondary)', margin: 0 }}>{p.statusNote}</p>
+                </div>
+              )}
+
               <BodyImages images={p.bodyImages} after="outcome" allImages={allImages} openLightbox={openLightbox} />
               <BodyEmbeds embeds={p.embeds} after="outcome" />
             </div>

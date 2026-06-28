@@ -20,10 +20,10 @@ export default function NotesScreen({ notes }) {
       {/* Hero */}
       <section className="section-pad" style={{ maxWidth: 'var(--container)', margin: '0 auto', padding: '88px 48px 64px', borderBottom: '1px solid var(--border-hairline)' }}>
         <Eyebrow style={{ marginBottom: 24 }}>Notes</Eyebrow>
-        <h1 style={{ fontSize: 'clamp(34px,5vw,56px)', lineHeight: 1.02, letterSpacing: '-0.03em', fontWeight: 700, margin: '0 0 16px', maxWidth: '20ch' }}>
+        <h1 style={{ fontSize: 'clamp(34px,5vw,56px)', lineHeight: 1.02, letterSpacing: '-0.03em', fontWeight: 700, margin: '0 0 16px' }}>
           Writing on design, systems and process.
         </h1>
-        <p style={{ fontSize: 18, lineHeight: 1.55, color: 'var(--text-secondary)', margin: 0, maxWidth: '52ch' }}>
+        <p style={{ fontSize: 18, lineHeight: 1.55, color: 'var(--text-secondary)', margin: 0 }}>
           Mixed length — some long essays, some quick observations. Updated irregularly.
         </p>
       </section>
@@ -45,7 +45,7 @@ export default function NotesScreen({ notes }) {
                 <h2 style={{ fontSize: 'clamp(24px,3.5vw,40px)', fontWeight: 700, lineHeight: 1.1, letterSpacing: '-0.025em', margin: '0 0 20px' }}>
                   {featured.title}
                 </h2>
-                <p style={{ fontSize: 17, lineHeight: 1.65, color: 'var(--text-secondary)', margin: '0 0 28px', maxWidth: '52ch' }}>
+                <p style={{ fontSize: 17, lineHeight: 1.65, color: 'var(--text-secondary)', margin: '0 0 28px' }}>
                   {featured.summary}
                 </p>
                 <span style={{ fontFamily: 'var(--font-mono)', fontSize: 11, letterSpacing: '0.1em', textTransform: 'uppercase', color: 'var(--accent)', borderBottom: '1px solid var(--accent)', paddingBottom: 3 }}>
@@ -80,7 +80,7 @@ export default function NotesScreen({ notes }) {
               <h3 style={{ fontSize: 20, fontWeight: 600, letterSpacing: '-0.015em', lineHeight: 1.2, margin: '0 0 8px' }}>
                 {note.title}
               </h3>
-              <p style={{ fontSize: 14, lineHeight: 1.6, color: 'var(--text-secondary)', margin: '0 0 12px', maxWidth: '60ch' }}>
+              <p style={{ fontSize: 14, lineHeight: 1.6, color: 'var(--text-secondary)', margin: '0 0 12px' }}>
                 {note.summary}
               </p>
               <div style={{ display: 'flex', gap: 6, flexWrap: 'wrap' }}>

@@ -21,7 +21,7 @@ export default function NoteScreen({ note, body }) {
         <h1 style={{ fontSize: 'clamp(28px,4vw,48px)', fontWeight: 700, lineHeight: 1.08, letterSpacing: '-0.03em', margin: '0 0 24px' }}>
           {note.title}
         </h1>
-        <p style={{ fontSize: 18, lineHeight: 1.6, color: 'var(--text-secondary)', margin: '0 0 32px', maxWidth: '54ch' }}>
+        <p style={{ fontSize: 18, lineHeight: 1.6, color: 'var(--text-secondary)', margin: '0 0 32px' }}>
           {note.summary}
         </p>
         <div style={{ fontFamily: 'var(--font-mono)', fontSize: 12, color: 'var(--text-faint)', letterSpacing: '0.06em', paddingTop: 24, borderTop: '1px solid var(--border-hairline)' }}>

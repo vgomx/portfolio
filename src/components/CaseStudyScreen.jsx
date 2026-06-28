@@ -70,8 +70,8 @@ export default function CaseStudyScreen({ project, prev, next }) {
           {p.tags.map((t) => <Tag key={t}>{t}</Tag>)}
           <Badge status={p.status}>{p.statusLabel}</Badge>
         </div>
-        <h1 style={{ fontSize: 'clamp(36px,5.5vw,64px)', lineHeight: 1, letterSpacing: '-0.03em', fontWeight: 700, margin: 0, maxWidth: '18ch' }}>{p.title}</h1>
-        <p style={{ fontSize: 18, lineHeight: 1.55, color: 'var(--text-secondary)', maxWidth: '56ch', margin: '24px 0 0' }}>{p.summary}</p>
+        <h1 style={{ fontSize: 'clamp(36px,5.5vw,64px)', lineHeight: 1, letterSpacing: '-0.03em', fontWeight: 700, margin: 0 }}>{p.title}</h1>
+        <p style={{ fontSize: 18, lineHeight: 1.55, color: 'var(--text-secondary)', margin: '24px 0 0' }}>{p.summary}</p>
       </section>
 
       <section style={{ maxWidth: 'var(--container)', margin: '0 auto', padding: '0 48px 56px' }}>
@@ -101,11 +101,11 @@ export default function CaseStudyScreen({ project, prev, next }) {
         <div>
           <div style={{ marginBottom: 56 }}>
             <SectionHead n="01" title="Overview" />
-            <p style={{ fontSize: 16, lineHeight: 1.65, color: 'var(--text-secondary)', maxWidth: '64ch', marginLeft: 76 }}>{p.overview}</p>
+            <p style={{ fontSize: 16, lineHeight: 1.65, color: 'var(--text-secondary)', marginLeft: 76 }}>{p.overview}</p>
           </div>
           <div style={{ marginBottom: 56 }}>
             <SectionHead n="02" title="Challenge" />
-            <p style={{ fontSize: 16, lineHeight: 1.65, color: 'var(--text-secondary)', maxWidth: '64ch', marginLeft: 76 }}>{p.challenge}</p>
+            <p style={{ fontSize: 16, lineHeight: 1.65, color: 'var(--text-secondary)', marginLeft: 76 }}>{p.challenge}</p>
           </div>
           <div style={{ marginBottom: 56 }}>
             <SectionHead n="03" title="Process" />
