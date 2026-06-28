@@ -61,8 +61,6 @@ challenge: "Implementation projects carry a specific design tension: you're not 
 challengeBody:
   - body: >-
       Implementation projects carry a specific kind of design tension: you're not designing from a blank canvas. You're working within the constraints of an off-the-shelf platform — its design system, its component library, its opinionated flows — while serving a client with their own brand, regulatory requirements, and users with very specific expectations.
-  - body: >-
-      This project added a layer of complexity most engagement banking platforms aren't built for by default: the Saudi market.
   - lead: "Local identity infrastructure."
     body: >-
       Account opening in Saudi Arabia runs through Nafath (نفاذ) — the national digital identity system. Rather than a generic KYC flow, the onboarding had to route users through an external government app for biometric verification, then handle a range of eligibility outcomes: valid, no national address, ID expired, age ineligible, orphan ID status, and more. Each of these needed its own designed resolution — not a generic error screen.
