@@ -209,15 +209,15 @@ export default function AboutScreen() {
             <Button variant="ghost" onClick={() => { const a = document.createElement('a'); a.href = '/vitor-gomes-cv.pdf'; a.download = 'Vitor Gomes - CV.pdf'; a.click(); }}>Download CV</Button>
           </div>
         </div>
-        <Card tone="ink" className="about-hero-card" style={{ padding: 28 }}>
+        <Card className="about-hero-card" style={{ padding: '20px 20px 32px', background: '#fff', border: '1px solid var(--border-hairline)', boxShadow: '0 4px 24px rgba(0,0,0,0.07)' }}>
           <img
             src="/images/vitor.jpg"
             alt="Vitor Gomes"
-            style={{ width: '100%', aspectRatio: '3/3.5', objectFit: 'cover', objectPosition: 'center 5%', display: 'block', borderRadius: 4, marginBottom: 20 }}
+            style={{ width: '100%', aspectRatio: '3/3.5', objectFit: 'cover', objectPosition: 'center 5%', display: 'block', marginBottom: 20 }}
           />
           <div style={{ display: 'flex', flexDirection: 'column', gap: 4 }}>
-            <div style={{ fontSize: 16, fontWeight: 600, color: 'var(--paper)' }}>Vitor Gomes</div>
-            <div style={{ fontFamily: 'var(--font-mono)', fontSize: 11, letterSpacing: '0.08em', textTransform: 'uppercase', color: 'var(--text-inverse-faint)' }}>Amsterdam · Remote</div>
+            <div style={{ fontSize: 16, fontWeight: 600, color: '#141416' }}>Vitor Gomes</div>
+            <div style={{ fontFamily: 'var(--font-mono)', fontSize: 11, letterSpacing: '0.08em', textTransform: 'uppercase', color: '#717177' }}>Amsterdam · Remote</div>
           </div>
         </Card>
       </section>

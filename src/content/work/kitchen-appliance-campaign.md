@@ -12,7 +12,7 @@ imageLabel: "[ KitchenAid — Color of the Year ]"
 coverImage: "https://images.squarespace-cdn.com/content/v1/64ff5730a4cfb81021638f72/cfce15b9-899d-4c80-b128-2852d1e282a3/def090b1-7e46-48fb-b417-4039f7a10bab_rw_1920.png"
 template: "alt"
 role: "Product Designer"
-team: "4"
+team: "6+"
 country: "Brazil"
 steps: ["Research", "Discovery", "Wireframe", "Design", "Ship"]
 overview: "For the first time, Brazil was included in KitchenAid's global Color of the Year launch. The color was Honey — a warm, trend-forward shade for the iconic Artisan Stand Mixer. The challenge was building a campaign landing page that could introduce this initiative to a market that had never seen it before, making color feel like the hero of a product known for its function."

@@ -2,7 +2,7 @@
 title: "Vagalume — an icon of Brazilian internet, reborn"
 slug: "internet-brand-facelift"
 discipline: "Branding"
-year: 2026
+year: 2016
 tags: ["Case Study", "Branding", "Visual Identity"]
 status: "live"
 statusLabel: "Live"
@@ -12,7 +12,7 @@ imageLabel: "[ Vagalume — brand identity ]"
 coverImage: "https://mir-s3-cdn-cf.behance.net/project_modules/fs_webp/8d194869525117.5b84a69bda629.png"
 template: "alt"
 role: "Lead Designer"
-team: "2"
+team: "16+"
 country: "Brazil"
 steps: ["Brief", "Audit", "Identity", "UI System", "Launch"]
 overview: "Vagalume has been the go-to destination for Brazilian music lyrics since the early 2000s. By mid-2016, the brand felt stuck in a different era — a legacy mark, no type system, patterns that clashed across every surface. The invitation was simple: modernise it without erasing it. The result is a cleaner, more confident identity that still feels unmistakably Vagalume."

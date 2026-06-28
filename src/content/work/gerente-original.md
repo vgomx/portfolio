@@ -2,7 +2,7 @@
 title: "Gerente Original — Virtual Banking Manager"
 slug: "gerente-original"
 discipline: "Product Design"
-year: 2021
+year: 2018
 tags: ["Case Study", "Product Design", "UX Research"]
 status: "live"
 statusLabel: "Concept"
