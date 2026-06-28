@@ -21,7 +21,7 @@ const idx = sorted.findIndex((p) => p.slug === slug);
 const prev = idx > 0 ? { title: sorted[idx - 1].title, slug: sorted[idx - 1].slug } : null;
 const next = idx < sorted.length - 1 ? { title: sorted[idx + 1].title, slug: sorted[idx + 1].slug } : null;
 ---
-<Base title={`${project.title} — Vitor Gomes`} description={project.summary}>
+<Base title={`${project.title} — Vitor Gomes`} description={project.summary} ogImage={project.coverImage}>
   <TopBar activePage="work" client:load />
   <SiteBanner client:idle />
   <CaseStudyScreenAlt project={project} prev={prev} next={next} client:load />

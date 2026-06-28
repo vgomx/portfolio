@@ -459,7 +459,7 @@ export default function CaseStudyScreenAlt({ project, prev, next }) {
           {[
             { label: 'Role', value: p.role || 'Lead Designer' },
             { label: 'Year', value: p.year },
-            { label: 'Team', value: p.team ? `${p.team} people` : '—' },
+            ...(p.team ? [{ label: 'Team', value: `${p.team} people` }] : []),
             ...(p.country ? [{ label: 'Country', value: p.country }] : []),
           ].map((m, i, arr) => (
             <div key={m.label} style={{ flex: 1, paddingTop: 20, paddingBottom: 20, paddingLeft: i > 0 ? 24 : 0, paddingRight: i < arr.length - 1 ? 24 : 0, borderRight: i < arr.length - 1 ? '1px solid var(--border-hairline)' : 'none' }}>

@@ -11,7 +11,6 @@ summary: "Designing the end-to-end onboarding journey for a leading Saudi retail
 imageLabel: "[ Digital Banking — KSA Onboarding ]"
 coverImage: "/images/banking-ksa/cover.jpg"
 role: "Senior Product Designer"
-team: "14"
 country: "Saudi Arabia"
 steps: ["Understand", "Map", "Design", "Align", "Handoff"]
 outcomes:
