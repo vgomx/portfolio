@@ -7,6 +7,7 @@ import { StatCard } from '../ds/components/data/StatCard.jsx';
 import { Breadcrumb } from '../ds/components/navigation/Breadcrumb.jsx';
 import { Stepper } from '../ds/components/navigation/Stepper.jsx';
 import { ImagePlaceholder, GridLines } from './Chrome.jsx';
+import { ExternalLinkCard } from './ExternalLinkCard.jsx';
 
 const SECTIONS = [
   { id: 'overview',  label: 'Overview',  n: '01' },
@@ -298,6 +299,19 @@ function BodyEmbeds({ embeds, after }) {
   );
 }
 
+function BodyLinks({ links, after }) {
+  if (!links) return null;
+  const matches = links.filter((l) => l.after === after);
+  if (!matches.length) return null;
+  return (
+    <div style={{ marginTop: 32, display: 'flex', flexDirection: 'column', gap: 8 }}>
+      {matches.map((l, i) => (
+        <ExternalLinkCard key={i} title={l.title} href={l.href} />
+      ))}
+    </div>
+  );
+}
+
 function SubHead({ children }) {
   return (
     <h3 style={{ fontSize: 16, fontWeight: 600, letterSpacing: '-0.01em', color: 'var(--text-primary)', margin: '40px 0 12px' }}>{children}</h3>
@@ -487,6 +501,7 @@ export default function CaseStudyScreenAlt({ project, prev, next }) {
               <p style={{ fontSize: 16, lineHeight: 1.65, color: 'var(--text-secondary)', marginLeft: 76 }}>{p.overview}</p>
             )}
             <BodyImages images={p.bodyImages} after="overview" allImages={allImages} openLightbox={openLightbox} />
+            <BodyLinks links={p.links} after="overview" />
           </div>
 
           <div id="section-challenge" style={{ marginBottom: 72, scrollMarginTop: 100 }}>
@@ -504,6 +519,7 @@ export default function CaseStudyScreenAlt({ project, prev, next }) {
               <p style={{ fontSize: 16, lineHeight: 1.65, color: 'var(--text-secondary)', marginLeft: 76 }}>{p.challenge}</p>
             )}
             <BodyImages images={p.bodyImages} after="challenge" allImages={allImages} openLightbox={openLightbox} />
+            <BodyLinks links={p.links} after="challenge" />
             <BodyQuotes quotes={p.quotes} after="challenge" />
           </div>
 
@@ -573,6 +589,7 @@ export default function CaseStudyScreenAlt({ project, prev, next }) {
             )}
 
             <BodyImages images={p.bodyImages} after="process" allImages={allImages} openLightbox={openLightbox} />
+            <BodyLinks links={p.links} after="process" />
             <BodyEmbeds embeds={p.embeds} after="process" />
           </div>
 
@@ -607,6 +624,7 @@ export default function CaseStudyScreenAlt({ project, prev, next }) {
 
               <BodyImages images={p.bodyImages} after="outcome" allImages={allImages} openLightbox={openLightbox} />
               <BodyEmbeds embeds={p.embeds} after="outcome" />
+              <BodyLinks links={p.links} after="outcome" />
             </div>
           )}
 

@@ -16,6 +16,10 @@ country: "Kuwait"
 steps: ["Brief", "Research", "Identity", "System", "Deliver"]
 overview: "Darisni (دارسني) means 'teach me' in Arabic. It was one of the first online tutoring platforms in the Arab world — connecting students with private tutors for live sessions, educational content and exam preparation. The project arrived in 2015 as a cold email from Kuwait while I was still based in São Paulo. That single message opened my first international project and a new way of working: across time zones, languages and cultural references I had to learn from scratch."
 challenge: "The identity had to bridge two scripts — the bilingual mark needed to feel at home in both Latin and Arabic without compromising either. It also had to carry warmth across a wide audience: students, tutors and parents, each with different expectations of what a trustworthy learning platform looks like. The orange-forward palette needed to hold its energy across digital surfaces, letterheads, brand collateral and eventual product UI."
+links:
+  - title: "Darisni.me"
+    href: "https://www.darisni.me"
+    after: "outcome"
 embeds:
   - src: "https://www.youtube.com/embed/MS8s8ovrFVk"
     after: "outcome"

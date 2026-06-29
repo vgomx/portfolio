@@ -18,6 +18,10 @@ country: "Brazil"
 steps: ["Brief", "Identity", "Colour", "Type", "System"]
 overview: "Panda Video is a Brazilian video hosting platform built for creators and businesses who need full control over their content. As the product matured, it needed an identity that matched its ambition — something distinctive enough to own a market position, flexible enough to work across a dashboard, a marketing page, and a social avatar without losing its edge. The project started with the mark and worked outward: colour, type, and the visual language that ties it all together."
 challenge: "The identity had to carry warmth and energy without drifting into generic SaaS territory. The green-forward palette needed to hold on dark surfaces and light ones equally. The mark — the panda — had to be simple enough to work at 32px but characterful enough to anchor a full-bleed hero. Typography split cleanly between Fredoka One for brand moments and Poppins for product UI, with rules clear enough for any designer to apply without guesswork. A visual system emerged from those decisions: tokens, components and patterns that give the product a consistent voice across every surface."
+links:
+  - title: "Panda Video"
+    href: "https://www.pandavideo.com"
+    after: "outcome"
 outcomes:
   - value: "1"
     label: "Cohesive identity across brand and product"
