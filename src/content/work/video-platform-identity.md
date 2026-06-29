@@ -24,6 +24,10 @@ outcomes:
   - value: "30+"
     label: "Components and patterns — visual system"
 bodyImages:
+  - src: "/images/panda/panda-video-logo_lettering.jpg"
+    alt: "Panda Video logo lettering"
+    after: "overview"
+    layout: "wide"
   - src: "/images/panda/marks.png"
     alt: "Panda Video brand marks — all colour variants"
     after: "overview"

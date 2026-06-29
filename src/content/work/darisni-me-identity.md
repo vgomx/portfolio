@@ -1,0 +1,62 @@
+---
+title: "Darisni.me — Visual Identity"
+slug: "darisni-me-identity"
+discipline: "Branding"
+year: 2015
+tags: ["Case Study", "Branding", "Visual Identity"]
+extraDisciplines: ["Visual Design"]
+status: "live"
+statusLabel: "Live"
+featured: false
+summary: "A visual identity for Darisni.me — one of the first online tutoring platforms in the Arab world — built to connect students, tutors and parents across Kuwait and beyond."
+imageLabel: "[ Darisni.me — brand identity ]"
+coverImage: "/images/darisni/cover.webp"
+role: "Brand Designer"
+country: "Kuwait"
+steps: ["Brief", "Research", "Identity", "System", "Deliver"]
+overview: "Darisni (دارسني) means 'teach me' in Arabic. It was one of the first online tutoring platforms in the Arab world — connecting students with private tutors for live sessions, educational content and exam preparation. The project arrived in 2015 as a cold email from Kuwait while I was still based in São Paulo. That single message opened my first international project and a new way of working: across time zones, languages and cultural references I had to learn from scratch."
+challenge: "The identity had to bridge two scripts — the bilingual mark needed to feel at home in both Latin and Arabic without compromising either. It also had to carry warmth across a wide audience: students, tutors and parents, each with different expectations of what a trustworthy learning platform looks like. The orange-forward palette needed to hold its energy across digital surfaces, letterheads, brand collateral and eventual product UI."
+embeds:
+  - src: "https://www.youtube.com/embed/MS8s8ovrFVk"
+    after: "outcome"
+    layout: "landscape"
+
+outcomes:
+  - value: "2015"
+    label: "First international client"
+  - value: "1"
+    label: "Unified bilingual mark across Latin and Arabic scripts"
+bodyImages:
+  - src: "/images/darisni/intro.webp"
+    alt: "Darisni.me brand mark on orange"
+    after: "overview"
+    layout: "full"
+  - src: "/images/darisni/identity-01.webp"
+    alt: "Brand identity on green — notebook mockup"
+    after: "overview"
+    layout: "wide"
+  - src: "/images/darisni/identity-02.webp"
+    alt: "Logo construction and mark geometry"
+    after: "challenge"
+    layout: "wide"
+  - src: "/images/darisni/identity-03.webp"
+    alt: "Typography and colour system"
+    after: "challenge"
+    layout: "wide"
+  - src: "/images/darisni/identity-04.webp"
+    alt: "Logo variants across the full colour palette"
+    after: "challenge"
+    layout: "full"
+  - src: "/images/darisni/identity-05.webp"
+    alt: "Stationery and letterhead mockup"
+    after: "process"
+    layout: "wide"
+  - src: "/images/darisni/identity-06-07.webp"
+    alt: "Typography specimen and brand in use — mug and mobile app"
+    after: "process"
+    layout: "wide"
+  - src: "/images/darisni/darisni-appstore.webp"
+    alt: "Darisni app on the App Store"
+    after: "outcome"
+    layout: "wide"
+---
