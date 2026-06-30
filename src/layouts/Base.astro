@@ -55,7 +55,8 @@ const ogImageUrl = new URL(ogImage, Astro.url.origin).href;
     <style is:global>
       *, *::before, *::after { box-sizing: border-box; }
       html { scrollbar-gutter: stable; }
-      body { margin: 0; background: var(--surface-page); color: var(--text-primary); font-family: var(--font-sans); }
+      body { margin: 0; background: var(--surface-page); color: var(--text-primary); font-family: var(--font-sans); display: flex; flex-direction: column; min-height: 100dvh; }
+      main { flex: 1; }
 
       @keyframes page-rise {
         from { opacity: 0; transform: translateY(20px); }
