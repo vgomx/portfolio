@@ -1,0 +1,23 @@
+---
+import Base from '../../layouts/Base.astro';
+import { TopBar, Footer } from '../../components/Chrome.jsx';
+import LabDetailScreen from '../../components/LabDetailScreen.jsx';
+import { getCollection } from 'astro:content';
+
+export async function getStaticPaths() {
+  const entries = await getCollection('lab');
+  return entries.map((e) => ({ params: { slug: e.data.slug } }));
+}
+
+const { slug } = Astro.params;
+const entries = await getCollection('lab');
+const entry = entries.find((e) => e.data.slug === slug);
+if (!entry) return Astro.redirect('/lab');
+
+const project = { ...entry.data };
+---
+<Base title={`${project.title} — Lab — Vitor Gomes`} description={project.summary} ogImage={project.coverImage} theme="lab">
+  <TopBar activePage="lab" client:load />
+  <LabDetailScreen project={project} client:load />
+  <Footer client:idle />
+</Base>

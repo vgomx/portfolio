@@ -1,0 +1,341 @@
+/* ============================================================
+   LAB THEME — a photography darkroom with a digital pulse.
+   Scoped to [data-theme="lab"]; nothing here touches the core
+   DS. Built on the system's reserved green (--green-400) with
+   two supportive lab-only colors: a safelight red-orange and a
+   vintage CRT amber. Suspense lives in the dark surfaces;
+   the phosphor green is the only thing fully "on".
+   ============================================================ */
+
+[data-theme="lab"] {
+  /* --- Lab-only palette --- */
+  --lab-black:        #050706;
+  --lab-phosphor:     #5fe0a0; /* bright sibling of --green-400 */
+  --lab-phosphor-dim: var(--green-400);
+  --lab-safelight:    #e0563f; /* darkroom safelight red */
+  --lab-amber:        #d9a13d; /* vintage CRT amber */
+  --lab-glow:         rgba(95, 224, 160, 0.14);
+
+  /* --- Semantic overrides (green-cast darkroom neutrals) --- */
+  --text-primary:   #d9e6dd;
+  --text-secondary: #a3b8aa;
+  --text-muted:     #7d9184;
+  --text-faint:     #5a6b5f;
+  --text-disabled:  #404c44;
+
+  --surface-page:   #0a0e0c;
+  --surface-card:   #0d1210;
+  --surface-subtle: #101713;
+  --surface-sunken: #070a08;
+  --surface-ink:    #080c0a;
+  --surface-ink-2:  #101713;
+  --surface-ink-3:  #16211a;
+  --surface-button-secondary: #0d1210;
+
+  --border-hairline: #1a231d;
+  --border-default:  #27362c;
+  --border-mute:     #27362c;
+  --border-strong:   var(--lab-phosphor-dim);
+  --border-on-ink:   #1a231d;
+  --border-on-ink-2: #2e4034;
+
+  --text-inverse-primary: #d9e6dd;
+  --text-inverse-muted:   #a3b8aa;
+  --text-inverse-faint:   #7d9184;
+
+  --accent:             var(--lab-phosphor);
+  --accent-ink:         #06130b;
+  --accent-tint:        #10241a;
+  --accent-on-dark:     var(--lab-phosphor);
+  --accent-on-dark-ink: #06130b;
+  --accent-tint-dark:   #10241a;
+
+  --ring:  var(--lab-phosphor);
+  --scrim: rgba(3, 5, 4, 0.72);
+
+  color-scheme: dark;
+}
+
+[data-theme="lab"] ::selection {
+  background: var(--lab-phosphor);
+  color: #06130b;
+}
+
+/* ============================================================
+   ENTRY — the lights turn on. A black overlay with a mono boot
+   readout; the fluorescent stutter is the transition itself.
+   Overlay hides itself via CSS (forwards) so it never traps
+   the page; JS only picks full / quick / reduced.
+   ============================================================ */
+
+.lab-entry {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  background: var(--lab-black, #050706);
+  pointer-events: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  animation: lab-entry-full 2.4s linear forwards;
+}
+.lab-entry--quick { animation: lab-entry-quick 0.7s linear forwards; }
+.lab-entry--quick .lab-boot { display: none; }
+.lab-entry--reduced { animation: lab-entry-reduced 0.4s ease forwards; }
+.lab-entry--reduced .lab-boot { display: none; }
+
+@keyframes lab-entry-full {
+  0%, 54%    { opacity: 1; }
+  57%        { opacity: 0.12; }
+  60%        { opacity: 0.95; }
+  63%        { opacity: 0.25; }
+  66%        { opacity: 0.9; }
+  71%        { opacity: 0.08; }
+  76%        { opacity: 0.55; }
+  82%        { opacity: 0.04; }
+  88%        { opacity: 0.18; }
+  100%       { opacity: 0; visibility: hidden; }
+}
+@keyframes lab-entry-quick {
+  0%   { opacity: 1; }
+  30%  { opacity: 0.15; }
+  45%  { opacity: 0.75; }
+  65%  { opacity: 0.08; }
+  100% { opacity: 0; visibility: hidden; }
+}
+@keyframes lab-entry-reduced {
+  from { opacity: 1; }
+  to   { opacity: 0; visibility: hidden; }
+}
+
+.lab-boot {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #5fe0a0;
+}
+.lab-boot-line {
+  opacity: 0;
+  animation: lab-boot-line 0.1s steps(1) forwards;
+}
+.lab-boot-line--safelight { color: #e0563f; }
+.lab-boot-line--faint { color: #5a6b5f; }
+@keyframes lab-boot-line { to { opacity: 1; } }
+
+.lab-caret {
+  display: inline-block;
+  color: #5fe0a0;
+  animation: lab-caret 1.1s steps(1) infinite;
+}
+@keyframes lab-caret { 50% { opacity: 0; } }
+
+/* ============================================================
+   ATMOSPHERE — scanlines, film grain, vignette, CRT sweep.
+   One fixed overlay above content, pointer-events: none.
+   ============================================================ */
+
+.lab-fx {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 80;
+  background:
+    repeating-linear-gradient(0deg, rgba(4, 8, 5, 0.28) 0 1px, transparent 1px 3px),
+    radial-gradient(ellipse at 50% 38%, transparent 55%, rgba(3, 6, 4, 0.55) 100%);
+  opacity: 0.55;
+}
+.lab-fx::before {
+  content: '';
+  position: absolute;
+  inset: -60px;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  opacity: 0.07;
+  animation: lab-grain 0.9s steps(4) infinite;
+}
+@keyframes lab-grain {
+  0%   { transform: translate(0, 0); }
+  25%  { transform: translate(-18px, 12px); }
+  50%  { transform: translate(14px, -20px); }
+  75%  { transform: translate(-10px, -8px); }
+  100% { transform: translate(0, 0); }
+}
+.lab-fx::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: -140px;
+  height: 120px;
+  background: linear-gradient(to bottom, transparent, rgba(95, 224, 160, 0.05), transparent);
+  animation: lab-sweep 9s linear infinite;
+}
+@keyframes lab-sweep {
+  from { transform: translateY(0); }
+  to   { transform: translateY(calc(100vh + 280px)); }
+}
+
+/* ============================================================
+   GLITCH TITLE — RGB-split bursts on an interval. The element
+   needs data-text matching its content.
+   ============================================================ */
+
+.lab-glitch {
+  position: relative;
+  display: inline-block;
+}
+.lab-glitch::before,
+.lab-glitch::after {
+  content: attr(data-text) / ''; /* empty alt keeps the copies out of the a11y tree */
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  pointer-events: none;
+}
+.lab-glitch::before {
+  color: var(--lab-safelight, #e0563f);
+  animation: lab-glitch-a 6s steps(1) infinite;
+}
+.lab-glitch::after {
+  color: var(--lab-phosphor, #5fe0a0);
+  animation: lab-glitch-b 6s steps(1) infinite;
+}
+@keyframes lab-glitch-a {
+  0%, 100% { opacity: 0; transform: none; clip-path: inset(0); }
+  2%   { opacity: 0.8; transform: translate(-3px, 1px);  clip-path: inset(12% 0 58% 0); }
+  3.5% { opacity: 0; }
+  54%  { opacity: 0.8; transform: translate(2px, -1px);  clip-path: inset(62% 0 12% 0); }
+  56%  { opacity: 0; }
+}
+@keyframes lab-glitch-b {
+  0%, 100% { opacity: 0; transform: none; clip-path: inset(0); }
+  2.5% { opacity: 0.8; transform: translate(3px, -1px);  clip-path: inset(55% 0 18% 0); }
+  4%   { opacity: 0; }
+  55%  { opacity: 0.8; transform: translate(-2px, 2px);  clip-path: inset(8% 0 66% 0); }
+  57%  { opacity: 0; }
+}
+
+/* ============================================================
+   LAB CARDS — dark plates that glow phosphor on hover; covers
+   sit slightly desaturated (vintage) until touched.
+   ============================================================ */
+
+.lab-card {
+  background: var(--surface-card);
+  border: 1px solid var(--border-hairline);
+  border-radius: var(--radius);
+  overflow: hidden;
+  transition: border-color 0.25s ease, box-shadow 0.25s ease, transform 0.25s ease;
+}
+.lab-card:hover {
+  border-color: var(--lab-phosphor-dim);
+  box-shadow: 0 0 0 1px var(--lab-phosphor-dim), 0 0 36px var(--lab-glow);
+  transform: translateY(-2px);
+}
+.lab-card-hit {
+  position: relative;
+  display: block;
+  text-decoration: none;
+}
+.lab-card-hit img {
+  display: block;
+  width: 100%;
+  aspect-ratio: 16 / 10;
+  object-fit: cover;
+  filter: grayscale(0.35) contrast(1.05);
+  transition: filter 0.3s ease;
+}
+.lab-card:hover .lab-card-hit img { filter: none; }
+.lab-card-launch {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  background: rgba(5, 7, 6, 0.55);
+  opacity: 0;
+  transition: opacity 0.2s ease;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--lab-phosphor);
+}
+.lab-card:hover .lab-card-launch,
+.lab-card-hit:focus-visible .lab-card-launch { opacity: 1; }
+
+.lab-placeholder {
+  aspect-ratio: 16 / 10;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: repeating-linear-gradient(135deg, #0d1310 0 11px, #101712 11px 22px);
+}
+
+/* Empty slot — the next experiment, still in the developer tray */
+.lab-slot {
+  border: 1px dashed var(--border-default);
+  border-radius: var(--radius);
+  min-height: 220px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  align-items: center;
+  justify-content: center;
+  color: var(--text-faint);
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+/* Detail page launch CTA — the one fully-lit thing in the room */
+.lab-launch-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--accent-ink);
+  background: var(--lab-phosphor);
+  padding: 14px 22px;
+  border-radius: var(--radius);
+  text-decoration: none;
+  box-shadow: 0 0 28px var(--lab-glow);
+  transition: box-shadow 0.2s ease, transform 0.2s ease;
+}
+.lab-launch-btn:hover {
+  box-shadow: 0 0 44px rgba(95, 224, 160, 0.28);
+  transform: translateY(-1px);
+}
+
+/* Blinking status dot for the header readout */
+.lab-dot {
+  display: inline-block;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--lab-safelight, #e0563f);
+  animation: vg-pulse 1.6s ease-in-out infinite;
+}
+
+/* ============================================================
+   REDUCED MOTION — kill the theatrics, keep the room.
+   ============================================================ */
+@media (prefers-reduced-motion: reduce) {
+  .lab-entry { animation: lab-entry-reduced 0.3s ease forwards; }
+  .lab-fx::before,
+  .lab-fx::after,
+  .lab-glitch::before,
+  .lab-glitch::after,
+  .lab-dot,
+  .lab-caret { animation: none; }
+  .lab-glitch::before, .lab-glitch::after { opacity: 0; }
+  .lab-fx::after { display: none; }
+}

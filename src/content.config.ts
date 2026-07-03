@@ -49,6 +49,28 @@ const work = defineCollection({
   }),
 });
 
+const lab = defineCollection({
+  loader: glob({ pattern: '**/*.md', base: './src/content/lab' }),
+  schema: z.object({
+    title: z.string(),
+    slug: z.string(),
+    code: z.string(),
+    year: z.number(),
+    tags: z.array(z.string()),
+    status: z.string(),
+    statusLabel: z.string(),
+    summary: z.string(),
+    imageLabel: z.string().optional(),
+    coverImage: z.string().optional(),
+    liveUrl: z.string().optional(),
+    hidden: z.boolean().optional(),
+    featured: z.boolean().optional(),
+    stack: z.array(z.string()).optional(),
+    about: z.array(z.string()).optional(),
+    log: z.array(z.object({ date: z.string(), entry: z.string() })).optional(),
+  }),
+});
+
 const blog = defineCollection({
   loader: glob({ pattern: '**/*.md', base: './src/content/blog' }),
   schema: z.object({
@@ -62,4 +84,4 @@ const blog = defineCollection({
   }),
 });
 
-export const collections = { work, blog };
+export const collections = { work, blog, lab };

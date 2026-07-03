@@ -8,21 +8,24 @@ import '../ds/styles.css';
 import '../styles/eye-glitch.css';
 import '../styles/responsive.css';
 import '../styles/dark-mode.css';
+import '../styles/lab-theme.css';
 
 export interface Props {
   title?: string;
   description?: string;
   ogImage?: string;
+  theme?: string;
 }
 const {
   title = 'Vitor Gomes — Product Designer',
   description = 'Product designer working across identity, interface and design systems.',
   ogImage = '/images/og-default.png',
+  theme,
 } = Astro.props;
 const ogImageUrl = new URL(ogImage, Astro.url.origin).href;
 ---
 <!doctype html>
-<html lang="en">
+<html lang="en" data-theme={theme}>
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -78,6 +81,7 @@ const ogImageUrl = new URL(ogImage, Astro.url.origin).href;
     </style>
     <script is:inline>
       (function() {
+        if (document.documentElement.getAttribute('data-theme')) return; // page-fixed theme (e.g. lab)
         const t = localStorage.getItem('theme');
         if (t === 'dark') document.documentElement.setAttribute('data-theme', 'dark');
       })();

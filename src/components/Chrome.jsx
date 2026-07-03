@@ -44,7 +44,7 @@ function VGEyeGlitch({ size = 40 }) {
 
 export function TopBar({ activePage }) {
   const [active, setActive] = useState(false);
-  const items = [{ href: '/work', label: 'Work', key: 'work' }, { href: '/notes', label: 'Notes', key: 'notes' }, { href: '/about', label: 'About', key: 'about' }];
+  const items = [{ href: '/work', label: 'Work', key: 'work' }, { href: '/lab', label: 'Lab', key: 'lab' }, { href: '/notes', label: 'Notes', key: 'notes' }, { href: '/about', label: 'About', key: 'about' }];
 
   // Auto-trigger eye glitch every 10s for ~2s
   useEffect(() => {
@@ -175,9 +175,13 @@ function CookieBanner() {
 
 function ThemeToggle() {
   const [dark, setDark] = useState(false);
+  const [labMode, setLabMode] = useState(false);
   useEffect(() => {
-    setDark(document.documentElement.getAttribute('data-theme') === 'dark');
+    const theme = document.documentElement.getAttribute('data-theme');
+    setDark(theme === 'dark');
+    setLabMode(theme === 'lab'); // lab pages own their theme — no toggle
   }, []);
+  if (labMode) return null;
   function toggle() {
     const next = !dark;
     setDark(next);
@@ -202,6 +206,7 @@ function ThemeToggle() {
 
 const NAV_LINKS = [
   { href: '/work', label: 'Cases' },
+  { href: '/lab', label: 'Lab' },
   { href: '/about', label: 'About' },
   { href: 'mailto:vgmxx@proton.me', label: 'Contact' },
 ];

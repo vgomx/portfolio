@@ -1,0 +1,17 @@
+---
+import Base from '../../layouts/Base.astro';
+import { TopBar, Footer } from '../../components/Chrome.jsx';
+import LabScreen from '../../components/LabScreen.jsx';
+import { getCollection } from 'astro:content';
+
+const entries = await getCollection('lab');
+const experiments = entries
+  .map((e) => ({ ...e.data }))
+  .filter((p) => !p.hidden)
+  .sort((a, b) => b.year - a.year || b.code.localeCompare(a.code));
+---
+<Base title="Lab — Vitor Gomes" description="Off-hours experiments, prototypes and toys — developed in the dark, launched live." theme="lab">
+  <TopBar activePage="lab" client:load />
+  <LabScreen experiments={experiments} client:load />
+  <Footer client:idle />
+</Base>
