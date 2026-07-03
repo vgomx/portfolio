@@ -67,6 +67,7 @@ const lab = defineCollection({
     featured: z.boolean().optional(),
     stack: z.array(z.string()).optional(),
     about: z.array(z.string()).optional(),
+    links: z.array(z.object({ title: z.string(), href: z.string() })).optional(),
     log: z.array(z.object({ date: z.string(), entry: z.string() })).optional(),
   }),
 });

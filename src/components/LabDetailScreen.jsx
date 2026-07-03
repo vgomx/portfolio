@@ -1,6 +1,7 @@
 import { Badge } from '../ds/components/core/Badge.jsx';
 import { Tag } from '../ds/components/core/Tag.jsx';
 import { Eyebrow, GridLines } from './Chrome.jsx';
+import { ExternalLinkCard } from './ExternalLinkCard.jsx';
 import { LabEntry, LabFx } from './LabScreen.jsx';
 
 function MetaCell({ label, value }) {
@@ -57,6 +58,15 @@ export default function LabDetailScreen({ project }) {
         {p.tags && (
           <div style={{ display: 'flex', gap: 6, flexWrap: 'wrap', margin: '12px 0 48px' }}>
             {p.tags.map((t) => <Tag key={t} size="sm">{t}</Tag>)}
+          </div>
+        )}
+
+        {p.links && p.links.length > 0 && (
+          <div style={{ margin: '0 0 48px' }}>
+            <Eyebrow style={{ marginBottom: 16 }}>Links</Eyebrow>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
+              {p.links.map((l) => <ExternalLinkCard key={l.href} title={l.title} href={l.href} />)}
+            </div>
           </div>
         )}
 
