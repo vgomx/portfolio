@@ -154,6 +154,52 @@
 @keyframes lab-caret { 50% { opacity: 0; } }
 
 /* ============================================================
+   EXIT — the lights cutting out. A quick glitch-flicker to
+   black before an internal link navigates away from the lab.
+   Shorter and blunter than the entry: no boot text, just the
+   room losing power. Toggled once via a class, not re-rendered.
+   ============================================================ */
+
+.lab-exit {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  background: var(--lab-black, #050706);
+  pointer-events: none;
+  opacity: 0;
+}
+.lab-exit::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(95, 224, 160, 0.25), rgba(224, 86, 63, 0.15));
+  mix-blend-mode: screen;
+  opacity: 0;
+}
+.lab-exit--active {
+  animation: lab-exit-out 0.55s linear forwards;
+}
+.lab-exit--active::before {
+  animation: lab-exit-tint 0.55s steps(3) forwards;
+}
+@keyframes lab-exit-out {
+  0%   { opacity: 0;    transform: none; }
+  15%  { opacity: 0.85; transform: translateX(2px); }
+  25%  { opacity: 0.1;  transform: translateX(-3px); }
+  40%  { opacity: 0.9;  transform: translateX(1px); }
+  55%  { opacity: 0.2;  transform: translateX(-2px); }
+  70%  { opacity: 1;    transform: none; }
+  100% { opacity: 1;    transform: none; }
+}
+@keyframes lab-exit-tint {
+  0%   { opacity: 0; }
+  20%  { opacity: 0.8; }
+  45%  { opacity: 0; }
+  60%  { opacity: 0.6; }
+  100% { opacity: 0; }
+}
+
+/* ============================================================
    ATMOSPHERE — scanlines, film grain, vignette, CRT sweep.
    One fixed overlay above content, pointer-events: none.
    ============================================================ */
@@ -357,7 +403,9 @@
   .lab-dot,
   .lab-caret,
   .lab-boot-line,
-  .lab-boot-line--safelight { animation: none; }
+  .lab-boot-line--safelight,
+  .lab-exit--active,
+  .lab-exit--active::before { animation: none; }
   .lab-glitch::before, .lab-glitch::after { opacity: 0; }
   .lab-fx::after { display: none; }
   .lab-boot { display: none; }

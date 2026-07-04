@@ -62,6 +62,42 @@ export function LabFx() {
   return <div className="lab-fx" aria-hidden="true" />;
 }
 
+/* The lights-off transition. Intercepts same-tab internal link clicks,
+   plays a quick glitch-to-black flicker, then completes the navigation. */
+export function LabExit() {
+  const [active, setActive] = useState(false);
+
+  useEffect(() => {
+    function handleClick(e) {
+      if (e.defaultPrevented || e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
+      const a = e.target.closest && e.target.closest('a');
+      if (!a || a.target === '_blank') return;
+
+      const href = a.getAttribute('href');
+      if (!href || href.startsWith('#') || href.startsWith('mailto:') || href.startsWith('tel:')) return;
+
+      let url;
+      try {
+        url = new URL(href, window.location.href);
+      } catch (err) {
+        return;
+      }
+      if (url.origin !== window.location.origin) return;
+
+      const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      if (reduced) return;
+
+      e.preventDefault();
+      setActive(true);
+      setTimeout(() => { window.location.href = url.href; }, 550);
+    }
+    document.addEventListener('click', handleClick);
+    return () => document.removeEventListener('click', handleClick);
+  }, []);
+
+  return <div className={`lab-exit${active ? ' lab-exit--active' : ''}`} aria-hidden="true" />;
+}
+
 function LabCard({ p }) {
   return (
     <article className="lab-card">
@@ -106,6 +142,7 @@ export default function LabScreen({ experiments }) {
     <>
     <LabEntry />
     <LabFx />
+    <LabExit />
     <div className="page-enter">
       <section className="section-pad" style={{ maxWidth: 'var(--container)', margin: '0 auto', padding: '72px 48px 40px', position: 'relative', overflow: 'hidden' }}>
         <GridLines />
