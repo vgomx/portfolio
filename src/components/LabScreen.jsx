@@ -100,12 +100,8 @@ export function LabExit() {
 
 function LabCard({ p }) {
   return (
-    <article className="lab-card">
-      <a
-        className="lab-card-hit"
-        href={`/lab/${p.slug}`}
-        aria-label={`View ${p.title}`}
-      >
+    <a className="lab-card" href={`/lab/${p.slug}`} aria-label={`View ${p.title}`}>
+      <div className="lab-card-hit">
         {p.coverImage
           ? <img src={p.coverImage} alt={p.imageLabel || p.title} loading="lazy" decoding="async" />
           : (
@@ -114,7 +110,7 @@ function LabCard({ p }) {
             </div>
           )}
         <span className="lab-card-launch">View details →</span>
-      </a>
+      </div>
       <div style={{ padding: '20px 24px 24px' }}>
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: 12, marginBottom: 14 }}>
           <span style={{ fontFamily: 'var(--font-mono)', fontSize: 11, letterSpacing: '0.12em', textTransform: 'uppercase', color: 'var(--accent)' }}>{p.code}</span>
@@ -129,10 +125,10 @@ function LabCard({ p }) {
           <span style={{ fontFamily: 'var(--font-mono)', fontSize: 11, letterSpacing: '0.08em', textTransform: 'uppercase', color: 'var(--text-faint)' }}>
             {p.year}{p.stack ? ` · ${p.stack.join(' / ')}` : ''}
           </span>
-          <a href={`/lab/${p.slug}`} style={{ fontFamily: 'var(--font-mono)', fontSize: 11, letterSpacing: '0.1em', textTransform: 'uppercase', color: 'var(--text-muted)', textDecoration: 'none' }}>Details</a>
+          <span style={{ fontFamily: 'var(--font-mono)', fontSize: 11, letterSpacing: '0.1em', textTransform: 'uppercase', color: 'var(--text-muted)' }}>Details →</span>
         </div>
       </div>
-    </article>
+    </a>
   );
 }
 

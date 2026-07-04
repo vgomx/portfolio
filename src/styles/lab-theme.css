@@ -290,10 +290,14 @@
    ============================================================ */
 
 .lab-card {
+  display: block;
   background: var(--surface-card);
   border: 1px solid var(--border-hairline);
   border-radius: var(--radius);
   overflow: hidden;
+  text-decoration: none;
+  color: inherit;
+  cursor: pointer;
   transition: border-color 0.25s ease, box-shadow 0.25s ease, transform 0.25s ease;
 }
 .lab-card:hover {
@@ -304,7 +308,6 @@
 .lab-card-hit {
   position: relative;
   display: block;
-  text-decoration: none;
 }
 .lab-card-hit img {
   display: block;
@@ -332,7 +335,7 @@
   color: var(--lab-phosphor);
 }
 .lab-card:hover .lab-card-launch,
-.lab-card-hit:focus-visible .lab-card-launch { opacity: 1; }
+.lab-card:focus-visible .lab-card-launch { opacity: 1; }
 
 .lab-placeholder {
   aspect-ratio: 16 / 10;
