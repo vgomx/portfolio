@@ -142,13 +142,6 @@
   100% { transform: translate(0, 0);    text-shadow: none; }
 }
 
-.lab-passcode-dots { color: #5fe0a0; }
-.lab-passcode-ok {
-  display: inline-block;
-  margin-left: 8px;
-  color: #5fe0a0;
-  animation: lab-boot-glitch-in 0.3s steps(4) forwards;
-}
 
 .lab-caret {
   display: inline-block;
@@ -361,8 +354,7 @@
   .lab-dot,
   .lab-caret,
   .lab-boot-line,
-  .lab-boot-line--safelight,
-  .lab-passcode-ok { animation: none; }
+  .lab-boot-line--safelight { animation: none; }
   .lab-glitch::before, .lab-glitch::after { opacity: 0; }
   .lab-fx::after { display: none; }
   .lab-boot { display: none; }
