@@ -12,18 +12,10 @@ export function LabEntry() {
   const [showOk, setShowOk] = useState(false);
 
   useEffect(() => {
-    let internalNav = false;
-    try {
-      internalNav = Boolean(sessionStorage.getItem('lab-internal-nav'));
-      if (internalNav) sessionStorage.removeItem('lab-internal-nav');
-    } catch (e) {
-      internalNav = false;
-    }
-
-    if (internalNav) {
-      // Already inside the lab, just moving between its pages — no boot replay.
+    // The pre-paint script in Base.astro consumes the lab-internal-nav flag
+    // and marks <html>; CSS has already suppressed the boot overlay by now.
+    if (document.documentElement.getAttribute('data-lab-nav') === 'internal') {
       setMode('none');
-      try { sessionStorage.setItem('lab-entered', '1'); } catch (e) { /* non-fatal */ }
       return;
     }
 
@@ -77,10 +69,12 @@ export function LabFx() {
   return <div className="lab-fx" aria-hidden="true" />;
 }
 
-/* The lights-off transition. Intercepts same-tab internal link clicks,
-   plays a quick glitch-to-black flicker, then completes the navigation. */
+/* The outgoing transition. Intercepts same-tab internal link clicks.
+   Leaving the lab plays the lights-off flicker; moving between lab
+   pages plays the shorter restructure de-rez instead (no blackout),
+   and arms the flag the pre-paint script reads on the next page. */
 export function LabExit() {
-  const [active, setActive] = useState(false);
+  const [exit, setExit] = useState(null); // null | 'off' | 'restruct'
 
   useEffect(() => {
     function handleClick(e) {
@@ -99,22 +93,43 @@ export function LabExit() {
       }
       if (url.origin !== window.location.origin) return;
 
-      const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-      if (reduced) return;
-
-      if (url.pathname.startsWith('/lab')) {
+      const internal = url.pathname.startsWith('/lab');
+      if (internal) {
         try { sessionStorage.setItem('lab-internal-nav', '1'); } catch (err) { /* non-fatal */ }
       }
 
+      const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      if (reduced) return;
+
       e.preventDefault();
-      setActive(true);
-      setTimeout(() => { window.location.href = url.href; }, 180);
+      if (internal) {
+        setExit('restruct');
+        document.body.classList.add('lab-restruct-out');
+        setTimeout(() => { window.location.href = url.href; }, 160);
+      } else {
+        setExit('off');
+        setTimeout(() => { window.location.href = url.href; }, 180);
+      }
     }
     document.addEventListener('click', handleClick);
     return () => document.removeEventListener('click', handleClick);
   }, []);
 
-  return <div className={`lab-exit${active ? ' lab-exit--active' : ''}`} aria-hidden="true" />;
+  return <div className={`lab-exit${exit === 'off' ? ' lab-exit--active' : ''}${exit === 'restruct' ? ' lab-exit--restruct' : ''}`} aria-hidden="true" />;
+}
+
+/* Redraw chrome for lab → lab navigation: the scanline sweep that
+   paints the page in, plus the corner status line. Both only render
+   visibly when the pre-paint script marked the page as internal. */
+export function LabRestruct({ label = 'restructuring' }) {
+  return (
+    <>
+      <div className="lab-redraw" aria-hidden="true" />
+      <div className="lab-restruct" aria-hidden="true">
+        <span className="lab-restruct-line">&gt; {label}<span className="lab-caret">▌</span></span>
+      </div>
+    </>
+  );
 }
 
 function LabCard({ p }) {
@@ -158,6 +173,7 @@ export default function LabScreen({ experiments }) {
     <LabEntry />
     <LabFx />
     <LabExit />
+    <LabRestruct label="restructuring · index" />
     <div className="page-enter">
       <section className="section-pad" style={{ maxWidth: 'var(--container)', margin: '0 auto', padding: '72px 48px 40px', position: 'relative', overflow: 'hidden' }}>
         <GridLines />

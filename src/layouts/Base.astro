@@ -81,9 +81,21 @@ const ogImageUrl = new URL(ogImage, Astro.url.origin).href;
     </style>
     <script is:inline>
       (function() {
-        if (document.documentElement.getAttribute('data-theme')) return; // page-fixed theme (e.g. lab)
+        const el = document.documentElement;
+        // Lab-internal navigation must be decided before first paint so the
+        // boot overlay never flashes; hydration is too late for this.
+        if (el.getAttribute('data-theme') === 'lab') {
+          try {
+            if (sessionStorage.getItem('lab-internal-nav')) {
+              sessionStorage.removeItem('lab-internal-nav');
+              sessionStorage.setItem('lab-entered', '1');
+              el.setAttribute('data-lab-nav', 'internal');
+            }
+          } catch (e) { /* storage unavailable — boot plays, which is safe */ }
+        }
+        if (el.getAttribute('data-theme')) return; // page-fixed theme (e.g. lab)
         const t = localStorage.getItem('theme');
-        if (t === 'dark') document.documentElement.setAttribute('data-theme', 'dark');
+        if (t === 'dark') el.setAttribute('data-theme', 'dark');
       })();
     </script>
   </head>

@@ -92,10 +92,10 @@ export function SiteBanner() {
   if (!visible) return null;
 
   return (
-    <div style={{ background: 'var(--surface-subtle)', borderBottom: '1px solid var(--border-hairline)' }}>
+    <div className="site-banner" style={{ background: 'var(--surface-subtle)', borderBottom: '1px solid var(--border-hairline)' }}>
       <div className="section-pad" style={{ maxWidth: 'var(--container)', margin: '0 auto', padding: '10px 48px', display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 16 }}>
         <p style={{ margin: 0, fontSize: 13, lineHeight: 1.5, color: 'var(--text-secondary)' }}>
-          <span style={{ fontWeight: 600, color: 'var(--text-primary)' }}>Work in progress —</span>{' '}
+          <span style={{ fontWeight: 600, color: 'var(--banner-lead, var(--text-primary))' }}>Work in progress —</span>{' '}
           This website is currently being updated. Some information or projects may be missing or incomplete.
         </p>
         <button

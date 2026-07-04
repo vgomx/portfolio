@@ -1,6 +1,6 @@
 ---
 import Base from '../../layouts/Base.astro';
-import { TopBar, Footer } from '../../components/Chrome.jsx';
+import { TopBar, Footer, SiteBanner } from '../../components/Chrome.jsx';
 import LabScreen from '../../components/LabScreen.jsx';
 import { getCollection } from 'astro:content';
 
@@ -12,6 +12,7 @@ const experiments = entries
 ---
 <Base title="Lab — Vitor Gomes" description="Off-hours experiments, prototypes and toys — developed in the dark, launched live." theme="lab">
   <TopBar activePage="lab" client:load />
+  <SiteBanner client:idle />
   <LabScreen experiments={experiments} client:load />
   <Footer client:idle />
 </Base>

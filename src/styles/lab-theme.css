@@ -61,6 +61,18 @@
   color: #06130b;
 }
 
+/* Site banner, darkroom edition — reads like a warning readout:
+   mono type, CRT-amber lead. Surfaces/borders come from the
+   theme tokens; only the voice changes here. */
+[data-theme="lab"] {
+  --banner-lead: var(--lab-amber);
+}
+[data-theme="lab"] .site-banner p {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  letter-spacing: 0.03em;
+}
+
 /* ============================================================
    ENTRY — the lights turn on. A black overlay with a mono boot
    readout; the fluorescent stutter is the transition itself.
@@ -193,6 +205,123 @@
   0%   { opacity: 0.7; }
   55%  { opacity: 0.2; }
   100% { opacity: 0; }
+}
+
+/* ============================================================
+   REDRAW — lab → lab navigation only. No blackout, no boot,
+   and nothing moves: a phosphor scanline sweeps down and
+   "paints" the incoming UI in behind it, while the content
+   settles from an RGB-displaced ghost into focus. A status
+   line re-types in the corner. Armed pre-paint by the inline
+   script via data-lab-nav="internal" on <html>.
+   ============================================================ */
+
+/* Incoming page: boot never paints */
+[data-lab-nav="internal"] .lab-entry { display: none; }
+
+/* Incoming page: chromatic fringe that snaps into register.
+   Discrete steps between two fringe strengths — colour ghosts
+   around edges and type, zero layout movement. */
+[data-lab-nav="internal"] .page-enter {
+  animation: lab-rgb-in 0.5s steps(1, end) both;
+}
+@keyframes lab-rgb-in {
+  0% {
+    filter: drop-shadow(3px 0 rgba(224, 86, 63, 0.55)) drop-shadow(-3px 0 rgba(95, 224, 160, 0.55)) saturate(0.7);
+  }
+  55% {
+    filter: drop-shadow(1px 0 rgba(224, 86, 63, 0.4)) drop-shadow(-1px 0 rgba(95, 224, 160, 0.4));
+  }
+  100% { filter: none; }
+}
+
+/* The redraw sweep: a page-coloured veil is wiped away top-down
+   by a glowing scanline, as if the UI were being repainted. */
+.lab-redraw { display: none; }
+[data-lab-nav="internal"] .lab-redraw {
+  display: block;
+  position: fixed;
+  inset: 0;
+  z-index: 90;
+  pointer-events: none;
+}
+[data-lab-nav="internal"] .lab-redraw::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: var(--surface-page);
+  opacity: 0.94;
+  animation: lab-redraw-veil 0.42s linear forwards;
+}
+@keyframes lab-redraw-veil {
+  from { clip-path: inset(0 0 0 0); }
+  to   { clip-path: inset(100% 0 0 0); }
+}
+[data-lab-nav="internal"] .lab-redraw::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: -2px;
+  height: 2px;
+  background: var(--lab-phosphor);
+  box-shadow: 0 0 18px var(--lab-phosphor), 0 0 44px var(--lab-glow);
+  animation: lab-redraw-line 0.42s linear forwards;
+}
+@keyframes lab-redraw-line {
+  0%   { transform: translateY(0); opacity: 1; }
+  92%  { opacity: 1; }
+  100% { transform: translateY(100vh); opacity: 0; }
+}
+
+/* Corner status line, re-typed then dropped */
+.lab-restruct { display: none; }
+[data-lab-nav="internal"] .lab-restruct {
+  display: block;
+  position: fixed;
+  left: 24px;
+  bottom: 24px;
+  z-index: 9999;
+  pointer-events: none;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--lab-phosphor);
+  text-shadow: 0 0 12px var(--lab-glow);
+  animation: lab-restruct-fade 1.1s linear forwards;
+}
+.lab-restruct-line {
+  display: inline-block;
+  overflow: hidden;
+  white-space: nowrap;
+  vertical-align: bottom;
+  max-width: 0;
+  animation: lab-type 0.45s steps(24, end) forwards;
+}
+@keyframes lab-type { to { max-width: 34ch; } }
+@keyframes lab-restruct-fade {
+  0%, 72% { opacity: 1; }
+  100%    { opacity: 0; visibility: hidden; }
+}
+
+/* Outgoing page: the signal loses register — content dims and
+   splits into colour ghosts in place, no movement. */
+body.lab-restruct-out .page-enter {
+  animation: lab-rgb-out 0.16s linear both;
+}
+@keyframes lab-rgb-out {
+  0% { opacity: 1; filter: none; }
+  100% {
+    opacity: 0.35;
+    filter: drop-shadow(3px 0 rgba(224, 86, 63, 0.7)) drop-shadow(-3px 0 rgba(95, 224, 160, 0.7)) saturate(0.6);
+  }
+}
+.lab-exit--restruct {
+  background: transparent;
+}
+.lab-exit--restruct::before {
+  animation: lab-exit-tint 0.16s steps(2) forwards;
 }
 
 /* ============================================================
@@ -408,4 +537,8 @@
   .lab-glitch::before, .lab-glitch::after { opacity: 0; }
   .lab-fx::after { display: none; }
   .lab-boot { display: none; }
+  [data-lab-nav="internal"] .page-enter,
+  body.lab-restruct-out .page-enter { animation: none; filter: none; }
+  [data-lab-nav="internal"] .lab-restruct,
+  [data-lab-nav="internal"] .lab-redraw { display: none; }
 }

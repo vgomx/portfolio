@@ -2,7 +2,7 @@ import { Badge } from '../ds/components/core/Badge.jsx';
 import { Tag } from '../ds/components/core/Tag.jsx';
 import { Eyebrow, GridLines } from './Chrome.jsx';
 import { ExternalLinkCard } from './ExternalLinkCard.jsx';
-import { LabEntry, LabFx, LabExit } from './LabScreen.jsx';
+import { LabEntry, LabFx, LabExit, LabRestruct } from './LabScreen.jsx';
 
 function MetaCell({ label, value }) {
   return (
@@ -20,6 +20,7 @@ export default function LabDetailScreen({ project }) {
     <LabEntry />
     <LabFx />
     <LabExit />
+    <LabRestruct label={`restructuring · ${p.code.toLowerCase()}`} />
     <div className="page-enter">
       <section className="section-pad" style={{ maxWidth: 760, margin: '0 auto', padding: '64px 48px 96px', position: 'relative' }}>
         <a href="/lab" style={{ fontFamily: 'var(--font-mono)', fontSize: 11, letterSpacing: '0.1em', textTransform: 'uppercase', color: 'var(--text-muted)', textDecoration: 'none' }}>← Lab index</a>
