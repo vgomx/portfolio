@@ -83,6 +83,7 @@
 .lab-entry--quick .lab-boot { display: none; }
 .lab-entry--reduced { animation: lab-entry-reduced 0.4s ease forwards; }
 .lab-entry--reduced .lab-boot { display: none; }
+.lab-entry--none { display: none; }
 
 @keyframes lab-entry-full {
   0%, 66%    { opacity: 1; transform: none; }

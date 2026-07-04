@@ -12,6 +12,21 @@ export function LabEntry() {
   const [showOk, setShowOk] = useState(false);
 
   useEffect(() => {
+    let internalNav = false;
+    try {
+      internalNav = Boolean(sessionStorage.getItem('lab-internal-nav'));
+      if (internalNav) sessionStorage.removeItem('lab-internal-nav');
+    } catch (e) {
+      internalNav = false;
+    }
+
+    if (internalNav) {
+      // Already inside the lab, just moving between its pages — no boot replay.
+      setMode('none');
+      try { sessionStorage.setItem('lab-entered', '1'); } catch (e) { /* non-fatal */ }
+      return;
+    }
+
     const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     let alreadyEntered = false;
     try {
@@ -86,6 +101,10 @@ export function LabExit() {
 
       const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
       if (reduced) return;
+
+      if (url.pathname.startsWith('/lab')) {
+        try { sessionStorage.setItem('lab-internal-nav', '1'); } catch (err) { /* non-fatal */ }
+      }
 
       e.preventDefault();
       setActive(true);
