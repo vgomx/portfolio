@@ -46,9 +46,10 @@ export function LabEntry() {
     <div className={`lab-entry lab-entry--${mode}`} aria-hidden="true">
       <div className="lab-boot">
         <span className="lab-boot-line lab-boot-line--faint" style={{ animationDelay: '0.15s' }}>&gt; vg.lab — session {new Date().getFullYear()}</span>
-        <span className="lab-boot-line" style={{ animationDelay: '0.4s' }}>
-          &gt; passcode: {'•'.repeat(dotsTyped)}{showOk ? ' [ok]' : ''}
-        </span>
+        <div className="lab-boot-line-row">
+          <span className="lab-boot-line" style={{ animationDelay: '0.4s' }}>&gt; passcode:</span>
+          <span className="lab-passcode-value">{'•'.repeat(dotsTyped)}{showOk ? ' [ok]' : ''}</span>
+        </div>
         <span className="lab-boot-line lab-boot-line--safelight" style={{ animationDelay: '1.3s' }}>&gt; safelight: on</span>
         <span className="lab-boot-line" style={{ animationDelay: '1.75s' }}>&gt; exposing<span className="lab-caret">▌</span></span>
       </div>
