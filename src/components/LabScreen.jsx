@@ -32,25 +32,13 @@ export function LabFx() {
   return <div className="lab-fx" aria-hidden="true" />;
 }
 
-function LaunchArrow({ size = 13 }) {
-  return (
-    <svg width={size} height={size} viewBox="0 0 16 16" fill="none" aria-hidden="true">
-      <path d="M4.5 11.5L11.5 4.5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
-      <path d="M6 4.5H11.5V10" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-    </svg>
-  );
-}
-
 function LabCard({ p }) {
-  const hitHref = p.liveUrl || `/lab/${p.slug}`;
-  const external = Boolean(p.liveUrl);
   return (
     <article className="lab-card">
       <a
         className="lab-card-hit"
-        href={hitHref}
-        {...(external ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
-        aria-label={external ? `Launch ${p.title} (opens in a new tab)` : `View ${p.title}`}
+        href={`/lab/${p.slug}`}
+        aria-label={`View ${p.title}`}
       >
         {p.coverImage
           ? <img src={p.coverImage} alt={p.imageLabel || p.title} loading="lazy" decoding="async" />
@@ -59,7 +47,7 @@ function LabCard({ p }) {
               <span style={{ fontFamily: 'var(--font-mono)', fontSize: 11, letterSpacing: '0.08em', color: 'var(--text-faint)', textTransform: 'uppercase' }}>{p.imageLabel || '[ No exposure yet ]'}</span>
             </div>
           )}
-        <span className="lab-card-launch">{external ? <>Launch <LaunchArrow /></> : 'View details →'}</span>
+        <span className="lab-card-launch">View details →</span>
       </a>
       <div style={{ padding: '20px 24px 24px' }}>
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: 12, marginBottom: 14 }}>
@@ -75,14 +63,7 @@ function LabCard({ p }) {
           <span style={{ fontFamily: 'var(--font-mono)', fontSize: 11, letterSpacing: '0.08em', textTransform: 'uppercase', color: 'var(--text-faint)' }}>
             {p.year}{p.stack ? ` · ${p.stack.join(' / ')}` : ''}
           </span>
-          <span style={{ display: 'flex', alignItems: 'center', gap: 16 }}>
-            <a href={`/lab/${p.slug}`} style={{ fontFamily: 'var(--font-mono)', fontSize: 11, letterSpacing: '0.1em', textTransform: 'uppercase', color: 'var(--text-muted)', textDecoration: 'none' }}>Details</a>
-            {external && (
-              <a href={p.liveUrl} target="_blank" rel="noopener noreferrer" style={{ display: 'inline-flex', alignItems: 'center', gap: 6, fontFamily: 'var(--font-mono)', fontSize: 11, letterSpacing: '0.1em', textTransform: 'uppercase', color: 'var(--accent)', borderBottom: '1px solid var(--accent)', paddingBottom: 2, textDecoration: 'none' }}>
-                Launch <LaunchArrow size={12} />
-              </a>
-            )}
-          </span>
+          <a href={`/lab/${p.slug}`} style={{ fontFamily: 'var(--font-mono)', fontSize: 11, letterSpacing: '0.1em', textTransform: 'uppercase', color: 'var(--text-muted)', textDecoration: 'none' }}>Details</a>
         </div>
       </div>
     </article>
@@ -104,7 +85,7 @@ export default function LabScreen({ experiments }) {
         </Eyebrow>
         <h1 className="lab-glitch" data-text="The Lab" style={{ fontSize: 'clamp(34px,5vw,56px)', lineHeight: 1, letterSpacing: '-0.03em', fontWeight: 700, margin: '0 0 20px' }}>The Lab</h1>
         <p style={{ fontSize: 16, lineHeight: 1.6, color: 'var(--text-secondary)', maxWidth: 560, margin: 0 }}>
-          Off-hours experiments, developed in the dark. Prototypes and toys that ship half-finished on purpose — click one to launch it live. No warranty, no roadmap.
+          Off-hours experiments, developed in the dark. Prototypes and toys that ship half-finished on purpose — click one to see the write-up. No warranty, no roadmap.
         </p>
       </section>
 
