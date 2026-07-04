@@ -122,7 +122,8 @@
   opacity: 0;
   animation: lab-boot-line 0.1s steps(1) forwards, lab-boot-glitch-in 0.35s steps(4) forwards;
 }
-.lab-boot-line-row { display: flex; gap: 0.4em; }
+.lab-boot-line-row { display: flex; gap: 0.4em; align-items: baseline; }
+.lab-passcode-label { color: #5fe0a0; }
 .lab-passcode-value { color: #5fe0a0; }
 .lab-boot-line--safelight {
   color: #e0563f;

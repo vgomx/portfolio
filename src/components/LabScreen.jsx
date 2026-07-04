@@ -47,7 +47,7 @@ export function LabEntry() {
       <div className="lab-boot">
         <span className="lab-boot-line lab-boot-line--faint" style={{ animationDelay: '0.15s' }}>&gt; vg.lab — session {new Date().getFullYear()}</span>
         <div className="lab-boot-line-row">
-          <span className="lab-boot-line" style={{ animationDelay: '0.4s' }}>&gt; passcode:</span>
+          <span className="lab-passcode-label">&gt; passcode:</span>
           <span className="lab-passcode-value">{'•'.repeat(dotsTyped)}{showOk ? ' [ok]' : ''}</span>
         </div>
         <span className="lab-boot-line lab-boot-line--safelight" style={{ animationDelay: '1.3s' }}>&gt; safelight: on</span>
