@@ -89,7 +89,7 @@ export function LabExit() {
 
       e.preventDefault();
       setActive(true);
-      setTimeout(() => { window.location.href = url.href; }, 550);
+      setTimeout(() => { window.location.href = url.href; }, 180);
     }
     document.addEventListener('click', handleClick);
     return () => document.removeEventListener('click', handleClick);
