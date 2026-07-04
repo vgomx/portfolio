@@ -142,17 +142,12 @@
   100% { transform: translate(0, 0);    text-shadow: none; }
 }
 
-.lab-passcode-dot {
-  display: inline-block;
-  opacity: 0;
-  animation: lab-boot-line 0.1s steps(1) forwards, lab-boot-glitch-in 0.25s steps(4) forwards;
-}
+.lab-passcode-dots { color: #5fe0a0; }
 .lab-passcode-ok {
   display: inline-block;
   margin-left: 8px;
-  opacity: 0;
   color: #5fe0a0;
-  animation: lab-boot-line 0.1s steps(1) forwards, lab-boot-glitch-in 0.3s steps(4) forwards;
+  animation: lab-boot-glitch-in 0.3s steps(4) forwards;
 }
 
 .lab-caret {
@@ -367,7 +362,6 @@
   .lab-caret,
   .lab-boot-line,
   .lab-boot-line--safelight,
-  .lab-passcode-dot,
   .lab-passcode-ok { animation: none; }
   .lab-glitch::before, .lab-glitch::after { opacity: 0; }
   .lab-fx::after { display: none; }

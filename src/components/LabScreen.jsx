@@ -8,22 +8,32 @@ import { Eyebrow, GridLines } from './Chrome.jsx';
    Full boot sequence on first entry per session, quick flicker after. */
 export function LabEntry() {
   const [mode, setMode] = useState('full');
+  const [dotsTyped, setDotsTyped] = useState(0);
+  const [showOk, setShowOk] = useState(false);
+
   useEffect(() => {
-    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    let timers = [];
+    if (reduced) {
       setMode('reduced');
     } else if (sessionStorage.getItem('lab-entered')) {
       setMode('quick');
+    } else {
+      for (let i = 1; i <= 6; i++) {
+        timers.push(setTimeout(() => setDotsTyped(i), 500 + i * 80));
+      }
+      timers.push(setTimeout(() => setShowOk(true), 1090));
     }
     sessionStorage.setItem('lab-entered', '1');
+    return () => timers.forEach(clearTimeout);
   }, []);
+
   return (
     <div className={`lab-entry lab-entry--${mode}`} aria-hidden="true">
       <div className="lab-boot">
         <span className="lab-boot-line lab-boot-line--faint" style={{ animationDelay: '0.15s' }}>&gt; vg.lab — session {new Date().getFullYear()}</span>
         <span className="lab-boot-line" style={{ animationDelay: '0.4s' }}>
-          &gt; passcode: {'••••••'.split('').map((ch, i) => (
-            <span key={i} className="lab-passcode-dot" style={{ animationDelay: `${0.5 + i * 0.08}s` }}>{ch}</span>
-          ))}<span className="lab-passcode-ok" style={{ animationDelay: '1.05s' }}>[ok]</span>
+          &gt; passcode: <span className="lab-passcode-dots">{'•'.repeat(dotsTyped)}</span>{showOk && <span className="lab-passcode-ok">[ok]</span>}
         </span>
         <span className="lab-boot-line lab-boot-line--safelight" style={{ animationDelay: '1.3s' }}>&gt; safelight: on</span>
         <span className="lab-boot-line" style={{ animationDelay: '1.75s' }}>&gt; exposing<span className="lab-caret">▌</span></span>
