@@ -142,21 +142,10 @@
   100% { transform: translate(0, 0);    text-shadow: none; }
 }
 
-.lab-passcode-dots {
+.lab-passcode-dot {
   display: inline-block;
-  overflow: hidden;
-  white-space: nowrap;
-  width: 0;
-  vertical-align: bottom;
-  animation: lab-passcode-type 0.5s steps(6) forwards, lab-passcode-jitter 0.5s steps(5) forwards;
-}
-@keyframes lab-passcode-type { to { width: 6ch; } }
-@keyframes lab-passcode-jitter {
-  0%, 100% { transform: translateY(0); }
-  20%      { transform: translateY(-1px); }
-  40%      { transform: translateY(1px); }
-  60%      { transform: translateY(-1px); }
-  80%      { transform: translateY(1px); }
+  opacity: 0;
+  animation: lab-boot-line 0.1s steps(1) forwards, lab-boot-glitch-in 0.25s steps(4) forwards;
 }
 .lab-passcode-ok {
   display: inline-block;
@@ -378,7 +367,7 @@
   .lab-caret,
   .lab-boot-line,
   .lab-boot-line--safelight,
-  .lab-passcode-dots,
+  .lab-passcode-dot,
   .lab-passcode-ok { animation: none; }
   .lab-glitch::before, .lab-glitch::after { opacity: 0; }
   .lab-fx::after { display: none; }
