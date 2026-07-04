@@ -13,18 +13,32 @@ export function LabEntry() {
 
   useEffect(() => {
     const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    let timers = [];
+    let alreadyEntered = false;
+    try {
+      alreadyEntered = Boolean(sessionStorage.getItem('lab-entered'));
+    } catch (e) {
+      alreadyEntered = false;
+    }
+
+    const timers = [];
     if (reduced) {
       setMode('reduced');
-    } else if (sessionStorage.getItem('lab-entered')) {
+    } else if (alreadyEntered) {
       setMode('quick');
     } else {
+      setMode('full');
       for (let i = 1; i <= 6; i++) {
         timers.push(setTimeout(() => setDotsTyped(i), 500 + i * 80));
       }
       timers.push(setTimeout(() => setShowOk(true), 1090));
     }
-    sessionStorage.setItem('lab-entered', '1');
+
+    try {
+      sessionStorage.setItem('lab-entered', '1');
+    } catch (e) {
+      /* storage unavailable (private mode / ITP) — non-fatal, just skip persistence */
+    }
+
     return () => timers.forEach(clearTimeout);
   }, []);
 
