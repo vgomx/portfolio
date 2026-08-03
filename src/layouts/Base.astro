@@ -220,13 +220,11 @@ const ogImageUrl = new URL(ogImage, Astro.url.origin).href;
         const el = document.documentElement;
         // The lab runs its own boot sequence — never stack the two.
         if (el.getAttribute('data-theme') === 'lab') return;
-        try {
-          if (sessionStorage.getItem('site-intro-seen')) return;
-          sessionStorage.setItem('site-intro-seen', '1');
-        } catch (e) {
-          // Storage unavailable (private mode / ITP). Play it — showing the
-          // intro twice is a far smaller failure than throwing here.
-        }
+        // Home only, but every load. It reads as entering the site, so it
+        // belongs at the entrance — replaying it on every internal
+        // navigation (work → case → back) would just be a tax on browsing.
+        const p = location.pathname;
+        if (p !== '/' && p !== '/index.html') return;
         el.setAttribute('data-intro', '');
       })();
     </script>
