@@ -78,6 +78,123 @@ const ogImageUrl = new URL(ogImage, Astro.url.origin).href;
       .page-enter > *:nth-child(7) { animation-delay: 420ms; }
       .page-enter > *:nth-child(8) { animation-delay: 490ms; }
       .page-enter > *:nth-child(9) { animation-delay: 560ms; }
+
+      /* ============================================================
+         SITE INTRO — the mark draws itself in on a full-bleed field,
+         holds a beat, then lifts to reveal the page. Once per session.
+         Injected pre-hydration so it never flashes the page first;
+         `html[data-intro]` gates it so pages that skip it never paint
+         the overlay at all.
+         ============================================================ */
+      .site-intro { display: none; }
+      html[data-intro] .site-intro {
+        position: fixed;
+        inset: 0;
+        z-index: 10000;
+        background: var(--surface-page);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        pointer-events: none;
+        animation: site-intro-out 0.66s cubic-bezier(0.65, 0, 0.35, 1) 2.02s forwards;
+      }
+      .site-intro-mark {
+        width: 96px;
+        color: var(--text-primary);
+        opacity: 0;
+        transform: scale(0.82);
+        animation: site-intro-mark 0.86s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+      }
+      .site-intro-mark svg { display: block; width: 100%; height: auto; }
+      /* Revealed by a diamond clip opening from the centre — echoes the
+         mark's own geometry. The paths themselves are the header logo
+         verbatim, so the symbol is never redrawn or restroked; the glitch
+         below only duplicates and offsets whole copies, same as the logo's
+         own hover treatment in eye-glitch.css. */
+      .site-intro-clip {
+        transform-origin: 281px 184.5px;
+        transform: scale(0);
+        animation: site-intro-open 0.92s cubic-bezier(0.65, 0, 0.35, 1) 0.08s forwards;
+      }
+      /* Signal-tinted ghosts, flashing on the offbeat of the band tears. */
+      .site-intro-ghost-a,
+      .site-intro-ghost-b { opacity: 0; }
+      .site-intro-ghost-a {
+        color: var(--signal, #2F6F4F);
+        animation: site-intro-ghost-a 1.05s steps(1) 1s forwards;
+      }
+      .site-intro-ghost-b { animation: site-intro-ghost-b 1.05s steps(1) 1s forwards; }
+      .site-intro-band-t { animation: site-intro-band-t 1.05s steps(1) 1s forwards; }
+      .site-intro-band-m { animation: site-intro-band-m 1.05s steps(1) 1s forwards; }
+      .site-intro-band-b { animation: site-intro-band-b 1.05s steps(1) 1s forwards; }
+      .site-intro-base   { animation: site-intro-flicker 1.05s steps(1) 1s forwards; }
+
+      @keyframes site-intro-mark {
+        from { opacity: 0; transform: scale(0.82); }
+        to   { opacity: 1; transform: scale(1); }
+      }
+      @keyframes site-intro-open {
+        to { transform: scale(1); }
+      }
+      @keyframes site-intro-flicker {
+        0%, 17%, 21%, 58%, 62%, 100% { opacity: 1; }
+        19% { opacity: 0.72; }
+        60% { opacity: 0.85; }
+      }
+      @keyframes site-intro-band-t {
+        0%, 16%, 26%, 57%, 66%, 100% { transform: translateX(0); }
+        18% { transform: translateX(-11px); }
+        21% { transform: translateX(15px); }
+        24% { transform: translateX(-5px); }
+        59% { transform: translateX(9px); }
+        63% { transform: translateX(-6px); }
+      }
+      @keyframes site-intro-band-m {
+        0%, 15%, 27%, 56%, 68%, 100% { transform: translateX(0); }
+        17% { transform: translateX(17px); }
+        20% { transform: translateX(-9px); }
+        25% { transform: translateX(6px); }
+        60% { transform: translateX(-12px); }
+        65% { transform: translateX(5px); }
+      }
+      @keyframes site-intro-band-b {
+        0%, 18%, 29%, 59%, 70%, 100% { transform: translateX(0); }
+        20% { transform: translateX(-14px); }
+        23% { transform: translateX(10px); }
+        27% { transform: translateX(-4px); }
+        62% { transform: translateX(11px); }
+        67% { transform: translateX(-5px); }
+      }
+      @keyframes site-intro-ghost-a {
+        0%, 16%, 27%, 58%, 67%, 100% { transform: translateX(0); opacity: 0; }
+        18% { transform: translateX(-7px); opacity: 0.55; }
+        23% { transform: translateX(5px); opacity: 0.32; }
+        61% { transform: translateX(-5px); opacity: 0.4; }
+      }
+      @keyframes site-intro-ghost-b {
+        0%, 17%, 28%, 59%, 69%, 100% { transform: translateX(0); opacity: 0; }
+        19% { transform: translateX(8px); opacity: 0.42; }
+        24% { transform: translateX(-4px); opacity: 0.26; }
+        63% { transform: translateX(6px); opacity: 0.3; }
+      }
+      @keyframes site-intro-out {
+        from { opacity: 1; transform: none; visibility: visible; }
+        to   { opacity: 0; transform: scale(1.04); visibility: hidden; }
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        .site-intro { animation: site-intro-fade 0.3s ease 0.2s forwards; }
+        .site-intro-mark { animation: none; opacity: 1; transform: none; }
+        .site-intro-clip { animation: none; transform: none; }
+        .site-intro-base,
+        .site-intro-band-t,
+        .site-intro-band-m,
+        .site-intro-band-b { animation: none; transform: none; opacity: 1; }
+        /* Ghosts are pure glitch decoration — no reason to show them at all. */
+        .site-intro-ghost-a,
+        .site-intro-ghost-b { animation: none; display: none; }
+        @keyframes site-intro-fade { to { opacity: 0; visibility: hidden; } }
+      }
     </style>
     <script is:inline>
       (function() {
@@ -98,8 +215,44 @@ const ogImageUrl = new URL(ogImage, Astro.url.origin).href;
         if (t === 'dark') el.setAttribute('data-theme', 'dark');
       })();
     </script>
+    <script is:inline>
+      (function() {
+        const el = document.documentElement;
+        // The lab runs its own boot sequence — never stack the two.
+        if (el.getAttribute('data-theme') === 'lab') return;
+        // Home only, but every load. It reads as entering the site, so it
+        // belongs at the entrance — replaying it on every internal
+        // navigation (work → case → back) would just be a tax on browsing.
+        const p = location.pathname;
+        if (p !== '/' && p !== '/index.html') return;
+        el.setAttribute('data-intro', '');
+      })();
+    </script>
   </head>
   <body>
+    <div class="site-intro" aria-hidden="true">
+      <span class="site-intro-mark">
+        <svg viewBox="0 0 562 369" fill="currentColor" xmlns="http://www.w3.org/2000/svg" style="fill-rule: evenodd; clip-rule: evenodd;">
+          <defs>
+            <g id="siteIntroMark"><g transform="matrix(1,0,0,1,-696,73)"><g transform="matrix(8.693433,0,0,8.693433,-7671.335362,-8770.706084)"><g transform="matrix(1,0,0,1,994.8125,1002.9085)"><path d="M0,37.612L31.187,18.993L31.187,18.619L0,0L-31.187,18.619L-31.187,18.993L0,37.612ZM0,32.004L-22.105,18.806L0,5.609L22.105,18.806L0,32.004Z" /></g><g transform="matrix(1,0,0,1,1008.8203,1021.5751)"><path d="M0,0.169L0,0L-14.077,-8.404L-28.154,0L-28.154,0.169L-14.077,8.573L0,0.169Z" /></g></g></g></g>
+            <clipPath id="siteIntroReveal" clipPathUnits="userSpaceOnUse">
+              <path class="site-intro-clip" d="M281,-60 L640,184.5 L281,429 L-78,184.5 Z" />
+            </clipPath>
+            <clipPath id="siteIntroBandT" clipPathUnits="userSpaceOnUse"><rect x="-80" y="-10" width="722" height="150" /></clipPath>
+            <clipPath id="siteIntroBandM" clipPathUnits="userSpaceOnUse"><rect x="-80" y="140" width="722" height="92" /></clipPath>
+            <clipPath id="siteIntroBandB" clipPathUnits="userSpaceOnUse"><rect x="-80" y="232" width="722" height="150" /></clipPath>
+          </defs>
+          <g clip-path="url(#siteIntroReveal)">
+            <use class="site-intro-ghost-a" href="#siteIntroMark" />
+            <use class="site-intro-ghost-b" href="#siteIntroMark" />
+            <use class="site-intro-base" href="#siteIntroMark" />
+            <use class="site-intro-band-t" href="#siteIntroMark" clip-path="url(#siteIntroBandT)" />
+            <use class="site-intro-band-m" href="#siteIntroMark" clip-path="url(#siteIntroBandM)" />
+            <use class="site-intro-band-b" href="#siteIntroMark" clip-path="url(#siteIntroBandB)" />
+          </g>
+        </svg>
+      </span>
+    </div>
     <slot />
     <script defer src="/_vercel/insights/script.js"></script>
   </body>
