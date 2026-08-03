@@ -28,8 +28,8 @@ export default function HomeScreen({ projects }) {
           <h1 style={{ fontSize: 'clamp(38px,6vw,72px)', lineHeight: 0.98, letterSpacing: '-0.03em', fontWeight: 700, margin: 0 }}>Design for teams building new products — or evolving existing ones</h1>
           <p style={{ fontSize: 18, lineHeight: 1.55, color: 'var(--text-secondary)', margin: '24px 0 0', fontWeight: 400 }}>Twelve years of brand, product and the systems that hold them together — identity through interface, shipped end to end.</p>
           <div style={{ display: 'flex', gap: 12, marginTop: 32, flexWrap: 'wrap' }}>
-            <Button variant="accent" onClick={() => window.location.href = '/about'}>Start a project</Button>
-            <Button variant="secondary" onClick={() => window.location.href = '/work'}>See all work</Button>
+            <Button variant="accent" onClick={() => window.location.href = '/work'}>See all work</Button>
+            <Button variant="secondary" onClick={() => window.location.href = '/about'}>About me</Button>
           </div>
         </div>
       </section>
@@ -58,7 +58,7 @@ export default function HomeScreen({ projects }) {
       </section>
 
       <section className="grid-2col section-pad" style={{ borderTop: '1px solid var(--border-hairline)', maxWidth: 'var(--container)', margin: '0 auto', padding: '64px 48px', display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 56, alignItems: 'start' }}>
-        <h2 style={{ fontSize: 'clamp(34px,5vw,56px)', lineHeight: 1.02, letterSpacing: '-0.03em', fontWeight: 700, margin: 0 }}>What do I do?</h2>
+        <h2 style={{ fontSize: 'clamp(34px,5vw,56px)', lineHeight: 1.02, letterSpacing: '-0.03em', fontWeight: 700, margin: 0 }}>What I do</h2>
         <Accordion items={[
           { title: 'Product Design', content: 'I work across the full product design lifecycle, from discovery and requirements analysis to interaction design, prototyping, validation, and delivery. My background in design systems, visual design, and client-facing implementation allows me to turn complex business needs into scalable, intuitive experiences — especially in structured environments like financial services and e-commerce. I collaborate closely with product, engineering, and business stakeholders to shape solutions that are usable, consistent, and feasible to build.' },
           { title: 'Consultancy', content: 'Strategic design support for teams building new products or evolving existing ones — from brief through to shipped. This includes supporting the requirements and discovery process: clarifying business needs, synthesising stakeholder input, and translating early ideas into structured product direction.' },
