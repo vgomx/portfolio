@@ -4,6 +4,7 @@ import { Card } from '../ds/components/data/Card.jsx';
 import { StatCard } from '../ds/components/data/StatCard.jsx';
 import { Accordion } from '../ds/components/feedback/Accordion.jsx';
 import { ImagePlaceholder, Eyebrow, GridLines } from './Chrome.jsx';
+import { CountUp } from './CountUp.jsx';
 
 export default function HomeScreen({ projects }) {
   const featured = projects.filter((p) => p.featured !== false).slice(0, 4);
@@ -71,7 +72,7 @@ export default function HomeScreen({ projects }) {
       <section style={{ background: 'var(--surface-ink)' }}>
         <div className="grid-4col section-pad" style={{ maxWidth: 'var(--container)', margin: '0 auto', padding: '56px 48px', display: 'grid', gridTemplateColumns: 'repeat(4,1fr)', gap: 24 }}>
           {[['12+', 'Years shipping product'], ['40', 'Projects delivered'], ['10+', 'Brands built from zero'], ['7', 'Countries, clients from']].map(([v, l]) => (
-            <StatCard key={l} value={v} label={l} onDark />
+            <StatCard key={l} value={<CountUp value={v} />} label={l} onDark />
           ))}
         </div>
       </section>
