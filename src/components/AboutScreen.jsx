@@ -59,6 +59,10 @@ const TIMELINE = [
     text: 'After years of fitting study around work, finally concluded my post-graduation in Communication and Semiotics.',
   },
   {
+    year: '2020',
+    text: 'Got my first MacBook — second-hand. Macs are pricey in Brazil, so this was the kind of perk I could only afford once I was old enough to let the hype go. Hooked on the ecosystem ever since.',
+  },
+  {
     year: '2021',
     text: 'Promoted to Lead Designer at Jüssi — still in Brazil.',
   },
