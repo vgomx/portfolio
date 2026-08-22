@@ -161,26 +161,6 @@ function StorySection() {
             </div>
           ))}
 
-          {/* Philosophy */}
-          <div className="grid-sidebar" style={{ display: 'grid', gridTemplateColumns: '220px 1fr', gap: 48, paddingTop: 24, paddingBottom: 24, borderTop: '1px solid var(--border-hairline)' }}>
-            <div />
-            <div>
-              <p style={{ fontSize: 16, lineHeight: 1.65, color: 'var(--text-secondary)', margin: '0 0 12px' }}>
-                I can help shape people-centered experiences in digital products — from the initial stages like research through high-fidelity prototypes.
-              </p>
-              <p style={{ fontSize: 16, lineHeight: 1.65, color: 'var(--text-secondary)', margin: 0 }}>
-                I like to facilitate workshops and also have a background in visual design.
-              </p>
-            </div>
-          </div>
-
-          {/* Closing line */}
-          <div className="grid-sidebar" style={{ display: 'grid', gridTemplateColumns: '220px 1fr', gap: 48, paddingTop: 24, borderTop: '1px solid var(--border-hairline)' }}>
-            <div />
-            <p style={{ fontSize: 16, lineHeight: 1.65, color: 'var(--text-muted)', margin: 0, fontStyle: 'italic' }}>
-              Born and raised in São Paulo, I also lived in Santos on the coast. Since 2021, living in Amsterdam.
-            </p>
-          </div>
         </div>
       </div>
     </section>
