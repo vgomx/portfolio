@@ -44,7 +44,7 @@ const TIMELINE = [
   },
   {
     year: '2016',
-    text: 'Joined Vagalume, the lyrics portal that has been part of Brazilian internet folklore for decades. A delight for a music lover, and my first role working strictly with digital products. I delivered a facelift for both the visual identity and the website, plus the launch of the radio streaming service Vagalume.FM.',
+    text: 'Joined Vagalume as Lead Designer — the lyrics portal that has been part of Brazilian internet folklore for decades. A delight for a music lover, and my first role working strictly with digital products. I delivered a facelift for both the visual identity and the website, plus the launch of the radio streaming service Vagalume.FM.',
   },
   {
     year: '2017–2018',
