@@ -27,20 +27,48 @@ const TIMELINE = [
     text: 'A year of big changes. Life took me to the seaside — Santos, on the coast of São Paulo.',
   },
   {
+    year: '2012',
+    text: 'Concluded my formal education in graphic and digital design — the skills that got me into advertising agencies and communication bureaus.',
+  },
+  {
     year: '2012–2015',
-    text: 'Worked with art direction across advertising agencies, then landed at Vagalume — one of Brazil\'s most loved music portals. A dream job for a music lover.',
+    text: 'Worked with art direction across advertising agencies and communication bureaus.',
   },
   {
     year: '2015',
-    text: 'Got an email out of nowhere from a client in Kuwait. Said yes. That single project opened a door to working internationally.',
+    text: 'Got an email out of nowhere from a client in Kuwait. Said yes. That single project opened a door to working internationally — and made me confident enough to dream about working abroad.',
+  },
+  {
+    year: '2015',
+    text: 'By now I was working mostly on interfaces — and on the planning behind them: requirements, stakeholders, flows, wireframes. UX was already there; I just needed to study the field properly.',
+  },
+  {
+    year: '2016',
+    text: 'Joined Vagalume, the lyrics portal that has been part of Brazilian internet folklore for decades. A delight for a music lover, and my first role working strictly with digital products. I delivered a facelift for both the visual identity and the website, plus the launch of the radio streaming service Vagalume.FM.',
+  },
+  {
+    year: '2017–2018',
+    text: 'Started an MBA in Communication and Semiotics.',
+  },
+  {
+    year: '2019–2021',
+    text: 'Joined Jüssi, one of Brazil\'s main digital agencies, part of Ogilvy (WPP). Worked in their digital products hub as a User Interface Specialist, allocated at clients — mostly Whirlpool\'s Brazilian e-commerces: Consul, Brastemp and KitchenAid.',
   },
   {
     year: '2020',
-    text: 'After years of side-by-side work and study, concluded my post-graduation. Then pivoted fully into digital products and the fintech industry.',
+    text: 'After years of fitting study around work, finally concluded my post-graduation in Communication and Semiotics.',
   },
   {
     year: '2021',
-    text: 'Packed up and moved to Amsterdam as a highly skilled immigrant. Started a new chapter — and within the year, was promoted to Lead Designer.',
+    text: 'Promoted to Lead Designer at Jüssi — still in Brazil.',
+  },
+  {
+    year: '2021',
+    text: 'Then the chance to work in Europe appeared: joined Backbase, a leading technology provider in the financial sector, as Senior Product Designer.',
+  },
+  {
+    year: '2021',
+    text: 'Moved to Amsterdam as a highly skilled immigrant.',
   },
   {
     year: '2022',
