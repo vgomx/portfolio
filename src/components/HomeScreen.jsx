@@ -120,7 +120,7 @@ export default function HomeScreen({ projects }) {
           ))}
         </div>
 
-        <HoverPreview frames={preview.frames} slug={preview.slug} x={preview.x} y={preview.y} visible={preview.on} />
+        <HoverPreview frames={preview.frames} slug={preview.slug} x={preview.x} y={preview.y} visible={preview.on} onDismiss={previewOff} />
       </section>
 
       <section className="grid-2col section-pad" style={{ borderTop: '1px solid var(--border-hairline)', maxWidth: 'var(--container)', margin: '0 auto', padding: '64px 48px', display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 56, alignItems: 'start' }}>

@@ -1,4 +1,5 @@
 import { useState, useEffect, useRef } from 'react';
+import { createPortal } from 'react-dom';
 
 /* Only real image paths belong in the preview — bodyImages can also carry
    embed URLs (Figma prototypes, video), which would render as a broken frame. */
@@ -22,14 +23,25 @@ export function previewFrames(project, max = 6) {
    Rendered once by the parent and repositioned, rather than one node per
    card. Pointer-driven, so it never appears on touch (guarded again in CSS
    via `hover: hover`). */
-export function HoverPreview({ frames, slug, x, y, visible }) {
+export function HoverPreview({ frames, slug, x, y, visible, onDismiss }) {
   const [i, setI] = useState(0);
   const [reduced, setReduced] = useState(false);
+  const [mounted, setMounted] = useState(false);
   const timer = useRef(null);
 
   useEffect(() => {
     setReduced(window.matchMedia('(prefers-reduced-motion: reduce)').matches);
+    setMounted(true);
   }, []);
+
+  /* Scrolling moves a different card under a stationary pointer, but no
+     mouseenter fires until it moves again — so the reel would keep playing
+     the previous project. Dismiss instead; the next move re-opens it. */
+  useEffect(() => {
+    if (!visible || !onDismiss) return;
+    window.addEventListener('scroll', onDismiss, { passive: true });
+    return () => window.removeEventListener('scroll', onDismiss);
+  }, [visible, onDismiss]);
 
   /* Keyed on slug, not the frames array — the parent rebuilds that array on
      each hover, so depending on its identity would restart the reel from 01
@@ -53,7 +65,7 @@ export function HoverPreview({ frames, slug, x, y, visible }) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [visible, reduced, slug, frames ? frames.length : 0]);
 
-  if (!frames || !frames.length) return null;
+  if (!mounted || !frames || !frames.length) return null;
 
   // Keep the window on screen — flip to the other side of the cursor near
   // the right/bottom edges instead of letting it run off.
@@ -68,7 +80,14 @@ export function HoverPreview({ frames, slug, x, y, visible }) {
     if (top + H + pad > window.innerHeight) top = y - H - off;
   }
 
-  return (
+  /* Portalled to <body> deliberately. The work section sits under
+     `.page-enter > *`, whose entry animation has fill: forwards and so
+     leaves transform: matrix(1,0,0,1,0,0) on it. Any transform — even an
+     identity one — makes that element the containing block for position:
+     fixed, which pinned this window to the section instead of the viewport:
+     it landed offset from the pointer, scrolled away with the section, and
+     got clipped by the section's overflow: hidden at the content edge. */
+  return createPortal(
     <div
       className={`crt-preview${visible ? ' crt-preview--on' : ''}`}
       style={{ left, top, width: W }}
@@ -88,6 +107,7 @@ export function HoverPreview({ frames, slug, x, y, visible }) {
           {String(i + 1).padStart(2, '0')}/{String(frames.length).padStart(2, '0')}
         </span>
       </div>
-    </div>
+    </div>,
+    document.body
   );
 }

@@ -10,7 +10,9 @@
 
 .crt-preview {
   position: fixed;
-  z-index: 60;
+  /* Above the sticky top bar (90) and the lab FX layer (80); below the
+     intro/boot overlays at 9999, which should still cover everything. */
+  z-index: 9000;
   pointer-events: none;
   opacity: 0;
   transform: translateY(4px) scale(0.98);
