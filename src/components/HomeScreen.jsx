@@ -6,8 +6,22 @@ import { Accordion } from '../ds/components/feedback/Accordion.jsx';
 import { ImagePlaceholder, Eyebrow, GridLines } from './Chrome.jsx';
 import { CountUp } from './CountUp.jsx';
 
+/* Homepage curation, in display order — the first gets the full-width
+   feature slot, the rest fill the two-column grid below it. Explicit
+   slugs rather than a filter so the running order is a deliberate
+   editorial choice, not a side effect of `featured` flags or year sort. */
+const HOME_PICKS = [
+  'digital-banking-ksa',
+  'video-platform-identity',
+  'brastemp-wash-machines',
+  'kitchen-appliance-campaign',
+  'internet-brand-facelift',
+];
+
 export default function HomeScreen({ projects }) {
-  const featured = projects.filter((p) => p.featured !== false).slice(0, 4);
+  const bySlug = new Map(projects.map((p) => [p.slug, p]));
+  const picks = HOME_PICKS.map((s) => bySlug.get(s)).filter(Boolean);
+  const [lead, ...rest] = picks;
   return (
     <div className="page-enter">
       <section style={{ position: 'relative', overflow: 'hidden' }}>
@@ -41,8 +55,26 @@ export default function HomeScreen({ projects }) {
           <h2 style={{ fontSize: 30, fontWeight: 600, letterSpacing: '-0.02em', margin: 0 }}>Selected work</h2>
           <a href="/work" style={{ fontFamily: 'var(--font-mono)', fontSize: 11, letterSpacing: '0.1em', textTransform: 'uppercase', color: 'var(--text-muted)', textDecoration: 'none' }}>Index →</a>
         </div>
+        {/* Lead case — full row, image beside the copy so the wider slot
+            buys prominence rather than just a taller image. */}
+        {lead && (
+          <Card interactive flush onClick={() => window.location.href = `/work/${lead.slug}`} style={{ overflow: 'hidden', cursor: 'pointer', marginBottom: 24 }}>
+            <div className="home-lead" style={{ display: 'grid', gridTemplateColumns: '1.15fr 1fr', gap: 0, alignItems: 'stretch' }}>
+              <ImagePlaceholder label={lead.imageLabel} src={lead.coverImage} ratio="16/11" style={{ height: '100%' }} />
+              <div style={{ padding: 40, display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
+                <div style={{ display: 'flex', gap: 8, marginBottom: 16, flexWrap: 'wrap' }}>
+                  {lead.tags.map((t) => <Tag key={t} size="sm">{t}</Tag>)}
+                </div>
+                <h3 style={{ fontSize: 30, fontWeight: 600, letterSpacing: '-0.02em', lineHeight: 1.14, margin: '0 0 12px' }}>{lead.title}</h3>
+                <p style={{ fontSize: 15, lineHeight: 1.6, color: 'var(--text-secondary)', margin: '0 0 22px' }}>{lead.summary}</p>
+                <span style={{ fontFamily: 'var(--font-mono)', fontSize: 11, letterSpacing: '0.1em', textTransform: 'uppercase', color: 'var(--accent)', display: 'inline-flex', alignItems: 'center', gap: 8, borderBottom: '1px solid var(--accent)', paddingBottom: 3, alignSelf: 'flex-start' }}>Read case →</span>
+              </div>
+            </div>
+          </Card>
+        )}
+
         <div className="grid-2col" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 24 }}>
-          {featured.map((p) => (
+          {rest.map((p) => (
             <Card key={p.slug} interactive flush onClick={() => window.location.href = `/work/${p.slug}`} style={{ overflow: 'hidden', cursor: 'pointer' }}>
               <ImagePlaceholder label={p.imageLabel} src={p.coverImage} />
               <div style={{ padding: 24 }}>

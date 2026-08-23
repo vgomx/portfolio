@@ -1,6 +1,17 @@
 /* Stepper orientation: vertical hidden by default, horizontal hidden on mobile */
 .stepper-v { display: none; }
 
+/* Home lead case: side-by-side needs real width for both the image and the
+   larger copy block, so it stacks well before the generic 640px breakpoint. */
+@media (max-width: 900px) {
+  .home-lead {
+    grid-template-columns: 1fr !important;
+  }
+  .home-lead > div {
+    padding: 28px !important;
+  }
+}
+
 /* Mobile-first responsive overrides */
 @media (max-width: 640px) {
   .stepper-h { display: none; }
