@@ -1,0 +1,125 @@
+/* ============================================================
+   CRT HOVER PREVIEW — a small monitor that trails the cursor over
+   the work cards and cycles through a project's images.
+
+   Same family as the Lab's screen treatment (scanlines, phosphor
+   edge, glitch on change) but dialled well down: this one sits on
+   the light homepage, so it reads as a small instrument rather
+   than a darkroom.
+   ============================================================ */
+
+.crt-preview {
+  position: fixed;
+  z-index: 60;
+  pointer-events: none;
+  opacity: 0;
+  transform: translateY(4px) scale(0.98);
+  transition: opacity 0.16s var(--ease-out, ease), transform 0.16s var(--ease-out, ease);
+  background: #0b0d0c;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  /* Square corners — the rest of the site's surfaces are hard-edged. */
+  border-radius: 0;
+  overflow: hidden;
+  box-shadow: 0 14px 38px rgba(8, 10, 9, 0.34);
+}
+.crt-preview--on {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+}
+
+.crt-preview-screen {
+  position: relative;
+  aspect-ratio: 16 / 10;
+  overflow: hidden;
+  background: #070908;
+}
+
+.crt-preview-img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  /* Slightly cooled and lifted, the way a phosphor tube renders a photo. */
+  filter: saturate(0.92) contrast(1.06) brightness(1.02);
+  animation: crt-frame-in 0.16s steps(2) both;
+}
+
+/* The soft glitch: a single nudge as the frame lands. Kept well inside the
+   frame interval so the reel reads as cuts rather than a smear — at this
+   cadence a longer settle would never resolve before the next frame. */
+@keyframes crt-frame-in {
+  0%   { opacity: 0.55; transform: translateX(-2px); }
+  50%  { opacity: 1;    transform: translateX(1px); }
+  100% { opacity: 1;    transform: translateX(0); }
+}
+
+/* Scanlines, drifting slowly so the tube feels alive rather than printed. */
+.crt-preview-scan {
+  position: absolute;
+  inset: -100% 0;
+  pointer-events: none;
+  background: repeating-linear-gradient(
+    0deg,
+    rgba(4, 8, 6, 0.30) 0 1px,
+    transparent 1px 3px
+  );
+  animation: crt-scan-drift 7s linear infinite;
+}
+@keyframes crt-scan-drift {
+  from { transform: translateY(0); }
+  to   { transform: translateY(3px); }
+}
+
+/* Curved-glass falloff at the corners. */
+.crt-preview-vignette {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: radial-gradient(
+    ellipse at 50% 45%,
+    transparent 52%,
+    rgba(4, 7, 5, 0.55) 100%
+  );
+}
+
+/* Readout strip — frame counter, in the site's mono voice. */
+.crt-preview-bar {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  padding: 6px 10px;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.12em;
+  color: rgba(233, 240, 235, 0.62);
+  border-top: 1px solid rgba(255, 255, 255, 0.09);
+  font-variant-numeric: tabular-nums;
+}
+.crt-preview-dot {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: #5fe0a0;
+  box-shadow: 0 0 6px rgba(95, 224, 160, 0.75);
+  animation: crt-dot-pulse 2.4s steps(1) infinite;
+}
+@keyframes crt-dot-pulse {
+  0%, 72%, 100% { opacity: 1; }
+  80% { opacity: 0.35; }
+}
+
+/* Pointer-only. Touch has no hover, and a cursor-trailing window makes no
+   sense there — belt and braces alongside the JS pointer events. */
+@media (hover: none), (pointer: coarse) {
+  .crt-preview { display: none; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .crt-preview { transition: opacity 0.12s ease; transform: none; }
+  .crt-preview--on { transform: none; }
+  .crt-preview-img { animation: none; }
+  .crt-preview-scan { animation: none; }
+  .crt-preview-dot { animation: none; }
+}

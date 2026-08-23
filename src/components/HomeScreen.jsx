@@ -3,8 +3,10 @@ import { Tag } from '../ds/components/core/Tag.jsx';
 import { Card } from '../ds/components/data/Card.jsx';
 import { StatCard } from '../ds/components/data/StatCard.jsx';
 import { Accordion } from '../ds/components/feedback/Accordion.jsx';
+import { useState } from 'react';
 import { ImagePlaceholder, Eyebrow, GridLines } from './Chrome.jsx';
 import { CountUp } from './CountUp.jsx';
+import { HoverPreview, previewFrames } from './HoverPreview.jsx';
 
 /* Homepage curation, in display order — the first gets the full-width
    feature slot, the rest fill the two-column grid below it. Explicit
@@ -22,6 +24,27 @@ export default function HomeScreen({ projects }) {
   const bySlug = new Map(projects.map((p) => [p.slug, p]));
   const picks = HOME_PICKS.map((s) => bySlug.get(s)).filter(Boolean);
   const [lead, ...rest] = picks;
+
+  /* One preview node for the whole section, repositioned on move, rather
+     than one per card. Card spreads `...rest` after its own mouse handlers,
+     so passing these through would clobber its hover border — hence the
+     wrapper element below. */
+  const [preview, setPreview] = useState({ frames: null, slug: null, x: 0, y: 0, on: false });
+  const previewOn = (p) => (e) => {
+    const frames = previewFrames(p);
+    if (frames.length < 2) return;
+    setPreview({ frames, slug: p.slug, x: e.clientX, y: e.clientY, on: true });
+  };
+  const previewMove = (e) => {
+    const { clientX, clientY } = e;
+    setPreview((s) => (s.on ? { ...s, x: clientX, y: clientY } : s));
+  };
+  const previewOff = () => setPreview((s) => ({ ...s, on: false }));
+  const previewProps = (p) => ({
+    onMouseEnter: previewOn(p),
+    onMouseMove: previewMove,
+    onMouseLeave: previewOff,
+  });
   return (
     <div className="page-enter">
       <section style={{ position: 'relative', overflow: 'hidden' }}>
@@ -58,6 +81,7 @@ export default function HomeScreen({ projects }) {
         {/* Lead case — full row, image beside the copy so the wider slot
             buys prominence rather than just a taller image. */}
         {lead && (
+          <div {...previewProps(lead)}>
           <Card interactive flush onClick={() => window.location.href = `/work/${lead.slug}`} style={{ overflow: 'hidden', cursor: 'pointer', marginBottom: 24 }}>
             {/* Image column is sized to match a thumbnail in the grid below,
                 so its right edge lands on the left card's edge: the grid is
@@ -75,11 +99,13 @@ export default function HomeScreen({ projects }) {
               </div>
             </div>
           </Card>
+          </div>
         )}
 
         <div className="grid-2col" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 24 }}>
           {rest.map((p) => (
-            <Card key={p.slug} interactive flush onClick={() => window.location.href = `/work/${p.slug}`} style={{ overflow: 'hidden', cursor: 'pointer' }}>
+            <div key={p.slug} {...previewProps(p)}>
+            <Card interactive flush onClick={() => window.location.href = `/work/${p.slug}`} style={{ overflow: 'hidden', cursor: 'pointer' }}>
               <ImagePlaceholder label={p.imageLabel} src={p.coverImage} />
               <div style={{ padding: 24 }}>
                 <div style={{ display: 'flex', gap: 8, marginBottom: 14, flexWrap: 'wrap' }}>
@@ -90,8 +116,11 @@ export default function HomeScreen({ projects }) {
                 <span style={{ fontFamily: 'var(--font-mono)', fontSize: 11, letterSpacing: '0.1em', textTransform: 'uppercase', color: 'var(--accent)', display: 'inline-flex', alignItems: 'center', gap: 8, borderBottom: '1px solid var(--accent)', paddingBottom: 3 }}>Read case →</span>
               </div>
             </Card>
+            </div>
           ))}
         </div>
+
+        <HoverPreview frames={preview.frames} slug={preview.slug} x={preview.x} y={preview.y} visible={preview.on} />
       </section>
 
       <section className="grid-2col section-pad" style={{ borderTop: '1px solid var(--border-hairline)', maxWidth: 'var(--container)', margin: '0 auto', padding: '64px 48px', display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 56, alignItems: 'start' }}>
