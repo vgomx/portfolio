@@ -59,8 +59,12 @@ export default function HomeScreen({ projects }) {
             buys prominence rather than just a taller image. */}
         {lead && (
           <Card interactive flush onClick={() => window.location.href = `/work/${lead.slug}`} style={{ overflow: 'hidden', cursor: 'pointer', marginBottom: 24 }}>
-            <div className="home-lead" style={{ display: 'grid', gridTemplateColumns: '1.15fr 1fr', gap: 0, alignItems: 'stretch' }}>
-              <ImagePlaceholder label={lead.imageLabel} src={lead.coverImage} ratio="16/11" style={{ height: '100%' }} />
+            {/* Image column is sized to match a thumbnail in the grid below,
+                so its right edge lands on the left card's edge: the grid is
+                two 1fr columns with a 24px gap, and each card carries 1px
+                borders — hence 50% less half the gap, less the border delta. */}
+            <div className="home-lead" style={{ display: 'grid', gridTemplateColumns: 'calc(50% - 13px) 1fr', gap: 0, alignItems: 'stretch' }}>
+              <ImagePlaceholder label={lead.imageLabel} src={lead.coverImage} ratio="16/10" style={{ height: '100%' }} />
               <div style={{ padding: 40, display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
                 <div style={{ display: 'flex', gap: 8, marginBottom: 16, flexWrap: 'wrap' }}>
                   {lead.tags.map((t) => <Tag key={t} size="sm">{t}</Tag>)}
