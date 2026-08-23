@@ -274,6 +274,13 @@ function BodyEmbeds({ embeds, after }) {
         const mobile = e.layout === 'mobile';
         const [rw, rh] = (e.ratio || '16/9').split('/').map(Number);
         const paddingBottom = `${(rh / rw) * 100}%`;
+        /* These carry real content, so the frame needs a name a screen
+           reader can announce. Prefer the author's label; otherwise say
+           what kind of thing it is rather than a generic "iframe". */
+        const title = e.label
+          || (/youtube|youtu\.be|vimeo/.test(e.src) ? 'Embedded video'
+            : /figma/.test(e.src) ? 'Embedded interactive prototype'
+            : 'Embedded content');
         return (
           <div key={i}>
             {e.label && (
@@ -285,6 +292,7 @@ function BodyEmbeds({ embeds, after }) {
             }>
               <iframe
                 src={e.src}
+                title={title}
                 allowFullScreen
                 style={mobile
                   ? { display: 'block', width: '100%', height: 780, border: 'none' }

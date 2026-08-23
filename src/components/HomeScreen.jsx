@@ -52,6 +52,10 @@ export default function HomeScreen({ projects }) {
         <iframe
           src="/hero-globe.html"
           loading="lazy"
+          /* Decorative, so it is hidden from assistive tech and taken out of
+             the tab order — but a title is still required, and matters if
+             aria-hidden is ever lifted. */
+          title="Animated map tracing a route from São Paulo to Amsterdam"
           style={{
             position: 'absolute', inset: 0, width: '100%', height: '100%',
             border: 'none', pointerEvents: 'none',
