@@ -5,6 +5,17 @@ import { createPortal } from 'react-dom';
    embed URLs (Figma prototypes, video), which would render as a broken frame. */
 const IMAGE_RE = /\.(png|jpe?g|webp|gif|avif)(\?|$)/i;
 
+/* The window is 248px wide, but these sources are full case-study images —
+   several MB to render a thumbnail. Astro's <Image /> is no help: this is a
+   React island (Image is an Astro component), the files live in public/
+   (which astro:assets does not process), and the src is picked at runtime,
+   so there is nothing to analyse statically. Hence pre-generated thumbs, via
+   scripts/gen-preview-thumbs.py — keep this mapping in step with that script. */
+export function thumbFor(src) {
+  const stem = src.replace('/images/', '').replace(/\.[^.]+$/, '').replace(/\//g, '-');
+  return `/images/_previews/${stem}.webp`;
+}
+
 export function previewFrames(project, max = 6) {
   const srcs = (project.bodyImages || [])
     .map((b) => b && b.src)
@@ -50,7 +61,7 @@ export function HoverPreview({ frames, slug, x, y, visible, onDismiss }) {
     setI(0);
     if (!frames) return;
     // Warm the cache: at reel speed an uncached frame lands as a blank flash.
-    frames.forEach((src) => { const im = new Image(); im.src = src; });
+    frames.forEach((src) => { const im = new Image(); im.src = thumbFor(src); });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [slug]);
 
@@ -97,7 +108,18 @@ export function HoverPreview({ frames, slug, x, y, visible, onDismiss }) {
         {/* Keyed on the frame index so each change remounts the image and
             replays the glitch from zero — WebKit will not restart a running
             animation on a persistent node. */}
-        <img key={i} src={frames[i]} alt="" className="crt-preview-img" decoding="async" />
+        <img
+          key={i}
+          src={thumbFor(frames[i])}
+          /* If a thumbnail was never generated for this source, fall back to
+             the full image rather than showing a broken frame. */
+          onError={(e) => { if (e.currentTarget.src !== frames[i]) e.currentTarget.src = frames[i]; }}
+          alt=""
+          width="248"
+          height="155"
+          className="crt-preview-img"
+          decoding="async"
+        />
         <span className="crt-preview-scan" />
         <span className="crt-preview-vignette" />
       </div>
