@@ -17,6 +17,9 @@ const work = defineCollection({
     imageLabel: z.string().optional(),
     coverImage: z.string().optional(),
     role: z.string().optional(),
+    client: z.string().optional(),
+    agency: z.string().optional(),
+    framework: z.string().optional(),
     team: z.string().optional(),
     country: z.string().optional(),
     quotes: z.array(z.object({ text: z.string(), author: z.string(), after: z.string() })).optional(),
@@ -31,7 +34,17 @@ const work = defineCollection({
     processIntro: z.string().optional(),
     processNote: z.string().optional(),
     processStepsDetail: z.array(z.object({ lead: z.string(), body: z.string() })).optional(),
-    decisionItems: z.array(z.object({ heading: z.string(), paragraphs: z.array(z.string()), image: z.string().optional() })).optional(),
+    decisionsTitle: z.string().optional(),
+    decisionItems: z.array(z.object({
+      heading: z.string(),
+      paragraphs: z.array(z.string()),
+      // Small English gloss under copy kept verbatim in its original language.
+      note: z.string().optional(),
+      image: z.string().optional(),
+      imageAlt: z.string().optional(),
+      // Some stages carry several boards under one heading.
+      images: z.array(z.object({ src: z.string(), alt: z.string().optional() })).optional(),
+    })).optional(),
     systemsBody: z.string().optional(),
     learningsParagraphs: z.array(z.string()).optional(),
     statusNote: z.string().optional(),

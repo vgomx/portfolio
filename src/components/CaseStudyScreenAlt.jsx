@@ -479,7 +479,10 @@ export default function CaseStudyScreenAlt({ project, prev, next }) {
       <section className="section-pad" style={{ maxWidth: 'var(--container)', margin: '0 auto', padding: '0 48px' }}>
         <div className="meta-strip" style={{ display: 'flex', borderBottom: '1px solid var(--border-hairline)' }}>
           {[
+            ...(p.client ? [{ label: 'Client', value: p.client }] : []),
             { label: 'Role', value: p.role || 'Lead Designer' },
+            ...(p.agency ? [{ label: 'Agency', value: p.agency }] : []),
+            ...(p.framework ? [{ label: 'Framework', value: p.framework }] : []),
             { label: 'Year', value: p.year },
             ...(p.team ? [{ label: 'Team', value: `${p.team} people` }] : []),
             ...(p.country ? [{ label: 'Country', value: p.country }] : []),
@@ -571,18 +574,27 @@ export default function CaseStudyScreenAlt({ project, prev, next }) {
             {/* Key Design Decisions */}
             {p.decisionItems && (
               <div style={{ marginLeft: 76, marginTop: 56 }}>
-                <SubHead>The Onboarding Journey: Key Design Decisions</SubHead>
+                <SubHead>{p.decisionsTitle || 'Key Design Decisions'}</SubHead>
                 {p.decisionItems.map((item, i) => (
                   <div key={i} style={{ marginBottom: i < p.decisionItems.length - 1 ? 40 : 0 }}>
                     <h4 style={{ fontSize: 15, fontWeight: 600, letterSpacing: '-0.01em', color: 'var(--text-primary)', margin: '0 0 10px' }}>{item.heading}</h4>
                     {item.paragraphs.map((para, j) => (
                       <p key={j} style={{ fontSize: 16, lineHeight: 1.65, color: 'var(--text-secondary)', margin: j < item.paragraphs.length - 1 ? '0 0 16px' : 0 }}>{para}</p>
                     ))}
+                    {/* Gloss for copy kept verbatim in its original language. */}
+                    {item.note && (
+                      <p style={{ fontSize: 13, lineHeight: 1.6, color: 'var(--text-faint)', margin: '8px 0 0' }}>{item.note}</p>
+                    )}
                     {item.image && (
                       <div style={{ marginTop: 24, overflow: 'hidden', width: '100%' }}>
-                        <img src={item.image} alt="" style={{ display: 'block', width: '100%', height: 'auto' }} />
+                        <img src={item.image} alt={item.imageAlt || ''} loading="lazy" decoding="async" style={{ display: 'block', width: '100%', height: 'auto' }} />
                       </div>
                     )}
+                    {item.images && item.images.map((im, k) => (
+                      <div key={k} style={{ marginTop: 24, overflow: 'hidden', width: '100%' }}>
+                        <img src={im.src} alt={im.alt || ''} loading="lazy" decoding="async" style={{ display: 'block', width: '100%', height: 'auto' }} />
+                      </div>
+                    ))}
                   </div>
                 ))}
               </div>
