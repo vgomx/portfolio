@@ -4,7 +4,9 @@ import { Button } from '../ds/components/core/Button.jsx';
 function VGMark({ size = 40, color = 'var(--text-primary)' }) {
   return (
     <span style={{ color, width: size, flex: 'none', display: 'inline-flex' }}>
-      <svg viewBox="0 0 562 369" fill="currentColor" style={{ display: 'block', width: '100%', height: 'auto', fillRule: 'evenodd', clipRule: 'evenodd' }}>
+      {/* Always decorative: the meaning comes from whatever wraps it — the
+          home link names itself, the footer sits beside the copyright line. */}
+      <svg viewBox="0 0 562 369" fill="currentColor" aria-hidden="true" focusable="false" style={{ display: 'block', width: '100%', height: 'auto', fillRule: 'evenodd', clipRule: 'evenodd' }}>
         <g transform="matrix(1,0,0,1,-696,73)"><g transform="matrix(8.693433,0,0,8.693433,-7671.335362,-8770.706084)"><g transform="matrix(1,0,0,1,994.8125,1002.9085)"><path d="M0,37.612L31.187,18.993L31.187,18.619L0,0L-31.187,18.619L-31.187,18.993L0,37.612ZM0,32.004L-22.105,18.806L0,5.609L22.105,18.806L0,32.004Z" /></g><g transform="matrix(1,0,0,1,1008.8203,1021.5751)"><path d="M0,0.169L0,0L-14.077,-8.404L-28.154,0L-28.154,0.169L-14.077,8.573L0,0.169Z" /></g></g></g>
       </svg>
     </span>
@@ -14,7 +16,8 @@ function VGMark({ size = 40, color = 'var(--text-primary)' }) {
 function VGEyeGlitch({ size = 40 }) {
   return (
     <span className="vg-eye" style={{ width: size, flex: 'none', display: 'inline-flex', color: 'var(--text-primary)' }}>
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 562 369" style={{ display: 'block', width: '100%', height: 'auto' }}>
+      {/* The hover variant of the mark — purely presentational. */}
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 562 369" aria-hidden="true" focusable="false" style={{ display: 'block', width: '100%', height: 'auto' }}>
         <defs>
           <g id="vgEye" style={{ fill: 'currentColor' }}>
             <path d="M281,21 L552,186 L281,348 L10,186 Z M281,70 L473,184 L281,299 L89,184 Z" fillRule="evenodd" />
@@ -57,7 +60,7 @@ export function TopBar({ activePage }) {
   return (
     <div style={{ borderBottom: '1px solid var(--border-hairline)', background: 'var(--surface-page)', position: 'sticky', top: 0, zIndex: 50 }}>
       <div className="topbar-inner" style={{ maxWidth: 'var(--container)', margin: '0 auto', padding: '16px 48px', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-        <a href="/" style={{ textDecoration: 'none', display: 'inline-flex', alignItems: 'center' }}
+        <a href="/" aria-label="Vitor Gomes — home" style={{ textDecoration: 'none', display: 'inline-flex', alignItems: 'center' }}
           onMouseEnter={() => setActive(true)}
           onMouseLeave={() => setActive(false)}>
           <span style={{ display: active ? 'none' : 'inline-flex' }}><VGMark size={40} /></span>
