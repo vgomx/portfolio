@@ -8,7 +8,7 @@
   "scripts": {
     "dev": "astro dev",
     "predev": "test -d src/ds || git clone --depth 1 https://github.com/vgomx/ds.git src/ds",
-    "prebuild": "rm -rf src/ds && git clone --depth 1 https://github.com/vgomx/ds.git src/ds",
+    "prebuild": "if [ -d src/ds/.git ]; then git -C src/ds fetch --depth 1 origin main -q && git -C src/ds reset --hard FETCH_HEAD -q; else rm -rf src/ds && git clone --depth 1 -q https://github.com/vgomx/ds.git src/ds; fi",
     "build": "astro build",
     "preview": "astro preview",
     "astro": "astro"
