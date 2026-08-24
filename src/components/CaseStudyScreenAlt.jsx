@@ -174,7 +174,10 @@ function AnimatedImage({ src, alt, caption, layout = 'full', delay = 0, onClick 
     const el = ref.current;
     if (!el) return;
     const obs = new IntersectionObserver(
-      ([entry]) => { if (entry.isIntersecting) { setVisible(true); obs.disconnect(); } },
+      /* Also reveal when already scrolled past: a fast jump can take an
+         element from below the fold to above it without ever reporting
+         as intersecting, stranding it invisible. */
+      ([entry]) => { if (entry.isIntersecting || entry.boundingClientRect.top < 0) { setVisible(true); obs.disconnect(); } },
       { rootMargin: '0px 0px -80px 0px', threshold: 0.08 }
     );
     obs.observe(el);
@@ -218,7 +221,10 @@ function AnimatedDuo({ images, onClickImage }) {
     const el = ref.current;
     if (!el) return;
     const obs = new IntersectionObserver(
-      ([entry]) => { if (entry.isIntersecting) { setVisible(true); obs.disconnect(); } },
+      /* Also reveal when already scrolled past: a fast jump can take an
+         element from below the fold to above it without ever reporting
+         as intersecting, stranding it invisible. */
+      ([entry]) => { if (entry.isIntersecting || entry.boundingClientRect.top < 0) { setVisible(true); obs.disconnect(); } },
       { rootMargin: '0px 0px -80px 0px', threshold: 0.08 }
     );
     obs.observe(el);
@@ -252,7 +258,10 @@ function AnimatedTrio({ images, onClickImage }) {
     const el = ref.current;
     if (!el) return;
     const obs = new IntersectionObserver(
-      ([entry]) => { if (entry.isIntersecting) { setVisible(true); obs.disconnect(); } },
+      /* Also reveal when already scrolled past: a fast jump can take an
+         element from below the fold to above it without ever reporting
+         as intersecting, stranding it invisible. */
+      ([entry]) => { if (entry.isIntersecting || entry.boundingClientRect.top < 0) { setVisible(true); obs.disconnect(); } },
       { rootMargin: '0px 0px -80px 0px', threshold: 0.08 }
     );
     obs.observe(el);

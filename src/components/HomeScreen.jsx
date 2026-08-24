@@ -7,6 +7,7 @@ import { useState } from 'react';
 import { ImagePlaceholder, Eyebrow, GridLines } from './Chrome.jsx';
 import { CountUp } from './CountUp.jsx';
 import { HoverPreview, previewFrames } from './HoverPreview.jsx';
+import { Reveal } from './Reveal.jsx';
 
 /* Homepage curation, in display order — the first gets the full-width
    feature slot, the rest fill the two-column grid below it. Explicit
@@ -78,14 +79,14 @@ export default function HomeScreen({ projects }) {
 
       <section className="section-pad" style={{ borderTop: '1px solid var(--border-hairline)', maxWidth: 'var(--container)', margin: '0 auto', padding: '64px 48px', position: 'relative', overflow: 'hidden' }}>
         <GridLines />
-        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'baseline', marginBottom: 32 }}>
+        <Reveal style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'baseline', marginBottom: 32 }}>
           <h2 style={{ fontSize: 30, fontWeight: 600, letterSpacing: '-0.02em', margin: 0 }}>Selected work</h2>
           <a href="/work" style={{ fontFamily: 'var(--font-mono)', fontSize: 11, letterSpacing: '0.1em', textTransform: 'uppercase', color: 'var(--text-muted)', textDecoration: 'none' }}>Index →</a>
-        </div>
+        </Reveal>
         {/* Lead case — full row, image beside the copy so the wider slot
             buys prominence rather than just a taller image. */}
         {lead && (
-          <div {...previewProps(lead)}>
+          <Reveal {...previewProps(lead)}>
           <Card interactive flush onClick={() => window.location.href = `/work/${lead.slug}`} style={{ overflow: 'hidden', cursor: 'pointer', marginBottom: 24 }}>
             {/* Image column is sized to match a thumbnail in the grid below,
                 so its right edge lands on the left card's edge: the grid is
@@ -103,12 +104,13 @@ export default function HomeScreen({ projects }) {
               </div>
             </div>
           </Card>
-          </div>
+          </Reveal>
         )}
 
         <div className="grid-2col" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 24 }}>
-          {rest.map((p) => (
-            <div key={p.slug} {...previewProps(p)}>
+          {rest.map((p, i) => (
+            /* Staggered so a row arrives in sequence rather than as one block. */
+            <Reveal key={p.slug} delay={(i % 2) * 70} {...previewProps(p)}>
             <Card interactive flush onClick={() => window.location.href = `/work/${p.slug}`} style={{ overflow: 'hidden', cursor: 'pointer' }}>
               <ImagePlaceholder label={p.imageLabel} src={p.coverImage} />
               <div style={{ padding: 24 }}>
@@ -120,7 +122,7 @@ export default function HomeScreen({ projects }) {
                 <span style={{ fontFamily: 'var(--font-mono)', fontSize: 11, letterSpacing: '0.1em', textTransform: 'uppercase', color: 'var(--accent)', display: 'inline-flex', alignItems: 'center', gap: 8, borderBottom: '1px solid var(--accent)', paddingBottom: 3 }}>Read case →</span>
               </div>
             </Card>
-            </div>
+            </Reveal>
           ))}
         </div>
 
@@ -128,7 +130,10 @@ export default function HomeScreen({ projects }) {
       </section>
 
       <section className="grid-2col section-pad" style={{ borderTop: '1px solid var(--border-hairline)', maxWidth: 'var(--container)', margin: '0 auto', padding: '64px 48px', display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 56, alignItems: 'start' }}>
-        <h2 style={{ fontSize: 'clamp(34px,5vw,56px)', lineHeight: 1.02, letterSpacing: '-0.03em', fontWeight: 700, margin: 0 }}>What I do</h2>
+        <Reveal>
+          <h2 style={{ fontSize: 'clamp(34px,5vw,56px)', lineHeight: 1.02, letterSpacing: '-0.03em', fontWeight: 700, margin: 0 }}>What I do</h2>
+        </Reveal>
+        <Reveal delay={70}>
         <Accordion items={[
           { title: 'Product Design', content: 'I work across the full product design lifecycle, from discovery and requirements analysis to interaction design, prototyping, validation, and delivery. My background in design systems, visual design, and client-facing implementation allows me to turn complex business needs into scalable, intuitive experiences — especially in structured environments like financial services and e-commerce. I collaborate closely with product, engineering, and business stakeholders to shape solutions that are usable, consistent, and feasible to build.' },
           { title: 'Consultancy', content: 'Strategic design support for teams building new products or evolving existing ones — from brief through to shipped. This includes supporting the requirements and discovery process: clarifying business needs, synthesising stakeholder input, and translating early ideas into structured product direction.' },
@@ -136,12 +141,15 @@ export default function HomeScreen({ projects }) {
           { title: 'AI-assisted design & development', content: 'Leverage AI tooling — including connected MCP workflows with Claude Code and Penpot — to automate design work directly in the canvas, generate production-ready components, and maintain consistency across large systems. Extends into front-end: translating design tokens and specs into responsive web interfaces using HTML, CSS, Git, and deployment workflows.' },
           { title: 'Visual Design', content: 'Brand identity, typography, and visual systems that give a product a recognisable point of view.' },
         ]} />
+        </Reveal>
       </section>
 
       <section style={{ background: 'var(--surface-ink)' }}>
         <div className="grid-4col section-pad" style={{ maxWidth: 'var(--container)', margin: '0 auto', padding: '56px 48px', display: 'grid', gridTemplateColumns: 'repeat(4,1fr)', gap: 24 }}>
-          {[['12+', 'Years shipping product'], ['40', 'Projects delivered'], ['10+', 'Brands built from zero'], ['7', 'Countries, clients from']].map(([v, l]) => (
-            <StatCard key={l} value={<CountUp value={v} />} label={l} onDark />
+          {[['12+', 'Years shipping product'], ['40', 'Projects delivered'], ['10+', 'Brands built from zero'], ['7', 'Countries, clients from']].map(([v, l], i) => (
+            <Reveal key={l} delay={i * 70}>
+              <StatCard value={<CountUp value={v} />} label={l} onDark />
+            </Reveal>
           ))}
         </div>
       </section>
