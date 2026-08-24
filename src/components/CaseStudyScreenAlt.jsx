@@ -18,6 +18,7 @@ const SECTIONS = [
 
 function NotionNav({ active }) {
   const [open, setOpen] = useState(false);
+  const [hovered, setHovered] = useState(null);
 
   const scrollTo = (id) => {
     const el = document.getElementById(`section-${id}`);
@@ -47,17 +48,30 @@ function NotionNav({ active }) {
         pointerEvents: open ? 'auto' : 'none',
         background: 'var(--surface-page)', border: '1px solid var(--border-hairline)', boxShadow: '0 4px 20px rgba(0,0,0,0.08)',
       }}>
-        <div style={{ width: 148 }}>
-          {SECTIONS.map((s) => (
-            <div key={s.id} onClick={() => scrollTo(s.id)} style={{
-              display: 'flex', alignItems: 'center', gap: 10, padding: '7px 10px', cursor: 'pointer',
-              borderLeft: `2px solid ${active === s.id ? 'var(--accent)' : 'transparent'}`,
-              background: active === s.id ? 'var(--surface-subtle)' : 'transparent', transition: 'background 0.15s',
-            }}>
-              <span style={{ fontFamily: 'var(--font-mono)', fontSize: 10, letterSpacing: '0.1em', color: 'var(--text-faint)', width: 18, flexShrink: 0 }}>{s.n}</span>
-              <span style={{ fontFamily: 'var(--font-mono)', fontSize: 11, letterSpacing: '0.08em', textTransform: 'uppercase', color: active === s.id ? 'var(--text-primary)' : 'var(--text-secondary)', whiteSpace: 'nowrap' }}>{s.label}</span>
-            </div>
-          ))}
+        {/* Full width: a narrower inner track left dead space down the right
+            of every row, so rows stopped short of the panel edge. */}
+        <div style={{ width: '100%' }}>
+          {SECTIONS.map((s) => {
+            const isActive = active === s.id;
+            const isHover = hovered === s.id && !isActive;
+            return (
+              <div
+                key={s.id}
+                onClick={() => scrollTo(s.id)}
+                onMouseEnter={() => setHovered(s.id)}
+                onMouseLeave={() => setHovered(null)}
+                style={{
+                  display: 'flex', alignItems: 'center', gap: 10, padding: '7px 10px', cursor: 'pointer',
+                  borderLeft: `2px solid ${isActive ? 'var(--accent)' : isHover ? 'var(--border-default)' : 'transparent'}`,
+                  background: isActive || isHover ? 'var(--surface-subtle)' : 'transparent',
+                  transition: 'background 0.15s ease, border-color 0.15s ease',
+                }}
+              >
+                <span style={{ fontFamily: 'var(--font-mono)', fontSize: 10, letterSpacing: '0.1em', color: isHover ? 'var(--text-muted)' : 'var(--text-faint)', width: 18, flexShrink: 0, transition: 'color 0.15s ease' }}>{s.n}</span>
+                <span style={{ fontFamily: 'var(--font-mono)', fontSize: 11, letterSpacing: '0.08em', textTransform: 'uppercase', color: isActive || isHover ? 'var(--text-primary)' : 'var(--text-secondary)', whiteSpace: 'nowrap', transition: 'color 0.15s ease' }}>{s.label}</span>
+              </div>
+            );
+          })}
         </div>
       </div>
     </div>
