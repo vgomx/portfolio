@@ -87,7 +87,8 @@ outcomes:
     label: "Brazil's debut in the global COTY campaign"
 bodyImages:
   - src: "/images/kitchenaid/kitchenaid-hero-animation.webp"
-    alt: "The Color of the Year landing page in motion"
+    alt: "The Artisan Stand Mixer being covered in honey"
+    caption: "The Artisan Stand Mixer being covered in honey — an extra key visual I requested from Whirlpool's marketing team specifically to anchor the landing page hero."
     after: "overview"
     layout: "full"
 ---

@@ -204,7 +204,7 @@ function AnimatedImage({ src, alt, caption, layout = 'full', delay = 0, onClick 
         style={{ display: 'block', width: '100%', height: 'auto', objectFit: 'cover' }}
       />
       {caption && (
-        <div style={{ fontFamily: 'var(--font-mono)', fontSize: 10, letterSpacing: '0.08em', textTransform: 'uppercase', color: 'var(--text-faint)', marginTop: 10 }}>{caption}</div>
+        <div style={{ fontSize: 13, lineHeight: 1.55, color: 'var(--text-faint)', marginTop: 10, maxWidth: '68ch' }}>{caption}</div>
       )}
     </div>
   );
@@ -236,7 +236,7 @@ function AnimatedDuo({ images, onClickImage }) {
         }}>
           <img src={img.src} alt={img.alt || ''} loading="lazy" decoding="async" style={{ display: 'block', width: '100%', height: 'auto', objectFit: 'cover' }} />
           {img.caption && (
-            <div style={{ fontFamily: 'var(--font-mono)', fontSize: 10, letterSpacing: '0.08em', textTransform: 'uppercase', color: 'var(--text-faint)', marginTop: 10 }}>{img.caption}</div>
+            <div style={{ fontSize: 13, lineHeight: 1.55, color: 'var(--text-faint)', marginTop: 10, maxWidth: '68ch' }}>{img.caption}</div>
           )}
         </div>
       ))}
@@ -270,7 +270,7 @@ function AnimatedTrio({ images, onClickImage }) {
         }}>
           <img src={img.src} alt={img.alt || ''} loading="lazy" decoding="async" style={{ display: 'block', width: '100%', height: 'auto', objectFit: 'cover' }} />
           {img.caption && (
-            <div style={{ fontFamily: 'var(--font-mono)', fontSize: 10, letterSpacing: '0.08em', textTransform: 'uppercase', color: 'var(--text-faint)', marginTop: 10 }}>{img.caption}</div>
+            <div style={{ fontSize: 13, lineHeight: 1.55, color: 'var(--text-faint)', marginTop: 10, maxWidth: '68ch' }}>{img.caption}</div>
           )}
         </div>
       ))}
