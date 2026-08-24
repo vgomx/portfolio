@@ -46,9 +46,15 @@ decisionItems:
     image: "/images/kitchenaid/kitchenaid-07.jpg"
     imageAlt: "CSD Matrix — certainties, suppositions and doubts"
   - heading: "Persona, Empathy Map, User Journey and Need Statement"
-    paragraphs:
-      - "・Usuários acompanham tendências e influenciadores;\n・Utilizam o Pinterest;\n・Gostam de receber amigos e familiares;\n・Fazem cursos e acompanham programas de culinária"
-    note: "Users follow trends and influencers · use Pinterest · enjoy hosting friends and family · take courses and watch cooking programmes."
+    bullets:
+      - text: "Usuários acompanham tendências e influenciadores"
+        note: "Users follow trends and influencers"
+      - text: "Utilizam o Pinterest"
+        note: "They use Pinterest"
+      - text: "Gostam de receber amigos e familiares"
+        note: "They enjoy hosting friends and family"
+      - text: "Fazem cursos e acompanham programas de culinária"
+        note: "They take courses and follow cooking programmes"
     images:
       - src: "/images/kitchenaid/kitchenaid-06.jpg"
         alt: "Persona"

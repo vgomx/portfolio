@@ -578,9 +578,21 @@ export default function CaseStudyScreenAlt({ project, prev, next }) {
                 {p.decisionItems.map((item, i) => (
                   <div key={i} style={{ marginBottom: i < p.decisionItems.length - 1 ? 40 : 0 }}>
                     <h4 style={{ fontSize: 15, fontWeight: 600, letterSpacing: '-0.01em', color: 'var(--text-primary)', margin: '0 0 10px' }}>{item.heading}</h4>
-                    {item.paragraphs.map((para, j) => (
+                    {item.paragraphs && item.paragraphs.map((para, j) => (
                       <p key={j} style={{ fontSize: 16, lineHeight: 1.65, color: 'var(--text-secondary)', margin: j < item.paragraphs.length - 1 ? '0 0 16px' : 0 }}>{para}</p>
                     ))}
+                    {item.bullets && (
+                      <ul style={{ margin: 0, paddingLeft: 20, listStyle: 'disc' }}>
+                        {item.bullets.map((b, j) => (
+                          <li key={j} style={{ fontSize: 16, lineHeight: 1.65, color: 'var(--text-secondary)', marginBottom: j < item.bullets.length - 1 ? 8 : 0 }}>
+                            {b.text}
+                            {b.note && (
+                              <span style={{ display: 'block', fontSize: 13, lineHeight: 1.5, color: 'var(--text-faint)', marginTop: 2 }}>{b.note}</span>
+                            )}
+                          </li>
+                        ))}
+                      </ul>
+                    )}
                     {/* Gloss for copy kept verbatim in its original language. */}
                     {item.note && (
                       <p style={{ fontSize: 13, lineHeight: 1.6, color: 'var(--text-faint)', margin: '8px 0 0' }}>{item.note}</p>

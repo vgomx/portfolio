@@ -37,7 +37,9 @@ const work = defineCollection({
     decisionsTitle: z.string().optional(),
     decisionItems: z.array(z.object({
       heading: z.string(),
-      paragraphs: z.array(z.string()),
+      paragraphs: z.array(z.string()).optional(),
+      // Verbatim list items, each able to carry its own small gloss.
+      bullets: z.array(z.object({ text: z.string(), note: z.string().optional() })).optional(),
       // Small English gloss under copy kept verbatim in its original language.
       note: z.string().optional(),
       image: z.string().optional(),
