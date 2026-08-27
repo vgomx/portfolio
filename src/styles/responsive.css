@@ -46,6 +46,14 @@
     padding-right: 24px !important;
   }
 
+  /* Hero: 88px reads as breathing room next to a desktop headline, but on a
+     phone it is a ninth of the screen spent before the first word. The side
+     padding above already halves here; the vertical never did. */
+  .hero-pad {
+    padding-top: 48px !important;
+    padding-bottom: 40px !important;
+  }
+
   /* Hide sidebar label in timeline/two-col layouts */
   .grid-sidebar > .sidebar-label {
     display: none;

@@ -2,8 +2,15 @@
   --text-primary:   var(--paper);
   --text-secondary: var(--gray-300);
   --text-muted:     var(--gray-400);
-  --text-faint:     var(--gray-500);
+  /* Not a ramp step: gray-500 lands at 3.79:1 on the page and 3.15:1 on
+     ink-800, under AA for the ~43 places this token sets small label text,
+     and the next step up (gray-400) is already --text-muted. This sits
+     between them and clears 4.5:1 on every dark surface. The ramp itself
+     lives in the design system repo, which `prebuild` hard-resets. */
+  --text-faint:     #8c8c91;
   --text-disabled:  var(--gray-600);
+  /* --text-inverse-faint is fixed once in contrast.css: it is text on dark
+     surfaces, which are dark in both themes. */
 
   --surface-page:   var(--ink-900);
   --surface-card:   var(--ink-850);
@@ -25,4 +32,14 @@
   --accent-tint:      var(--ink-850);
 
   color-scheme: dark;
+}
+
+/* The hero map is an iframe with its own document, so none of the tokens
+   above reach it — it kept painting the light palette, and at 0.5 opacity
+   that put the eyebrow at 1.23:1 and the sub-headline at 1.88:1 against a
+   mid-grey band. The map is near-monochrome, so inverting it reads as a
+   dark map with light dots; the hue-rotate keeps the accent arc green
+   instead of flipping it magenta. */
+[data-theme="dark"] .hero-globe {
+  filter: invert(1) hue-rotate(180deg);
 }

@@ -1,0 +1,31 @@
+/* ============================================================
+   Contrast overrides — WCAG AA (4.5:1) for the low-contrast end
+   of the text ramp.
+
+   These belong in the design system's colors.css, but src/ds is a
+   separate repo that `prebuild` hard-resets, so overrides have to
+   live here. Loaded after the DS tokens and before dark-mode.css,
+   which restates the two it needs for dark surfaces.
+
+   Measured against the backgrounds these tokens actually render on
+   (#fafafa and #141416 — the only two that occur in practice),
+   not the full surface matrix.
+   ============================================================ */
+
+:root {
+  /* Was gray-400 (#97979c) at 2.79:1 on paper — well under AA, across
+     ~49 `color:` usages down to 11px (case study meta, note dates, lab
+     captions, legal pages). */
+  --text-faint: #6e6e75; /* 4.85:1 on paper */
+
+  /* Only moved to keep the ramp ordered. gray-500 (#717177) passed at
+     4.65:1, but that is where --text-faint has to land to clear AA, and
+     faint must stay lighter than muted. */
+  --text-muted: #5d5d64; /* 6.26:1 on paper */
+
+  /* The inverse ramp is text on dark surfaces, which are dark in both
+     themes — so this is one value, not a per-theme pair. Was gray-500
+     (#717177) at 3.79:1, which is what left the footer's links and stat
+     labels under AA in light *and* dark. */
+  --text-inverse-faint: #8c8c91; /* 5.50:1 on ink-900 */
+}
