@@ -52,6 +52,7 @@ export default function HomeScreen({ projects }) {
         {/* Globe animation background */}
         <iframe
           src="/hero-globe.html"
+          className="hero-globe"
           loading="lazy"
           /* Decorative, so it is hidden from assistive tech and taken out of
              the tab order — but a title is still required, and matters if
