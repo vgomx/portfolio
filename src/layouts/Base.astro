@@ -230,6 +230,30 @@ const ogImageUrl = new URL(ogImage, Astro.url.origin).href;
         el.setAttribute('data-intro', '');
       })();
     </script>
+    <script is:inline>
+      (function() {
+        // Heading into the lab from the rest of the site: dim this page
+        // first, so the lab's blackout continues it instead of cutting to
+        // it. Inline (not an island) so it works before hydration.
+        if (document.documentElement.getAttribute('data-theme') === 'lab') return; // LabExit owns the lab's links
+        document.addEventListener('click', function(e) {
+          if (e.defaultPrevented || e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
+          const a = e.target.closest && e.target.closest('a');
+          if (!a || (a.target && a.target !== '_self') || a.hasAttribute('download')) return;
+          let url;
+          try { url = new URL(a.href, location.href); } catch (err) { return; }
+          if (url.origin !== location.origin || !/^\/lab(\/|$)/.test(url.pathname)) return;
+          if (matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+          e.preventDefault();
+          document.documentElement.classList.add('lab-dimming');
+          setTimeout(function() { location.href = url.href; }, 360);
+        });
+        // Back button restores this page from bfcache mid-dim — lift it.
+        addEventListener('pageshow', function(e) {
+          if (e.persisted) document.documentElement.classList.remove('lab-dimming');
+        });
+      })();
+    </script>
   </head>
   <body>
     <div class="site-intro" aria-hidden="true">

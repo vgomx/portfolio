@@ -58,7 +58,7 @@ export function TopBar({ activePage }) {
     return () => clearInterval(interval);
   }, []);
   return (
-    <div style={{ borderBottom: '1px solid var(--border-hairline)', background: 'var(--surface-page)', position: 'sticky', top: 0, zIndex: 50 }}>
+    <div className="topbar" style={{ borderBottom: '1px solid var(--border-hairline)', background: 'var(--surface-page)', position: 'sticky', top: 0, zIndex: 50 }}>
       <div className="topbar-inner" style={{ maxWidth: 'var(--container)', margin: '0 auto', padding: '16px 48px', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
         <a href="/" aria-label="Vitor Gomes — home" style={{ textDecoration: 'none', display: 'inline-flex', alignItems: 'center' }}
           onMouseEnter={() => setActive(true)}
