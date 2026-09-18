@@ -7,7 +7,8 @@
    the phosphor green is the only thing fully "on".
    ============================================================ */
 
-[data-theme="lab"] {
+[data-theme="lab"],
+html.lab-dimming .topbar { /* the bar crosses into the lab ahead of the page — see APPROACH */
   /* --- Lab-only palette --- */
   --lab-black:        #050706;
   --lab-phosphor:     #5fe0a0; /* bright sibling of --green-400 */
@@ -74,6 +75,41 @@
 }
 
 /* ============================================================
+   APPROACH — the lights going down on the page you're leaving.
+   Any non-lab page, on a click toward /lab: the room dims with
+   a fluorescent stutter before navigating, so the blackout the
+   lab boots from reads as this site going dark, not a new one
+   loading. The top bar stays above it — it's the anchor that
+   carries across — and takes the lab palette on the same frame
+   the dim starts, so it arrives already matching the lab page.
+   Armed by the inline script in Base.astro.
+   ============================================================ */
+
+html.lab-dimming body::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  pointer-events: none;
+  background: #050706;
+  animation: lab-dim-out 0.36s linear forwards;
+}
+html.lab-dimming .topbar { z-index: 10000 !important; }
+/* Snap with the page, not after it: the links' inline colour
+   fades would otherwise trail the bar's background. */
+html.lab-dimming .topbar * { transition: none !important; }
+/* Opens on a hard drop (not from 0) so page and bar visibly
+   change on the same frame. */
+@keyframes lab-dim-out {
+  0%   { opacity: 0.6; }
+  25%  { opacity: 0.55; }
+  35%  { opacity: 0.15; }
+  55%  { opacity: 0.8; }
+  65%  { opacity: 0.4; }
+  100% { opacity: 1; }
+}
+
+/* ============================================================
    ENTRY — the lights turn on. A black overlay with a mono boot
    readout; the fluorescent stutter is the transition itself.
    Overlay hides itself via CSS (forwards) so it never traps
@@ -96,6 +132,16 @@
 .lab-entry--reduced { animation: lab-entry-reduced 0.4s ease forwards; }
 .lab-entry--reduced .lab-boot { display: none; }
 .lab-entry--none { display: none; }
+
+/* The top bar rides above the boot overlay for as long as the
+   longest entry runs, then drops back under the scanlines. An
+   animation (not a rule) so it overrides the inline z-index and
+   lets go by itself — no JS, so it's right on first paint. */
+[data-theme="lab"] .topbar { animation: lab-topbar-lift 3.25s; }
+[data-lab-nav="internal"] .topbar { animation: none; }
+@keyframes lab-topbar-lift {
+  from, to { z-index: 10000; }
+}
 
 @keyframes lab-entry-full {
   0%, 66%    { opacity: 1; transform: none; }
