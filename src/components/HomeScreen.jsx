@@ -70,7 +70,7 @@ export default function HomeScreen({ projects }) {
         <div className="section-pad hero-pad" style={{ position: 'relative', zIndex: 1, maxWidth: 'var(--container)', margin: '0 auto', padding: '88px 48px 56px' }}>
           <Eyebrow style={{ marginBottom: 24 }}>Senior Product Designer · Backbase · Amsterdam</Eyebrow>
           <h1 style={{ fontSize: 'clamp(38px,6vw,72px)', lineHeight: 0.98, letterSpacing: '-0.03em', fontWeight: 700, margin: 0 }}>Design for teams building new products — or evolving existing ones</h1>
-          <p style={{ fontSize: 18, lineHeight: 1.55, color: 'var(--text-secondary)', margin: '24px 0 0', fontWeight: 400 }}>Twelve years of brand, product and the systems that hold them together — identity through interface, shipped end to end.</p>
+          <p style={{ fontSize: 18, lineHeight: 1.55, color: 'var(--text-secondary)', margin: '24px 0 0', fontWeight: 400 }}>More than fifteen years of brand, product and the systems that hold them together — identity through interface, shipped end to end.</p>
           <div style={{ display: 'flex', gap: 12, marginTop: 32, flexWrap: 'wrap' }}>
             <Button variant="accent" onClick={() => window.location.href = '/work'}>See all work</Button>
             <Button variant="secondary" onClick={() => window.location.href = '/about'}>About me</Button>
@@ -147,7 +147,7 @@ export default function HomeScreen({ projects }) {
 
       <section style={{ background: 'var(--surface-ink)' }}>
         <div className="grid-4col section-pad" style={{ maxWidth: 'var(--container)', margin: '0 auto', padding: '56px 48px', display: 'grid', gridTemplateColumns: 'repeat(4,1fr)', gap: 24 }}>
-          {[['12+', 'Years shipping product'], ['40', 'Projects delivered'], ['10+', 'Brands built from zero'], ['7', 'Countries, clients from']].map(([v, l], i) => (
+          {[['15+', 'Years in design'], ['40', 'Projects delivered'], ['10+', 'Brands built from zero'], ['7', 'Countries, clients from']].map(([v, l], i) => (
             <Reveal key={l} delay={i * 70}>
               <StatCard value={<CountUp value={v} />} label={l} onDark />
             </Reveal>

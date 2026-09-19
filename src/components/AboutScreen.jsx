@@ -27,12 +27,12 @@ const TIMELINE = [
     text: 'A year of big changes. Life took me to the seaside — Santos, on the coast of São Paulo.',
   },
   {
-    year: '2012',
-    text: 'Concluded my formal education in graphic and digital design — the skills that got me into advertising agencies and communication bureaus.',
+    year: '2012–2016',
+    text: 'Worked with art direction across advertising agencies and communication bureaus.',
   },
   {
-    year: '2012–2015',
-    text: 'Worked with art direction across advertising agencies and communication bureaus.',
+    year: '2013',
+    text: 'Concluded my formal education in graphic and digital design, studying alongside agency work — the skills that carried me through advertising and communication bureaus.',
   },
   {
     year: '2015',
@@ -44,7 +44,7 @@ const TIMELINE = [
   },
   {
     year: '2016',
-    text: 'Joined Vagalume as Lead Designer — the lyrics portal that has been part of Brazilian internet folklore for decades. A delight for a music lover, and my first role working strictly with digital products. I delivered a facelift for both the visual identity and the website, plus the launch of the radio streaming service Vagalume.FM.',
+    text: 'Joined Vagalume as Senior Visual Designer, stepping up to Design Lead in 2017 — the lyrics portal that has been part of Brazilian internet folklore for decades. A delight for a music lover, and my first role working strictly with digital products. I delivered a facelift for both the visual identity and the website, plus the launch of the radio streaming service Vagalume.FM.',
   },
   {
     year: '2017–2018',
@@ -64,7 +64,7 @@ const TIMELINE = [
   },
   {
     year: '2021',
-    text: 'Promoted to Lead Designer at Jüssi — still in Brazil.',
+    text: 'Promoted to Product Design Lead at Jüssi — still in Brazil.',
   },
   {
     year: '2021',
@@ -214,7 +214,7 @@ export default function AboutScreen() {
         <div>
           <Eyebrow style={{ marginBottom: 24 }}>About</Eyebrow>
           <h1 style={{ fontSize: 'clamp(34px,5vw,56px)', lineHeight: 1.02, letterSpacing: '-0.03em', fontWeight: 700, margin: 0 }}>I design brands and the products they become.</h1>
-          <p style={{ fontSize: 18, lineHeight: 1.55, color: 'var(--text-secondary)', margin: '24px 0 0' }}>I'm Vitor — Senior Product Designer working across identity, interface and design systems. Twelve years in, I still believe the best systems are the ones you barely notice: restraint, one clear signal, edges that do the work.</p>
+          <p style={{ fontSize: 18, lineHeight: 1.55, color: 'var(--text-secondary)', margin: '24px 0 0' }}>I'm Vitor — Senior Product Designer working across identity, interface and design systems. Fifteen-plus years in, I still believe the best systems are the ones you barely notice: restraint, one clear signal, edges that do the work.</p>
           <p style={{ fontSize: 16, lineHeight: 1.6, color: 'var(--text-secondary)', margin: '16px 0 0' }}>I bridge UX and front-end through AI-assisted workflows. I use tools like Claude Code to translate design systems into responsive web interfaces, supported by a solid understanding of HTML/CSS, Git, and deployment — including connected MCP workflows that automate design work directly in tools like Penpot, allowing me to operate at the intersection of design tooling and engineering.</p>
           <div style={{ display: 'flex', gap: 12, marginTop: 32, flexWrap: 'wrap' }}>
             <Button variant="accent" onClick={() => setOpen(true)}>Get in touch</Button>
