@@ -30,26 +30,31 @@ function formatDate(iso: string) {
   <TopBar activePage="notes" client:load />
   <SiteBanner client:idle />
 
-  <div class="section-pad" style="max-width: 720px; margin: 0 auto; padding: 80px 48px 120px;">
+  {/* `page-enter` staggers its DIRECT children, so the masthead is one
+      <header> rather than four: the tags, title, summary and date belong
+      to a single beat, the way a section does on the other pages. */}
+  <div class="page-enter section-pad" style="max-width: 720px; margin: 0 auto; padding: 80px 48px 120px;">
     <a href="/notes" style="font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-faint); text-decoration: none; display: inline-block; margin-bottom: 40px;">
       ← Notes
     </a>
 
-    <div style="display: flex; gap: 8px; margin-bottom: 20px; flex-wrap: wrap;">
-      {(note.tags || []).map((t) => <Tag size="sm" client:load>{t}</Tag>)}
-    </div>
+    <header>
+      <div style="display: flex; gap: 8px; margin-bottom: 20px; flex-wrap: wrap;">
+        {(note.tags || []).map((t) => <Tag size="sm" client:load>{t}</Tag>)}
+      </div>
 
-    <h1 style="font-size: clamp(28px, 4vw, 48px); font-weight: 700; line-height: 1.08; letter-spacing: -0.03em; margin: 0 0 24px;">
-      {note.title}
-    </h1>
+      <h1 style="font-size: clamp(28px, 4vw, 48px); font-weight: 700; line-height: 1.08; letter-spacing: -0.03em; margin: 0 0 24px;">
+        {note.title}
+      </h1>
 
-    <p style="font-size: 18px; line-height: 1.6; color: var(--text-secondary); margin: 0 0 32px;">
-      {note.summary}
-    </p>
+      <p style="font-size: 18px; line-height: 1.6; color: var(--text-secondary); margin: 0 0 32px;">
+        {note.summary}
+      </p>
 
-    <div style="font-family: var(--font-mono); font-size: 12px; color: var(--text-faint); letter-spacing: 0.06em; padding-top: 24px; border-top: 1px solid var(--border-hairline); margin-bottom: 56px;">
-      {formatDate(note.date)}
-    </div>
+      <div style="font-family: var(--font-mono); font-size: 12px; color: var(--text-faint); letter-spacing: 0.06em; padding-top: 24px; border-top: 1px solid var(--border-hairline); margin-bottom: 56px;">
+        {formatDate(note.date)}
+      </div>
+    </header>
 
     <article class="note-body">
       <Content />

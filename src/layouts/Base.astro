@@ -185,6 +185,11 @@ const ogImageUrl = new URL(ogImage, Astro.url.origin).href;
       }
 
       @media (prefers-reduced-motion: reduce) {
+        /* The page arrives whole. `transform: none` matters as much as the
+           opacity: a finished page-rise leaves an identity transform behind,
+           which would still make these the containing block for any fixed
+           child (see the note in HoverPreview.jsx). */
+        .page-enter > * { animation: none; opacity: 1; transform: none; }
         .site-intro { animation: site-intro-fade 0.3s ease 0.2s forwards; }
         .site-intro-mark { animation: none; opacity: 1; transform: none; }
         .site-intro-clip { animation: none; transform: none; }
