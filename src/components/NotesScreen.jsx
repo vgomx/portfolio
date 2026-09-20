@@ -12,8 +12,9 @@ function readingTime(summary) {
 }
 
 export default function NotesScreen({ notes }) {
-  const featured = notes.find((n) => n.featured);
-  const rest = notes.filter((n) => !n.featured);
+  /* The newest note always takes the highlight slot — notes arrive sorted
+     newest first, so no flag decides this and none can fall out of the list. */
+  const [featured, ...rest] = notes;
 
   return (
     <div className="page-enter">

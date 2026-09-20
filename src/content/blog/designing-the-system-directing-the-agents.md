@@ -4,7 +4,6 @@ slug: "designing-the-system-directing-the-agents"
 date: "2026-09-19"
 summary: "How I rebuilt my portfolio with agentic AI. An AI agent can write a component in seconds — it can't decide which component is worth writing, or tell you when the result is almost right but not quite."
 tags: ["AI", "Design Systems", "Process"]
-featured: false
 ---
 
 That gap is where I spent most of my time rebuilding this site. In June 2026 I left Squarespace and built my portfolio and its design system from scratch, working with AI agents. Most of the code came from the agents. The planning, direction, review and final decisions were mine. That's the same work I've done as a product designer for more than 12 years.

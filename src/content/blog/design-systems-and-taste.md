@@ -4,7 +4,6 @@ slug: "design-systems-and-taste"
 date: "2026-06-15"
 summary: "Every token is a decision. Every component is a stance. The difference between a system that scales and one that suffocates a team usually comes down to how much taste went into the defaults."
 tags: ["Design Systems", "Process"]
-featured: true
 ---
 
 There's a version of design systems thinking that goes like this: if you document everything, standardise every spacing value, and force every team to use the same components, you'll get consistency. And consistency, so the thinking goes, is good.

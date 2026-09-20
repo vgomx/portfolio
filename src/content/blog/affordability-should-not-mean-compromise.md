@@ -4,7 +4,6 @@ slug: "affordability-should-not-mean-compromise"
 date: "2026-06-24"
 summary: "Good design should expand access, not reserve quality for the few who can afford it. A reflection on what real affordability means — in hardware, and in the products we build."
 tags: ["Product Design", "Process"]
-featured: false
 ---
 
 For years, tools that many designers consider standard remained out of reach. In Brazil, even a "good" laptop can feel like a luxury, and that reality shapes not only what people can buy, but also how they learn to work. It teaches early that affordability is not just about price; it is about access, continuity, and whether a tool can actually support work over time.
