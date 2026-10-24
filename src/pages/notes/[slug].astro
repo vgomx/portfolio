@@ -11,7 +11,7 @@ export async function getStaticPaths() {
 
 const { slug } = Astro.params;
 const entries = await getCollection('blog');
-const sorted = entries.map((e) => e.data).sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
+const sorted = entries.map((e) => e.data).filter((p) => !p.hidden).sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
 const entry = entries.find((e) => e.data.slug === slug);
 if (!entry) return Astro.redirect('/notes');
 
