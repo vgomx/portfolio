@@ -208,7 +208,7 @@ function ThemeToggle() {
 }
 
 const NAV_LINKS = [
-  { href: '/work', label: 'Cases' },
+  { href: '/work', label: 'Work' },
   { href: '/lab', label: 'Lab' },
   { href: '/about', label: 'About' },
   { href: 'mailto:vgmxx@proton.me', label: 'Contact' },

@@ -8,12 +8,14 @@ function parseValue(value) {
   return { number: Number(match[1]), suffix: match[2] || '' };
 }
 
-/* Counts from 0 to the target once the element scrolls into view.
-   Eases out so it decelerates into the final figure instead of
-   stopping dead. Non-numeric values render as-is. */
+/* Renders the real target figure up front — so it's correct in the
+   initial HTML with no JS — then, once the element scrolls into view,
+   briefly counts up from 0 to it as a purely cosmetic flourish. Eases
+   out so it decelerates into the final figure instead of stopping
+   dead. Non-numeric values render as-is. */
 export function CountUp({ value, duration = 1400 }) {
   const { number, suffix } = parseValue(value);
-  const [display, setDisplay] = useState(number === null ? value : 0);
+  const [display, setDisplay] = useState(number === null ? value : number);
   const ref = useRef(null);
   const started = useRef(false);
 
@@ -30,6 +32,7 @@ export function CountUp({ value, duration = 1400 }) {
 
     let frame;
     const run = () => {
+      setDisplay(0);
       const start = performance.now();
       const tick = (now) => {
         const t = Math.min((now - start) / duration, 1);
