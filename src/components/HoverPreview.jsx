@@ -78,6 +78,12 @@ export function HoverPreview({ frames, slug, x, y, visible, onDismiss }) {
 
   if (!mounted || !frames || !frames.length) return null;
 
+  /* `i` is only reset to 0 by the effect above, which runs after render —
+     so the render right after switching to a project with fewer frames can
+     still hold the previous project's (now out-of-bounds) index. Wrap it
+     rather than trust it, so this never indexes past the current array. */
+  const frame = frames[i % frames.length];
+
   // Keep the window on screen — flip to the other side of the cursor near
   // the right/bottom edges instead of letting it run off.
   const W = 248;
@@ -110,10 +116,10 @@ export function HoverPreview({ frames, slug, x, y, visible, onDismiss }) {
             animation on a persistent node. */}
         <img
           key={i}
-          src={thumbFor(frames[i])}
+          src={thumbFor(frame)}
           /* If a thumbnail was never generated for this source, fall back to
              the full image rather than showing a broken frame. */
-          onError={(e) => { if (e.currentTarget.src !== frames[i]) e.currentTarget.src = frames[i]; }}
+          onError={(e) => { if (e.currentTarget.src !== frame) e.currentTarget.src = frame; }}
           alt=""
           width="248"
           height="155"
