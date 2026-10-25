@@ -8,7 +8,12 @@ const entries = await getCollection('work');
 const projects = entries
   .map((e) => ({ slug: e.data.slug, ...e.data }))
   .filter((p) => !p.hidden)
-  .sort((a, b) => b.year - a.year);
+  .sort((a, b) => {
+    const aPD = a.discipline === 'Product Design' ? 0 : 1;
+    const bPD = b.discipline === 'Product Design' ? 0 : 1;
+    if (aPD !== bPD) return aPD - bPD;
+    return b.year - a.year;
+  });
 ---
 <Base title="Work — Vitor Gomes">
   <TopBar activePage="work" client:load />

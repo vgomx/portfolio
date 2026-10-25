@@ -7,6 +7,7 @@ import { getCollection } from 'astro:content';
 const entries = await getCollection('blog');
 const notes = entries
   .map((e) => ({ slug: e.data.slug, ...e.data }))
+  .filter((n) => !n.hidden)
   .sort((a, b) => new Date(b.date) - new Date(a.date));
 ---
 <Base title="Notes — Vitor Gomes">

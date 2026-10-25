@@ -96,6 +96,7 @@ const blog = defineCollection({
     summary: z.string(),
     tags: z.array(z.string()).optional(),
     coverImage: z.string().optional(),
+    hidden: z.boolean().optional(),
   }),
 });
 

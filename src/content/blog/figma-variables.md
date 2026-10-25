@@ -4,6 +4,7 @@ slug: "figma-variables"
 date: "2026-04-10"
 summary: "A short note on why variables changed how I structure design systems in Figma — and what's still missing."
 tags: ["Design Systems", "Tools"]
+hidden: true
 ---
 
 For a long time, token management in Figma felt like a workaround. You'd maintain a separate styles file, sync it via a plugin, pray nothing drifted. Variables changed that.

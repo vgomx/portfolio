@@ -15,9 +15,9 @@ import { Reveal } from './Reveal.jsx';
    editorial choice, not a side effect of `featured` flags or year sort. */
 const HOME_PICKS = [
   'digital-banking-ksa',
-  'video-platform-identity',
   'brastemp-wash-machines',
   'kitchen-appliance-campaign',
+  'video-platform-identity',
   'internet-brand-facelift',
 ];
 
