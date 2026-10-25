@@ -267,6 +267,28 @@ const ogImageUrl = new URL(ogImage, Astro.url.origin).href;
         });
       })();
     </script>
+    <script is:inline>
+      (function() {
+        // Landing on a page while the previous one was still mid-navigation
+        // (a link clicked right as the browser was loading/painting it) can
+        // leave Chromium's compositor stuck on an early, low-opacity frame
+        // of the `page-rise` entrance animation: the DOM and computed
+        // styles are already correct (opacity: 1), but no new frame gets
+        // painted until something else forces one — a scroll, a resize.
+        // `animationend` is not a reliable hook here — in the stuck case the
+        // browser doesn't appear to dispatch it — so just force one repaint
+        // once the animation is guaranteed to be done, and again on bfcache
+        // restore (pageshow), rather than waiting on the visitor to do it.
+        function nudgeRepaint() {
+          const el = document.body;
+          const prev = el.style.transform;
+          el.style.transform = (prev ? prev + ' ' : '') + 'translateZ(0)';
+          requestAnimationFrame(function() { el.style.transform = prev; });
+        }
+        addEventListener('load', function() { setTimeout(nudgeRepaint, 1200); });
+        addEventListener('pageshow', function(e) { if (e.persisted) nudgeRepaint(); });
+      })();
+    </script>
   </head>
   <body>
     <div class="site-intro" aria-hidden="true">
