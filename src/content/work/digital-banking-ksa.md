@@ -350,24 +350,32 @@ sections:
   - type: decision
     number: '01'
     title: Expectations before effort
-    mediaWidth: 280
     paragraphs:
-    - 'Before step 1, a three-screen walkthrough sets expectations. "Benefits" says why the account is worth opening. "Get ready" lists the requirements behind the hard stops: a registered national address, the Nafath app, a mobile number linked to the ID, being 18 or over, and not being politically exposed. "Let''s get started" turns the compliance conditions into declarations to confirm: the terms and privacy policy, not being politically exposed, and being the real beneficiary of the account.'
+    - Before step 1, a three-screen walkthrough sets expectations, and each screen does one job.
     - People learn what can stop them before step 1, not after step 8, and the first thing the journey asks of them is agreement, not data.
     media:
-      kind: carousel
-      label: Pre-onboarding walkthrough
+      kind: steps
       ratio: 9 / 20
-      images:
-      - src: /images/banking-ksa/walkthrough-benefits.jpg
-        label: Benefits
-        alt: 'Walkthrough 1 of 3, Benefits: what the account offers, with Skip and Next'
-      - src: /images/banking-ksa/walkthrough-get-ready.jpg
-        label: Get ready
-        alt: 'Walkthrough 2 of 3, Get ready: privacy note and the requirements checklist, with Back and Next'
-      - src: /images/banking-ksa/walkthrough-get-started.jpg
-        label: Let's get started
-        alt: 'Walkthrough 3 of 3, Let''s get started: the declarations to confirm before starting, with Back and Get started'
+      width: 300
+      steps:
+      - eyebrow: Benefits
+        title: Why the account is worth opening
+        body: '"Benefits" leads with what the account offers, so people know what the effort is for before anything is asked of them.'
+        image:
+          src: /images/banking-ksa/walkthrough-benefits.jpg
+          alt: 'Walkthrough 1 of 3, Benefits: what the account offers, with Skip and Next'
+      - eyebrow: Get ready
+        title: What can stop you, up front
+        body: '"Get ready" lists the requirements behind the hard stops: a registered national address, the Nafath app, a mobile number linked to the ID, being 18 or over, and not being politically exposed.'
+        image:
+          src: /images/banking-ksa/walkthrough-get-ready.jpg
+          alt: 'Walkthrough 2 of 3, Get ready: privacy note and the requirements checklist, with Back and Next'
+      - eyebrow: Let's get started
+        title: Agreement before data
+        body: '"Let''s get started" turns the compliance conditions into declarations to confirm: the terms and privacy policy, not being politically exposed, and being the real beneficiary of the account.'
+        image:
+          src: /images/banking-ksa/walkthrough-get-started.jpg
+          alt: 'Walkthrough 3 of 3, Let''s get started: the declarations to confirm before starting, with Back and Get started'
   - type: decision
     number: '02'
     title: A count that's honest from the first screen

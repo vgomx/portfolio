@@ -21,6 +21,9 @@ const decisionMedia = z.discriminatedUnion('kind', [
   z.object({ kind: z.literal('annotated-set'),
     screens: z.array(z.object({ src: z.string().optional(), alt: z.string().optional(), width: z.number(), ratio: z.number() })),
     callouts: z.array(z.object({ screen: z.number(), x: z.number(), y: z.number(), title: z.string(), body: z.string() })) }),
+  // Screens told as scrolling steps: the screen pins, the steps scroll past.
+  z.object({ kind: z.literal('steps'), ratio: z.string().optional(), width: z.number().optional(),
+    steps: z.array(z.object({ eyebrow: z.string().optional(), title: z.string(), body: z.string().optional(), image: img.optional() })) }),
   z.object({ kind: z.literal('carousel'), images: z.array(img), startIndex: z.number().optional(), ratio: z.string().optional(), label: z.string().optional() }),
   z.object({ kind: z.literal('compare'), before: img.optional(), after: img.optional(), labels: z.object({ before: z.string(), after: z.string() }).optional(), captions: z.object({ before: z.string().optional(), after: z.string().optional() }).optional(), ratio: z.string().optional(), start: z.number().optional() }),
   z.object({ kind: z.literal('annotated'), image: img.optional(), ratio: z.string().optional(), width: z.number().optional(), placement: z.enum(['auto', 'left', 'right']).optional(), callouts: z.array(z.object({ x: z.number(), y: z.number(), title: z.string(), body: z.string() })) }),

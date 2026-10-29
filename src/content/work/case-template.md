@@ -213,6 +213,17 @@ sections:
           label: "[Sequence name]"
           images: [{ label: "[Screen 1]" }, { label: "[Screen 2]" }, { label: "[Screen 3]" }]
       - type: decision
+        number: "03b"
+        tag: "Optional · scrolling steps"
+        title: "[Decision · told as scrolling steps]"
+        paragraphs: ["[Use when each screen in the sequence needs its own sentence or two. The screen pins on the left while the steps scroll past.]"]
+        media:
+          kind: steps
+          steps:
+            - { eyebrow: "[Screen 1]", title: "[What this screen does]", body: "[One or two sentences on this screen.]" }
+            - { eyebrow: "[Screen 2]", title: "[What this screen does]", body: "[One or two sentences on this screen.]" }
+            - { eyebrow: "[Screen 3]", title: "[What this screen does]", body: "[One or two sentences on this screen.]" }
+      - type: decision
         number: "04"
         tag: "[Optional tag]"
         title: "[Decision · with states]"

@@ -19,6 +19,7 @@ import { DecisionRow } from '../ds/components/case/DecisionRow.jsx';
 import { StateList } from '../ds/components/case/StateList.jsx';
 import { AnnotatedScreen } from '../ds/components/case/AnnotatedScreen.jsx';
 import { ImageCarousel } from '../ds/components/case/ImageCarousel.jsx';
+import { StickySteps } from '../ds/components/case/StickySteps.jsx';
 import { Callout } from '../ds/components/case/Callout.jsx';
 import { CaseNav } from '../ds/components/case/CaseNav.jsx';
 
@@ -230,6 +231,8 @@ function Decision({ b }) {
   let media = null;
   if (m.kind === 'image') {
     media = <figure style={{ margin: 0 }}><Shot src={m.src} alt={m.alt} label={m.label || 'Screen'} ratio={m.ratio} /><Caption>{m.caption}</Caption></figure>;
+  } else if (m.kind === 'steps') {
+    media = <StickySteps steps={m.steps} ratio={m.ratio || '9 / 20'} mediaWidth={m.width || 300} label={b.title} />;
   } else if (m.kind === 'annotated-set') {
     media = <ScreenSet screens={m.screens} callouts={m.callouts} />;
   } else if (m.kind === 'compare') {
