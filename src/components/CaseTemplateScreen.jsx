@@ -548,7 +548,7 @@ function countWords(value) {
 }
 
 function useReading(ids, totalMinutes) {
-  const [state, setState] = useState({ active: ids[0], sectionProgress: 0, progress: 0 });
+  const [state, setState] = useState({ active: ids[0], sectionProgress: 0, progress: 0, past: false });
   useEffect(() => {
     let frame = 0;
     const measure = () => {
@@ -567,13 +567,17 @@ function useReading(ids, totalMinutes) {
       });
       const body = document.getElementById('case-body');
       let progress = 0;
+      let past = false;
       if (body) {
         const r = body.getBoundingClientRect();
         const travel = Math.max(1, r.height - window.innerHeight * 0.65);
-        progress = Math.max(0, Math.min(100, ((anchor - r.top) / travel) * 100));
+        const raw = ((anchor - r.top) / travel) * 100;
+        progress = Math.max(0, Math.min(100, raw));
+        // Read past the end (into the footer): the side nav steps aside.
+        past = raw >= 101;
       }
-      setState((s) => (s.active === active && Math.round(s.sectionProgress) === Math.round(sectionProgress) && Math.round(s.progress) === Math.round(progress)
-        ? s : { active, sectionProgress, progress }));
+      setState((s) => (s.active === active && s.past === past && Math.round(s.sectionProgress) === Math.round(sectionProgress) && Math.round(s.progress) === Math.round(progress)
+        ? s : { active, sectionProgress, progress, past }));
     };
     const onScroll = () => { if (!frame) frame = requestAnimationFrame(measure); };
     measure();
@@ -624,7 +628,13 @@ export default function CaseTemplateScreen({ project, prev, next }) {
   return (
     <div className="page-enter case-template">
       <style>{`
-        .case-template .case-nav-rail { position: fixed; left: 24px; top: 50%; transform: translateY(-50%); z-index: 40; }
+        .case-template .case-nav-rail { position: fixed; left: 24px; top: 50%; transform: translateY(-50%); z-index: 40; transition: visibility 0s linear 0s; }
+        .case-template .case-nav-rail > * { transition: opacity var(--dur-slow, 300ms) var(--ease-out, ease); }
+        /* Past 100% the nav fades out. The fade sits on the nav itself: the rail is
+           a .page-enter child, whose entrance animation holds its opacity. */
+        .case-template .case-nav-rail.is-past { visibility: hidden; pointer-events: none; transition: visibility 0s linear var(--dur-slow, 300ms); }
+        .case-template .case-nav-rail.is-past > * { opacity: 0; }
+        @media (prefers-reduced-motion: reduce) { .case-template .case-nav-rail, .case-template .case-nav-rail > * { transition: none !important; } }
         .case-template .case-readingbar { display: none; }
         @media (min-width: 900px) and (max-width: 1340px) {
           .case-template .case-shell { padding-left: 104px !important; }
@@ -648,7 +658,7 @@ export default function CaseTemplateScreen({ project, prev, next }) {
           progress={reading.progress} minutesLeft={reading.minutesLeft} />
       </div>
 
-      <div className="case-nav-rail">
+      <div className={`case-nav-rail${reading.past ? ' is-past' : ''}`}>
         <SectionNav sections={navSections} activeId={reading.active} sectionProgress={reading.sectionProgress}
           progress={reading.progress} minutesLeft={reading.minutesLeft} onNavigate={goTo} />
       </div>
