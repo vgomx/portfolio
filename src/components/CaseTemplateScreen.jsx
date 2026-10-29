@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import { Tag } from '../ds/components/core/Tag.jsx';
 import { Badge } from '../ds/components/core/Badge.jsx';
 import { Avatar } from '../ds/components/core/Avatar.jsx';
@@ -109,6 +109,17 @@ function FieldDemo({ eyebrow, label, value, error }) {
 const SET_GAP = 40;
 function ScreenSet({ screens = [], callouts = [] }) {
   const [active, setActive] = useState(0);
+  const markerRefs = useRef([]);
+  // A row click also takes the reader to its marker, when it's out of view.
+  const goTo = (i) => {
+    setActive(i);
+    const el = markerRefs.current[i];
+    if (!el) return;
+    const r = el.getBoundingClientRect();
+    if (r.top >= 80 && r.bottom <= window.innerHeight - 24) return;
+    const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    el.scrollIntoView({ behavior: reduce ? 'auto' : 'smooth', block: 'center' });
+  };
   let left = 0;
   const geo = screens.map((sc) => { const g = { left, w: sc.width, h: sc.width * sc.ratio }; left += sc.width + SET_GAP; return g; });
   const TW = left - SET_GAP;
@@ -129,7 +140,7 @@ function ScreenSet({ screens = [], callouts = [] }) {
             const p = pos(c);
             const on = i === active;
             return (
-              <button key={i} type="button" aria-label={`Callout ${n(i)}: ${c.title}`} aria-expanded={on}
+              <button key={i} type="button" ref={(el) => { markerRefs.current[i] = el; }} aria-label={`Callout ${n(i)}: ${c.title}`} aria-expanded={on}
                 onMouseEnter={() => setActive(i)} onFocus={() => setActive(i)} onClick={() => setActive(i)}
                 style={{ position: 'absolute', left: `${p.x}%`, top: `${p.y}%`, width: 44, height: 44, margin: '-22px 0 0 -22px', padding: 0, border: 0, background: 'transparent',
                   display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: 'pointer', zIndex: on ? 3 : 2 }}>
@@ -157,7 +168,7 @@ function ScreenSet({ screens = [], callouts = [] }) {
           const on = i === active;
           return (
             <li key={i} style={{ flex: '1 1 220px', minWidth: 0, background: 'var(--surface-page)' }}>
-              <button type="button" onMouseEnter={() => setActive(i)} onFocus={() => setActive(i)} onClick={() => setActive(i)}
+              <button type="button" onMouseEnter={() => setActive(i)} onFocus={() => setActive(i)} onClick={() => goTo(i)}
                 style={{ width: '100%', minHeight: 64, display: 'flex', alignItems: 'center', gap: 14, padding: '16px 20px', border: 0,
                   borderTop: `2px solid ${on ? 'var(--green-600)' : 'transparent'}`, background: on ? 'var(--surface-subtle)' : 'transparent',
                   color: 'var(--text-primary)', font: 'inherit', cursor: 'pointer', textAlign: 'left' }}>
