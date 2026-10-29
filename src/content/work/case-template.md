@@ -205,7 +205,7 @@ sections:
           - { label: "Why", text: "[The reason, in one line.]" }
       - type: decision
         number: "03"
-        tag: "Optional · screen sequence"
+        tag: "Compact spots only · prefer scrolling steps"
         title: "[Decision · with a screen sequence]"
         paragraphs: ["[Use when two to five screens belong together, like a walkthrough. Start on the screen the text talks about.]"]
         media:
