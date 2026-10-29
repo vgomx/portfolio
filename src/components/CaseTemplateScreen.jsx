@@ -598,7 +598,12 @@ export default function CaseTemplateScreen({ project, prev, next }) {
   // The phone reading bar sticks right under the site's sticky top bar.
   useEffect(() => {
     const bar = document.querySelector('.topbar');
-    const set = () => { if (bar) document.documentElement.style.setProperty('--case-topbar', `${bar.offsetHeight}px`); };
+    const set = () => {
+      if (!bar) return;
+      document.documentElement.style.setProperty('--case-topbar', `${bar.offsetHeight}px`);
+      // Sticky parts inside the case (decision text, callout cards) clear the top bar.
+      document.documentElement.style.setProperty('--case-sticky-top', `${bar.offsetHeight + 24}px`);
+    };
     set();
     window.addEventListener('resize', set);
     return () => window.removeEventListener('resize', set);
