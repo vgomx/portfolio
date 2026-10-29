@@ -104,7 +104,8 @@ function FieldDemo({ eyebrow, label, value, error }) {
 
 /* Several screens side by side with numbered markers across them. The
    markers sit in percentages, so the set scales down on small screens; the
-   open callout shows beside the set, or under it when there's no room. */
+   open callout shows beside the set, or under it when there's no room, and
+   sticks while the set scrolls so it stays in view for markers further down. */
 const SET_GAP = 40;
 function ScreenSet({ screens = [], callouts = [] }) {
   const [active, setActive] = useState(0);
@@ -141,7 +142,7 @@ function ScreenSet({ screens = [], callouts = [] }) {
           })}
         </div>
         {a && (
-          <div role="status" style={{ flex: '1 1 260px', maxWidth: 360, padding: 20, border: '1px solid var(--border-hairline)', borderRadius: 'var(--radius)', background: 'var(--surface-page)', boxShadow: 'var(--shadow-pop)', display: 'flex', flexDirection: 'column', gap: 10 }}>
+          <div role="status" className="case-set-note" style={{ flex: '1 1 260px', maxWidth: 360, position: 'sticky', top: 'calc(var(--case-topbar, 57px) + 24px)', alignSelf: 'flex-start', zIndex: 4, padding: 20, border: '1px solid var(--border-hairline)', borderRadius: 'var(--radius)', background: 'var(--surface-page)', boxShadow: 'var(--shadow-pop)', display: 'flex', flexDirection: 'column', gap: 10 }}>
             <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
               <span style={{ fontFamily: 'var(--font-mono)', fontSize: 11, letterSpacing: '0.1em', color: 'var(--text-muted)' }}>{n(active)} / {n(callouts.length - 1)}</span>
               <span style={{ flex: 1, height: 1, background: 'var(--border-hairline)' }} />
@@ -612,6 +613,7 @@ export default function CaseTemplateScreen({ project, prev, next }) {
         @media (max-width: 899px) {
           .case-template .case-nav-rail { display: none; }
           .case-template .case-readingbar { display: block; position: sticky; top: var(--case-topbar, 57px); z-index: 30; }
+          .case-template .case-set-note { top: calc(var(--case-topbar, 57px) + 64px) !important; }
         }
         @media (max-width: 640px) {
           .case-template .case-shell { padding-left: 24px !important; padding-right: 24px !important; }
