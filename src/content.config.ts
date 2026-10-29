@@ -13,7 +13,14 @@ const titled = z.object({ number: z.string().optional(), title: z.string(), body
 const step = z.object({ label: z.string(), text: z.string() });
 
 const decisionMedia = z.discriminatedUnion('kind', [
-  z.object({ kind: z.literal('image'), ...img.shape, ratio: z.string().optional() }),
+  // A screen beside the text, or full width under it with wide: true.
+  z.object({ kind: z.literal('image'), ...img.shape, ratio: z.string().optional(), wide: z.boolean().optional() }),
+  // A live UI snippet: a labelled field in its error state.
+  z.object({ kind: z.literal('field'), eyebrow: z.string().optional(), label: z.string(), value: z.string(), error: z.string() }),
+  // Several screens side by side, with numbered callouts across them.
+  z.object({ kind: z.literal('annotated-set'),
+    screens: z.array(z.object({ src: z.string().optional(), alt: z.string().optional(), width: z.number(), ratio: z.number() })),
+    callouts: z.array(z.object({ screen: z.number(), x: z.number(), y: z.number(), title: z.string(), body: z.string() })) }),
   z.object({ kind: z.literal('carousel'), images: z.array(img), startIndex: z.number().optional(), ratio: z.string().optional(), label: z.string().optional() }),
   z.object({ kind: z.literal('compare'), before: img.optional(), after: img.optional(), labels: z.object({ before: z.string(), after: z.string() }).optional(), captions: z.object({ before: z.string().optional(), after: z.string().optional() }).optional(), ratio: z.string().optional(), start: z.number().optional() }),
   z.object({ kind: z.literal('annotated'), image: img.optional(), ratio: z.string().optional(), width: z.number().optional(), placement: z.enum(['auto', 'left', 'right']).optional(), callouts: z.array(z.object({ x: z.number(), y: z.number(), title: z.string(), body: z.string() })) }),
@@ -23,7 +30,7 @@ const decisionMedia = z.discriminatedUnion('kind', [
 
 const caseBlock = z.discriminatedUnion('type', [
   // Running text.
-  z.object({ type: z.literal('text'), paragraphs: z.array(z.string()) }),
+  z.object({ type: z.literal('text'), title: z.string().optional(), paragraphs: z.array(z.string()) }),
   // OutcomeStrip: numbers, or qualitative shifts when numbers are under NDA.
   z.object({ type: z.literal('outcomes'), label: z.string().optional(), caption: z.string().optional(), items: z.array(z.object({ label: z.string(), value: z.string(), note: z.string().optional(), live: z.boolean().optional() })) }),
   // Shipped screens on an ink panel.
@@ -60,6 +67,8 @@ const caseBlock = z.discriminatedUnion('type', [
   // One design decision with its media.
   z.object({ type: z.literal('decision'), number: z.string().optional(), title: z.string(), tag: z.string().optional(), eyebrow: z.string().optional(),
     paragraphs: z.array(z.string()).optional(), media: decisionMedia.optional(), chain: z.array(step).optional(), mediaWidth: z.number().optional() }),
+  // A short aside: something deliberately left as it was.
+  z.object({ type: z.literal('aside'), tag: z.string().optional(), title: z.string(), body: z.string() }),
   // Callout aside.
   z.object({ type: z.literal('callout'), label: z.string(), body: z.string() }),
   // Ink stat cards.

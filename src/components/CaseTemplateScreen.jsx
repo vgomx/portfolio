@@ -86,6 +86,91 @@ function SplitHead({ number, eyebrow, tag, title, paragraphs }) {
   );
 }
 
+/* A form field in its error state, drawn live rather than as a screenshot. */
+function FieldDemo({ eyebrow, label, value, error }) {
+  return (
+    <div style={{ padding: 24, border: '1px solid var(--border-hairline)', borderRadius: 'var(--radius)', background: 'var(--surface-subtle)', display: 'flex', flexDirection: 'column', gap: 8 }}>
+      {eyebrow && <span style={{ ...metaStyle, marginBottom: 8 }}>{eyebrow}</span>}
+      <label style={{ fontSize: 14, fontWeight: 500 }}>
+        {label}
+        <input type="text" value={value} readOnly aria-invalid="true"
+          style={{ display: 'block', width: '100%', marginTop: 8, padding: '12px 14px', font: 'inherit', fontWeight: 400, fontSize: 15, color: 'var(--text-primary)',
+            background: 'var(--surface-page)', border: '1px solid var(--danger)', borderRadius: 'var(--radius)', outline: 'none' }} />
+      </label>
+      <span role="alert" style={{ fontSize: 13, lineHeight: 1.5, color: 'var(--danger)' }}>{error}</span>
+    </div>
+  );
+}
+
+/* Several screens side by side with numbered markers across them. The
+   markers sit in percentages, so the set scales down on small screens; the
+   open callout shows beside the set, or under it when there's no room. */
+const SET_GAP = 40;
+function ScreenSet({ screens = [], callouts = [] }) {
+  const [active, setActive] = useState(0);
+  let left = 0;
+  const geo = screens.map((sc) => { const g = { left, w: sc.width, h: sc.width * sc.ratio }; left += sc.width + SET_GAP; return g; });
+  const TW = left - SET_GAP;
+  const TH = Math.max(...geo.map((g) => g.h));
+  const pos = (c) => ({ x: ((geo[c.screen].left + (geo[c.screen].w * c.x) / 100) / TW) * 100, y: (((geo[c.screen].h * c.y) / 100) / TH) * 100 });
+  const a = callouts[active] || callouts[0];
+  const n = (i) => pad(i + 1);
+  return (
+    <div>
+      <div style={{ display: 'flex', flexWrap: 'wrap', gap: 32, alignItems: 'flex-start', justifyContent: 'center' }}>
+        <div style={{ position: 'relative', flex: `0 1 ${TW}px`, minWidth: 0, maxWidth: '100%', aspectRatio: `${TW} / ${TH}` }}>
+          {screens.map((sc, i) => (
+            <img key={i} src={sc.src} alt={sc.alt || ''} loading="lazy" decoding="async"
+              style={{ position: 'absolute', top: 0, left: `${(geo[i].left / TW) * 100}%`, width: `${(geo[i].w / TW) * 100}%`, height: 'auto',
+                border: '1px solid var(--border-default)', borderRadius: 'var(--radius)' }} />
+          ))}
+          {callouts.map((c, i) => {
+            const p = pos(c);
+            const on = i === active;
+            return (
+              <button key={i} type="button" aria-label={`Callout ${n(i)}: ${c.title}`} aria-expanded={on}
+                onMouseEnter={() => setActive(i)} onFocus={() => setActive(i)} onClick={() => setActive(i)}
+                style={{ position: 'absolute', left: `${p.x}%`, top: `${p.y}%`, width: 44, height: 44, margin: '-22px 0 0 -22px', padding: 0, border: 0, background: 'transparent',
+                  display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: 'pointer', zIndex: on ? 3 : 2 }}>
+                <span aria-hidden="true" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', width: 28, height: 28, borderRadius: 999,
+                  background: on ? 'var(--green-600)' : 'var(--ink-900)', color: '#fafafa',
+                  boxShadow: `0 0 0 2px var(--surface-page)${on ? ', 0 0 0 4px var(--green-600)' : ''}`,
+                  fontFamily: 'var(--font-mono)', fontSize: 11, fontWeight: 500, letterSpacing: '0.04em' }}>{n(i)}</span>
+              </button>
+            );
+          })}
+        </div>
+        {a && (
+          <div role="status" style={{ flex: '1 1 260px', maxWidth: 360, padding: 20, border: '1px solid var(--border-hairline)', borderRadius: 'var(--radius)', background: 'var(--surface-page)', boxShadow: 'var(--shadow-pop)', display: 'flex', flexDirection: 'column', gap: 10 }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
+              <span style={{ fontFamily: 'var(--font-mono)', fontSize: 11, letterSpacing: '0.1em', color: 'var(--text-muted)' }}>{n(active)} / {n(callouts.length - 1)}</span>
+              <span style={{ flex: 1, height: 1, background: 'var(--border-hairline)' }} />
+            </div>
+            <h4 style={{ fontSize: 17, lineHeight: 1.3, fontWeight: 600, letterSpacing: 'var(--tracking-snug)', margin: 0 }}>{a.title}</h4>
+            <p style={{ fontSize: 14, lineHeight: 1.55, color: 'var(--text-secondary)', margin: 0 }}>{a.body}</p>
+          </div>
+        )}
+      </div>
+      <ol aria-label="Callouts" style={{ listStyle: 'none', margin: '32px 0 0', padding: 0, display: 'flex', flexWrap: 'wrap', gap: 1, background: 'var(--border-hairline)', border: '1px solid var(--border-hairline)', borderRadius: 'var(--radius)', overflow: 'hidden' }}>
+        {callouts.map((c, i) => {
+          const on = i === active;
+          return (
+            <li key={i} style={{ flex: '1 1 220px', minWidth: 0, background: 'var(--surface-page)' }}>
+              <button type="button" onMouseEnter={() => setActive(i)} onFocus={() => setActive(i)} onClick={() => setActive(i)}
+                style={{ width: '100%', minHeight: 64, display: 'flex', alignItems: 'center', gap: 14, padding: '16px 20px', border: 0,
+                  borderTop: `2px solid ${on ? 'var(--green-600)' : 'transparent'}`, background: on ? 'var(--surface-subtle)' : 'transparent',
+                  color: 'var(--text-primary)', font: 'inherit', cursor: 'pointer', textAlign: 'left' }}>
+                <span style={{ fontFamily: 'var(--font-mono)', fontSize: 11, letterSpacing: '0.1em', color: 'var(--text-muted)' }}>{n(i)}</span>
+                <span style={{ fontSize: 15, fontWeight: 500 }}>{c.title}</span>
+              </button>
+            </li>
+          );
+        })}
+      </ol>
+    </div>
+  );
+}
+
 /* ── Blocks ──────────────────────────────────────────────────────────── */
 
 function Decision({ b }) {
@@ -93,10 +178,11 @@ function Decision({ b }) {
   const chain = b.chain?.length ? <ReasoningChain steps={b.chain} label="Considered, chose, why" style={{ marginTop: 32 }} /> : null;
   const article = { marginTop: 0, paddingTop: 40, borderTop: '1px solid var(--border-hairline)' };
 
-  // Media beside the text: a screen, a sequence, or nothing (placeholder).
-  if (!m || m.kind === 'image' || m.kind === 'carousel') {
+  // Media beside the text: a screen, a sequence, a live field, or nothing (placeholder).
+  if (!m || (m.kind === 'image' && !m.wide) || m.kind === 'carousel' || m.kind === 'field') {
     let media;
-    if (m?.kind === 'carousel') media = <ImageCarousel images={m.images} startIndex={m.startIndex} ratio={m.ratio} label={m.label || b.title} />;
+    if (m?.kind === 'field') media = <FieldDemo {...m} />;
+    else if (m?.kind === 'carousel') media = <ImageCarousel images={m.images} startIndex={m.startIndex} ratio={m.ratio} label={m.label || b.title} />;
     else if (m?.kind === 'image') media = <figure style={{ margin: 0 }}><Shot src={m.src} alt={m.alt} label={m.label || 'Screen'} ratio={m.ratio || (m.src ? undefined : '9 / 16')} /><Caption>{m.caption}</Caption></figure>;
     return (
       <div>
@@ -130,13 +216,17 @@ function Decision({ b }) {
 
   // Full-width media under a split header.
   let media = null;
-  if (m.kind === 'compare') {
+  if (m.kind === 'image') {
+    media = <figure style={{ margin: 0 }}><Shot src={m.src} alt={m.alt} label={m.label || 'Screen'} ratio={m.ratio} /><Caption>{m.caption}</Caption></figure>;
+  } else if (m.kind === 'annotated-set') {
+    media = <ScreenSet screens={m.screens} callouts={m.callouts} />;
+  } else if (m.kind === 'compare') {
     media = <CompareSlider before={m.before} after={m.after} labels={m.labels} caption={m.captions} ratio={m.ratio || '16 / 7'} start={m.start} />;
   } else if (m.kind === 'annotated') {
     media = <AnnotatedScreen image={m.image} callouts={m.callouts} ratio={m.ratio || '9 / 20'} width={m.width} placement={m.placement || 'auto'} />;
   } else if (m.kind === 'gallery') {
     media = (
-      <div className="case-gallery" style={{ display: 'grid', gridTemplateColumns: `repeat(auto-fill, minmax(${m.minWidth || 200}px, 1fr))`, gap: '32px 24px', alignItems: 'start' }}>
+      <div className="case-gallery" style={{ display: 'grid', gridTemplateColumns: `repeat(auto-fit, minmax(${m.minWidth || 200}px, 1fr))`, gap: '32px 24px', alignItems: 'start' }}>
         {m.items.map((it, i) => (
           <figure key={i} style={{ margin: 0 }}>
             <Shot src={it.src} alt={it.alt} label={it.label || 'Screen'} ratio={m.ratio || (it.src ? undefined : '9 / 20')} />
@@ -163,7 +253,23 @@ function Decision({ b }) {
 function Block({ b }) {
   switch (b.type) {
     case 'text':
-      return <Paragraphs items={b.paragraphs} />;
+      return (
+        <div>
+          {b.title && <h3 style={{ fontSize: 22, lineHeight: 1.2, fontWeight: 600, letterSpacing: 'var(--tracking-snug)', margin: '0 0 12px' }}>{b.title}</h3>}
+          <Paragraphs items={b.paragraphs} />
+        </div>
+      );
+
+    case 'aside':
+      return (
+        <aside aria-label={b.tag || b.title} style={{ display: 'flex', flexWrap: 'wrap', gap: '16px 48px', alignItems: 'baseline', padding: '28px 32px', border: '1px dashed var(--border-default)', borderRadius: 'var(--radius)' }}>
+          <div style={{ flex: '1 1 260px', minWidth: 0, display: 'flex', flexDirection: 'column', alignItems: 'flex-start', gap: 10 }}>
+            {b.tag && <Tag tone="subtle" size="sm">{b.tag}</Tag>}
+            <span style={{ fontSize: 18, fontWeight: 600, letterSpacing: 'var(--tracking-snug)' }}>{b.title}</span>
+          </div>
+          <p style={{ ...bodyStyle, flex: '999 1 480px', minWidth: 0, fontSize: 15, lineHeight: 1.6 }}>{b.body}</p>
+        </aside>
+      );
 
     case 'outcomes':
       return (
