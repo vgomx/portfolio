@@ -57,7 +57,7 @@ function Shot({ src, alt, label, ratio, onInk, fit = 'cover', style }) {
 function Paragraphs({ items = [], style }) {
   if (!items.length) return null;
   return (
-    <div style={{ display: 'flex', flexDirection: 'column', gap: 20, maxWidth: '72ch', ...style }}>
+    <div style={{ display: 'flex', flexDirection: 'column', gap: 20, ...style }}>
       {items.map((t, i) => <p key={i} style={bodyStyle}>{t}</p>)}
     </div>
   );
@@ -284,7 +284,7 @@ function Block({ b }) {
         <div aria-label={b.eyebrow || 'Final design'}>
           {b.eyebrow && <div style={{ ...eyebrowStyle, marginBottom: 20 }}>{b.eyebrow}</div>}
           {b.title && <h3 style={{ fontSize: 30, lineHeight: 1.1, fontWeight: 600, letterSpacing: 'var(--tracking-tight)', margin: 0 }}>{b.title}</h3>}
-          {b.lead && <p style={{ ...bodyStyle, marginTop: 16, maxWidth: '72ch' }}>{b.lead}</p>}
+          {b.lead && <p style={{ ...bodyStyle, marginTop: 16 }}>{b.lead}</p>}
           <div className="case-showcase" style={{ marginTop: 32, background: 'var(--surface-ink)', borderRadius: 'var(--radius)', padding: '64px 48px 48px', display: 'flex', flexWrap: 'wrap', justifyContent: 'center', gap: 40 }}>
             {b.items.map((it, i) => (
               <figure key={i} style={{ flex: '0 1 260px', minWidth: 200, margin: 0, display: 'flex', flexDirection: 'column', gap: 16 }}>
@@ -404,7 +404,7 @@ function Block({ b }) {
       return (
         <div>
           {b.title && <h3 style={{ fontSize: 22, lineHeight: 1.2, fontWeight: 600, letterSpacing: 'var(--tracking-snug)', margin: 0 }}>{b.title}</h3>}
-          {b.intro && <p style={{ ...bodyStyle, marginTop: 12, maxWidth: '72ch' }}>{b.intro}</p>}
+          {b.intro && <p style={{ ...bodyStyle, marginTop: 12 }}>{b.intro}</p>}
           <ol aria-label="Process steps" style={{ listStyle: 'none', margin: '32px 0 0', padding: 0 }}>
             {b.steps.map((s, i) => {
               const lastStep = i === b.steps.length - 1;
@@ -645,7 +645,7 @@ export default function CaseTemplateScreen({ project, prev, next }) {
           <Badge status={p.status}>{p.statusLabel}</Badge>
         </div>
         <h1 style={{ fontSize: 'clamp(36px, 5.5vw, 64px)', lineHeight: 1, letterSpacing: '-0.03em', fontWeight: 700, margin: 0 }}>{p.title}</h1>
-        <p style={{ fontSize: 18, lineHeight: 1.55, color: 'var(--text-secondary)', margin: '24px 0 0', maxWidth: '72ch' }}>{p.summary}</p>
+        <p style={{ fontSize: 18, lineHeight: 1.55, color: 'var(--text-secondary)', margin: '24px 0 0' }}>{p.summary}</p>
       </section>
 
       <section className="case-shell" style={container}>
