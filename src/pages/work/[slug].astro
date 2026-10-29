@@ -3,6 +3,7 @@ import Base from '../../layouts/Base.astro';
 import { TopBar, Footer, SiteBanner } from '../../components/Chrome.jsx';
 import CaseStudyScreen from '../../components/CaseStudyScreen.jsx';
 import CaseStudyScreenAlt from '../../components/CaseStudyScreenAlt.jsx';
+import CaseTemplateScreen from '../../components/CaseTemplateScreen.jsx';
 import { getCollection } from 'astro:content';
 
 export async function getStaticPaths() {
@@ -24,6 +25,8 @@ const next = idx < sorted.length - 1 ? { title: sorted[idx + 1].title, slug: sor
 <Base title={`${project.title} — Vitor Gomes`} description={project.summary} ogImage={project.coverImage}>
   <TopBar activePage="work" client:load />
   <SiteBanner client:idle />
-  <CaseStudyScreenAlt project={project} prev={prev} next={next} client:load />
+  {project.template === 'case'
+    ? <CaseTemplateScreen project={project} prev={prev} next={next} client:load />
+    : <CaseStudyScreenAlt project={project} prev={prev} next={next} client:load />}
   <Footer client:idle />
 </Base>
