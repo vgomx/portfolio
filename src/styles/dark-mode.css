@@ -31,6 +31,8 @@
   --accent-ink:       var(--ink-900);
   --accent-tint:      var(--ink-850);
 
+  --green-tint: var(--green-tint-dark);
+
   color-scheme: dark;
 }
 
