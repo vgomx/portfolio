@@ -22,6 +22,7 @@ import { ImageCarousel } from '../ds/components/case/ImageCarousel.jsx';
 import { StickySteps } from '../ds/components/case/StickySteps.jsx';
 import { Callout } from '../ds/components/case/Callout.jsx';
 import { CaseNav } from '../ds/components/case/CaseNav.jsx';
+import { ExternalLinkCard } from './ExternalLinkCard.jsx';
 
 /* The case-study template (template: "case"). A case is a list of
    sections, each a SectionHeader followed by blocks; every block type is
@@ -509,6 +510,16 @@ function Block({ b }) {
         <div style={{ display: 'flex', flexWrap: 'wrap', gap: '12px 16px', alignItems: 'center' }}>
           <Badge status={b.status}>{b.label}</Badge>
           {b.note && <p style={{ ...bodyStyle, flex: '1 1 400px' }}>{b.note}</p>}
+        </div>
+      );
+
+    case 'links':
+      return (
+        <div>
+          {b.label && <div style={{ ...metaStyle, marginBottom: 16 }}>{b.label}</div>}
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 12, maxWidth: 420 }}>
+            {b.items.map((it) => <ExternalLinkCard key={it.href} title={it.title} href={it.href} />)}
+          </div>
         </div>
       );
 

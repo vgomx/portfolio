@@ -48,6 +48,8 @@ sections:
       - type: showcase
         eyebrow: "Final design · Shipped"
         title: "[What shipped, in one line]"
+        # Default ratio is 9 / 20 (a phone screen). Set ratio explicitly for
+        # anything landscape — brand marks, desktop shots — or it crops.
         items:
           - { label: "[Screen name]" }
           - { label: "[Screen name]" }
