@@ -36,7 +36,9 @@ const caseBlock = z.discriminatedUnion('type', [
   z.object({ type: z.literal('text'), title: z.string().optional(), paragraphs: z.array(z.string()) }),
   // OutcomeStrip: numbers, or qualitative shifts when numbers are under NDA.
   z.object({ type: z.literal('outcomes'), label: z.string().optional(), caption: z.string().optional(), items: z.array(z.object({ label: z.string(), value: z.string(), note: z.string().optional(), live: z.boolean().optional() })) }),
-  // Shipped screens on an ink panel.
+  // Shipped screens on an ink panel. `ratio` defaults to 9 / 20 (a phone
+  // screen) — override it for anything landscape (brand marks, desktop
+  // shots), or the default crops wide artwork down to a sliver.
   z.object({ type: z.literal('showcase'), eyebrow: z.string().optional(), title: z.string().optional(), lead: z.string().optional(), ratio: z.string().optional(), items: z.array(img) }),
   // Photos or images in a row.
   z.object({ type: z.literal('images'), layout: z.enum(['full', 'duo', 'trio']).optional(), ratio: z.string().optional(), items: z.array(img) }),
@@ -78,6 +80,8 @@ const caseBlock = z.discriminatedUnion('type', [
   z.object({ type: z.literal('stats'), items: z.array(z.object({ value: z.string(), label: z.string() })) }),
   // Status badge with a line beside it.
   z.object({ type: z.literal('status'), status: z.string(), label: z.string(), note: z.string().optional() }),
+  // External reference cards — a source, a tool, a live link.
+  z.object({ type: z.literal('links'), label: z.string().optional(), items: z.array(z.object({ title: z.string(), href: z.string() })) }),
   // Closing pull quote.
   z.object({ type: z.literal('pullquote'), text: z.string() }),
 ]);
