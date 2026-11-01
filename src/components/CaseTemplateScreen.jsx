@@ -231,7 +231,11 @@ function Decision({ b }) {
   // Full-width media under a split header.
   let media = null;
   if (m.kind === 'image') {
-    media = <figure style={{ margin: 0 }}><Shot src={m.src} alt={m.alt} label={m.label || 'Screen'} ratio={m.ratio} /><Caption>{m.caption}</Caption></figure>;
+    media = (
+      <figure style={{ margin: 0, maxWidth: m.maxWidth || 'none', marginLeft: m.maxWidth ? 'auto' : 0, marginRight: m.maxWidth ? 'auto' : 0 }}>
+        <Shot src={m.src} alt={m.alt} label={m.label || 'Screen'} ratio={m.ratio} /><Caption>{m.caption}</Caption>
+      </figure>
+    );
   } else if (m.kind === 'steps') {
     media = <StickySteps steps={m.steps} ratio={m.ratio || '9 / 20'} mediaWidth={m.width || 300} label={b.title} />;
   } else if (m.kind === 'annotated-set') {
@@ -522,6 +526,34 @@ function Block({ b }) {
           </div>
         </div>
       );
+
+    case 'embed': {
+      const mobile = b.layout === 'mobile';
+      const [rw, rh] = (b.ratio || '16/9').split('/').map(Number);
+      const paddingBottom = `${(rh / rw) * 100}%`;
+      // These carry real content, so the frame needs a name a screen
+      // reader can announce. Prefer the author's label; otherwise say
+      // what kind of thing it is rather than a generic "iframe".
+      const title = b.label
+        || (/youtube|youtu\.be|vimeo/.test(b.src) ? 'Embedded video'
+          : /figma/.test(b.src) ? 'Embedded interactive prototype'
+          : 'Embedded content');
+      return (
+        <div>
+          {b.label && <div style={{ ...eyebrowStyle, marginBottom: 16 }}>{b.label}</div>}
+          <div style={mobile
+            ? { maxWidth: 420, margin: '0 auto', border: '1px solid var(--border-hairline)', borderRadius: 'var(--radius)', overflow: 'hidden' }
+            : { position: 'relative', width: '100%', paddingBottom, border: '1px solid var(--border-hairline)', borderRadius: 'var(--radius)', overflow: 'hidden' }
+          }>
+            <iframe src={b.src} title={title} allowFullScreen
+              style={mobile
+                ? { display: 'block', width: '100%', height: 780, border: 'none' }
+                : { position: 'absolute', inset: 0, width: '100%', height: '100%', border: 'none' }
+              } />
+          </div>
+        </div>
+      );
+    }
 
     case 'pullquote':
       return (

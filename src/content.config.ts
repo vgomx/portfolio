@@ -14,7 +14,9 @@ const step = z.object({ label: z.string(), text: z.string() });
 
 const decisionMedia = z.discriminatedUnion('kind', [
   // A screen beside the text, or full width under it with wide: true.
-  z.object({ kind: z.literal('image'), ...img.shape, ratio: z.string().optional(), wide: z.boolean().optional() }),
+  // maxWidth caps a wide image's display width (centered) so a
+  // lower-resolution source isn't stretched past its native size.
+  z.object({ kind: z.literal('image'), ...img.shape, ratio: z.string().optional(), wide: z.boolean().optional(), maxWidth: z.number().optional() }),
   // A live UI snippet: a labelled field in its error state.
   z.object({ kind: z.literal('field'), eyebrow: z.string().optional(), label: z.string(), value: z.string(), error: z.string() }),
   // Several screens side by side, with numbered callouts across them.
@@ -82,6 +84,9 @@ const caseBlock = z.discriminatedUnion('type', [
   z.object({ type: z.literal('status'), status: z.string(), label: z.string(), note: z.string().optional() }),
   // External reference cards — a source, a tool, a live link.
   z.object({ type: z.literal('links'), label: z.string().optional(), items: z.array(z.object({ title: z.string(), href: z.string() })) }),
+  // A live interactive embed (Figma prototype, video). `ratio` is a plain
+  // "w/h" ratio, ignored when layout is "mobile" (fixed-height phone frame).
+  z.object({ type: z.literal('embed'), src: z.string(), label: z.string().optional(), layout: z.enum(['landscape', 'mobile']).optional(), ratio: z.string().optional() }),
   // Closing pull quote.
   z.object({ type: z.literal('pullquote'), text: z.string() }),
 ]);
